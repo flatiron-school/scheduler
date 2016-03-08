@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304233508) do
+ActiveRecord::Schema.define(version: 20160308153746) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "cohorts", force: :cascade do |t|
     t.string   "name"
@@ -19,6 +22,14 @@ ActiveRecord::Schema.define(version: 20160304233508) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "cohorts", ["name"], name: "index_cohorts_on_name"
+  add_index "cohorts", ["name"], name: "index_cohorts_on_name", using: :btree
+
+  create_table "schedules", force: :cascade do |t|
+    t.datetime "date"
+    t.text     "notes"
+    t.string   "labs",                    array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
