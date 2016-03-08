@@ -36,6 +36,7 @@ group :development, :test do
   #all the tests
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
+  gem 'pry'
 end
 
 group :development do
