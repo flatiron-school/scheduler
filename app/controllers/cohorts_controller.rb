@@ -4,16 +4,16 @@ class CohortsController < ApplicationController
   end
 
   def create
-    c = Cohort.new(cohort_params)
-    if c.save
-      redirect_to c
+    cohort = Cohort.new(cohort_params)
+    if cohort.save
+      redirect_to cohort
     else
       render :new
     end
   end
 
   def show
-
+    @cohort = Cohort.find_by_name(params[:slug])
   end
 
   private
