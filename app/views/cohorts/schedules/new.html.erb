@@ -1,0 +1,9 @@
+<%= form_for [@cohort, @schedule] do |f| %>
+  <%= f.label :date %>
+  <%= f.date_field :date %>
+  <%= f.label :notes %>
+  <%= f.text_area :notes %>
+  <%= f.label :labs %>
+  <%= f.text_field :labs, multiple: true%>
+  <%= f.submit "Create Schedule" %>
+<% end %>

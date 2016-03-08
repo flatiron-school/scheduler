@@ -22,8 +22,9 @@ RSpec.describe Schedule, type: :model do
       expect(schedule.notes).to eq("Today's objective include learning all of Rails and re-building Learn.co in Elixir.")
     end
 
-    it "has a list of labs in an array" do 
-      expect(schedule.labs).to eq(["making-everything-in-rails", "elixir-code-along-2"])
+    it "has a slug that is a slugified version of the schedule's date" do
+      sc = Schedule.create(date: "02 Jun 2016") 
+      expect(sc.slug).to eq("jun-02-2016")
     end
   end
 
