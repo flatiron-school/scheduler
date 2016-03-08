@@ -27,18 +27,14 @@ RSpec.describe Schedule, type: :model do
     end
   end
 
-  # context "associations" do
-  #   it "can have many snippets" do 
-  #     user = FactoryGirl.build(:user)
-  #     snippet = FactoryGirl.build(:snippet)
-  #     other_snippet = FactoryGirl.build(:snippet, content: "hey")
-  #     user.snippets << snippet
-  #     user.snippets << other_snippet
-  #     user.save!
-
-  #     expect(user.snippets).to include(snippet)
-  #     expect(user.snippets).to include(other_snippet)
-  #   end 
-  # end
+  context "associations" do
+    it "can have many activities" do 
+      schedule = FactoryGirl.build(:schedule)
+      activity = FactoryGirl.build(:activity)
+      schedule.activities << activity
+      schedule.save
+      expect(schedule.activities).to include(activity)
+    end 
+  end
 end
 

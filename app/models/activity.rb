@@ -1,4 +1,7 @@
 class Activity < ApplicationRecord
+
+  belongs_to :schedule
+  
   validates :time, presence: true
   validates :description, presence: true
 

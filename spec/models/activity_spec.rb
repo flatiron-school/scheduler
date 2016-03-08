@@ -29,20 +29,21 @@ RSpec.describe Activity, type: :model do
     it "has description" do 
       expect(activity.description).to eq("Blogs")
     end
+
+    it "has an attribute, reserve_room, that can be true or false but defaults to false" do 
+      expect(activity.reserve_room).to be false
+    end
   end
 
-  # context "associations" do
-  #   it "can have many snippets" do 
-  #     user = FactoryGirl.build(:user)
-  #     snippet = FactoryGirl.build(:snippet)
-  #     other_snippet = FactoryGirl.build(:snippet, content: "hey")
-  #     user.snippets << snippet
-  #     user.snippets << other_snippet
-  #     user.save!
+  context "associations" do
+    it "belongs to a schedule" do 
+      schedule = FactoryGirl.build(:schedule)
+      activity = FactoryGirl.build(:activity)
+      schedule.activities << activity
+      schedule.save
 
-  #     expect(user.snippets).to include(snippet)
-  #     expect(user.snippets).to include(other_snippet)
-  #   end 
-  # end
+      expect(activity.schedule).to eq(schedule)
+    end 
+  end
 end
 
