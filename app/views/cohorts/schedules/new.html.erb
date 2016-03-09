@@ -4,6 +4,15 @@
   <%= f.label :notes %>
   <%= f.text_area :notes %>
   <%= f.label :labs %>
-  <%= f.text_field :labs, multiple: true%>
+  <%= f.fields_for :labs, @schedule.labs do |lab_form|%>
+    <%= lab_form.text_field :name %>
+  <% end %>
+
+  <%= f.label :activities %>
+  <%= f.fields_for :activities, @schedule.activities do |activity_form|%>
+    <%= activity_form.time_field :time %>
+    <%= activity_form.text_field :description %>
+  <% end %>
   <%= f.submit "Create Schedule" %>
 <% end %>
+
