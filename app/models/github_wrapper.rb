@@ -31,7 +31,7 @@ class GithubWrapper
       markdown_content)
   end
 
-  def update_schedule_in_repo(page)
+  def update_schedule_in_repo
     binding.pry
     sha = self.client.contents(repo_name)[:sha]
     self.client.update_contents(repo_name, 

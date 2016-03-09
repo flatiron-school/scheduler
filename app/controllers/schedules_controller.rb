@@ -38,15 +38,15 @@ class SchedulesController < ApplicationController
 
 
   def update
-    schedule = Schedule.find_by(slug: params[:slug])
-    schedule.update_from_params(schedule_params)
-    schedule.update_labs(schedule_params)
-    schedule.update_activities(validated_activity_params)
-    if schedule.save
-      @schedule
+    binding.pry
+    @schedule = Schedule.find_by(slug: params[:slug])
+    @schedule.update_from_params(schedule_params)
+    @schedule.update_labs(schedule_params)
+    @schedule.update_activities(schedule_params)
+    if @schedule.save
       @cohort = Cohort.find_by_name(params[:cohort_slug])
       page = render 'cohorts/schedules/show'
-      GithubWrapper.new(@cohort, @schedule).update_repo_schedules(page)
+      GithubWrapper.new(@cohort, @schedule, page).update_repo_schedules
       redirect_to cohort_schedule_path(@cohort, @schedule)
     else
       render 'cohorts/schedules/edit'
