@@ -13,14 +13,12 @@ class SchedulesController < ApplicationController
 
   def create
     @cohort = Cohort.find_by_name(params[:cohort_slug])
-    schedule = Schedule.create_from_params(schedule_params, @cohort)
-    schedule.build_labs(schedule_params)
-    schedule.build_activities(validated_activity_params)
-    if schedule.save
-      @schedule
+    @schedule = Schedule.create_from_params(schedule_params, @cohort)
+    @schedule.build_labs(validated_labs_params)
+    @schedule.build_activities(validated_activity_params)
+    if @schedule.save
       page = render 'cohorts/schedules/show'
-      GithubWrapper.new(@cohort, @schedule).create_repo_schedules(page)
-      redirect_to cohort_schedule_path(@cohort, @schedule)
+      GithubWrapper.new(@cohort, @schedule, page).create_repo_schedules
     else
       render 'cohorts/schedules/new'
     end
@@ -62,6 +60,10 @@ class SchedulesController < ApplicationController
 
   def validated_activity_params
     schedule_params["activities_attributes"].delete_if {|num, activity_hash| activity_hash["time"].empty? || activity_hash["description"].empty?}
+  end
+
+  def validated_labs_params
+    schedule_params["labs_attributes"].delete_if {|num, lab_hash| lab_hash["name"].empty?}
   end
 
 end

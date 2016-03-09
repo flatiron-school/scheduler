@@ -37,9 +37,8 @@ class Schedule < ApplicationRecord
       cohort: cohort)
   end
 
-  def build_labs(schedule_params)
-    schedule_params["labs_attributes"].each do |num, lab_hash|
-      binding.pry
+  def build_labs(valided_labs_params)
+    valided_labs_params.each do |num, lab_hash|
       lab = Lab.find_by(name: lab_hash["name"]) || Lab.new(name: lab_hash["name"])
       self.labs << lab
     end
@@ -49,7 +48,6 @@ class Schedule < ApplicationRecord
     validated_activity_params.each do |num, activity_hash|
       activity = Activity.find_by(time: activity_hash["time"], description: activity_hash["description"]) || Activity.new(time: activity_hash["time"], description: activity_hash["description"])
       self.activities << activity
-      # activity.save
     end
   end
 
