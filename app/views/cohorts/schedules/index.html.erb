@@ -1,0 +1,7 @@
+<% @schedules.each do |schedule| %>
+  <ul>
+    <li>
+      <%= link_to schedule.pretty_date, cohort_schedule_path(@cohort, schedule) %>
+    </li>
+  </ul>
+<% end %>

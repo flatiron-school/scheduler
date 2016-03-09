@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309172422) do
+ActiveRecord::Schema.define(version: 20160309221940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20160309172422) do
     t.boolean  "reserve_room", default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.integer  "schedule_id"
   end
 
   create_table "cohorts", force: :cascade do |t|
@@ -35,19 +34,30 @@ ActiveRecord::Schema.define(version: 20160309172422) do
 
   create_table "labs", force: :cascade do |t|
     t.string   "name"
-    t.integer  "schedule_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "schedule_activities", force: :cascade do |t|
+    t.integer "schedule_id"
+    t.integer "activity_id"
+  end
+
+  create_table "schedule_labs", force: :cascade do |t|
+    t.integer "schedule_id"
+    t.integer "lab_id"
   end
 
   create_table "schedules", force: :cascade do |t|
     t.datetime "date"
     t.text     "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "slug"
     t.string   "week"
     t.string   "day"
+    t.boolean  "deploy",     default: true
+    t.integer  "cohort_id"
   end
 
 end

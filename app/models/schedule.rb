@@ -1,6 +1,9 @@
 class Schedule < ApplicationRecord
-  has_many :activities
-  has_many :labs
+  has_many :schedule_labs
+  has_many :schedule_activities
+  has_many :activities, through: :schedule_activities
+  has_many :labs, through: :schedule_labs
+  belongs_to :cohort
   accepts_nested_attributes_for :labs
   accepts_nested_attributes_for :activities
   validates :date, presence: true
@@ -26,23 +29,56 @@ class Schedule < ApplicationRecord
     schedule
   end
 
-  def self.create_from_params(schedule_params)
-    Schedule.new(week: schedule_params["week"], day: schedule_params["day"], date: schedule_params["date"], notes: schedule_params["notes"])
+  def self.create_from_params(schedule_params, cohort)
+    Schedule.new(week: schedule_params["week"], 
+      day: schedule_params["day"], 
+      date: schedule_params["date"], 
+      notes: schedule_params["notes"],
+      cohort: cohort)
   end
 
   def build_labs(schedule_params)
     schedule_params["labs_attributes"].each do |num, lab_hash|
+      binding.pry
       lab = Lab.find_by(name: lab_hash["name"]) || Lab.new(name: lab_hash["name"])
       self.labs << lab
-      lab.schedule = self
     end
   end
 
   def build_activities(validated_activity_params)
     validated_activity_params.each do |num, activity_hash|
-      activity = Activity.new(time: activity_hash["time"], description: activity_hash["description"], reserve_room: activity_hash["reserve_room"])
+      activity = Activity.find_by(time: activity_hash["time"], description: activity_hash["description"]) || Activity.new(time: activity_hash["time"], description: activity_hash["description"])
       self.activities << activity
-      activity.schedule = self
+      # activity.save
     end
   end
+
+  def update_from_params(schedule_params)
+    self.update(week: schedule_params["week"], day: schedule_params["day"], date: schedule_params["date"], notes: schedule_params["notes"])
+  end
+
+  def update_labs(schedule_params)
+    schedule_params["labs_attributes"].each do |num, lab_hash|
+      lab = Lab.find(lab_hash[:id])
+      lab.save
+    end
+  end
+
+  def pretty_date
+    self.date.strftime("%A, %d %b %Y")
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+

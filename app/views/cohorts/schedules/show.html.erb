@@ -1,4 +1,4 @@
-<h1><%= @schedule.date %></h1>
+<h1><%= @schedule.pretty_date %></h1>
 
 <table class="table table-striped table-hover ">
   <thead>
@@ -25,3 +25,13 @@
     <%= @schedule.notes %>
   </p>
 
+<h3>Labs</h3> 
+
+<ul>
+  <%@schedule.labs.each do |lab| %>
+
+  <li>
+    <a href="http://www.github.com/learn-co-students/<%= lab.name %>-<%= @cohort.name %>"><%= lab.name %></a>
+  </li>
+  <%end %>
+</ul>

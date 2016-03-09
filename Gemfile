@@ -25,6 +25,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'reverse_markdown'
 gem "octokit", "~> 4.0"
 gem "figaro"
+gem 'rake', '< 11.0'
+# gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
+# gem 'draper'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
