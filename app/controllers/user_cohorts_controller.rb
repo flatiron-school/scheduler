@@ -19,9 +19,13 @@ class UserCohortsController < ApplicationController
   # end
 
   def update
+    @former_active = current_user.active_cohort
     @cohort = Cohort.find_by_name(params["id"])
     uc = UserCohort.find_by(user: current_user, cohort: @cohort)
     uc.active = true
     uc.save
+     respond_to do |format|
+       format.js {render 'create.js.erb'}
+     end
   end
 end

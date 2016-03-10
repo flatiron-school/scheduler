@@ -1,7 +1,7 @@
 <h1>Cohorts</h1>
-<ul>
+<ulx>
   <% @cohorts.each do |c| %>
-    <li id="cohort-#{c.id}">
+    <li id="cohort-<%= c.id %>">
      <%= render partial: 'cohorts/user_cohort_button', locals: {cohort: c} %>
     </li>
   <% end  %>
