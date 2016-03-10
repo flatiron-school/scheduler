@@ -1,10 +1,17 @@
 <% if cohort.users.include?(current_user) %>
-  <%= cohort.name %> <%= link_to "leave cohort", user_cohort_path(cohort), remote: true, method: "delete", class: "btn btn-xs btn-primary" %> 
+  
+  <%= link_to cohort.name, cohort_path(cohort) %> 
+
+  <%= link_to "leave cohort", user_cohort_path(cohort), remote: true, method: "delete", class: "btn btn-xs btn-primary" %> 
 
   <% if !UserCohort.find_by(user: current_user, cohort: cohort).active %>
-  <%= link_to "make active", user_cohort_path(cohort), remote: true, method: "patch", class: "btn btn-xs btn-primary" %>
+    
+    <%= link_to "make active", user_cohort_path(cohort), remote: true, method: "patch", class: "btn btn-xs btn-primary" %>
+  
   <% end %>
+
 <%else %>
 
   <%= cohort.name %> <%= link_to "add cohort", user_cohorts_path(cohort_id: cohort.id), remote: true, method: "post", class: "btn btn-xs btn-primary" %>
+
 <%end %>

@@ -1,1 +1,9 @@
 <h1><%= @cohort.name %></h1>
+
+<h3>Schedules</h3>
+
+<ul>
+  <% @cohort.schedules.each do |s| %>
+    <%= link_to "week-#{s.week}, day=#{s.day}" %>
+  <% end %>
+</ul>
