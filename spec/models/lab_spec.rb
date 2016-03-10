@@ -16,14 +16,13 @@ RSpec.describe Lab, :type => :model do
   end
 
   describe "associations" do 
-    it "belongs to a schedule" do 
+    it "has many schedules" do 
       lab = FactoryGirl.build(:lab)
       schedule = FactoryGirl.build(:schedule)
-      schedule.labs << lab
-      schedule.save
+      lab.schedules << schedule
+      lab.save
 
-      expect(schedule.labs).to include(lab)
-      expect(lab.schedule).to eq(schedule)
+      expect(lab.schedules).to include(schedule)
     end
   end
 end

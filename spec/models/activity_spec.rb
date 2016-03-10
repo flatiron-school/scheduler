@@ -36,13 +36,13 @@ RSpec.describe Activity, type: :model do
   end
 
   context "associations" do
-    it "belongs to a schedule" do 
+    it "has many schedules" do 
       schedule = FactoryGirl.build(:schedule)
       activity = FactoryGirl.build(:activity)
-      schedule.activities << activity
-      schedule.save
+      activity.schedules << schedule
+      activity.save
 
-      expect(activity.schedule).to eq(schedule)
+      expect(activity.schedules).to include(schedule)
     end 
   end
 end

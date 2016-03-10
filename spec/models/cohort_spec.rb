@@ -29,4 +29,13 @@ RSpec.describe Cohort, :type => :model do
     end
   end
 
+  describe "associations" do 
+    it "has many schedules" do 
+      cohort = FactoryGirl.build(:cohort)
+      schedule = FactoryGirl.build(:schedule)
+      cohort.schedules << schedule
+      expect(cohort.schedules.last).to eq(schedule)
+    end
+  end
+
 end

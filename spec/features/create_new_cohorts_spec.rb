@@ -4,6 +4,8 @@ feature "CreateNewCohorts", :type => :feature do
   describe "create new cohort" do
     it "lets you create a new cohort" do
       visit '/'
+      click_button "signin"
+      visit '/cohorts/new'
       fill_in "Name", with: "web-1115"
       click_button 'Create Cohort'
       expect(current_path).to eq('/cohorts/web-1115')

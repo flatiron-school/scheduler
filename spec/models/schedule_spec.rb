@@ -23,19 +23,34 @@ RSpec.describe Schedule, type: :model do
     end
 
     it "has a slug that is a slugified version of the schedule's date" do
-      sc = Schedule.create(date: "02 Jun 2016") 
+      sc = Schedule.new(date: "02 Jun 2016") 
+      sc.cohort = FactoryGirl.build(:cohort)
+      sc.save
       expect(sc.slug).to eq("jun-02-2016")
     end
   end
 
   context "associations" do
-    it "can have many activities" do 
-      schedule = FactoryGirl.build(:schedule)
+    let(:schedule) { FactoryGirl.build(:schedule) }
+    it "has many activities" do 
       activity = FactoryGirl.build(:activity)
       schedule.activities << activity
       schedule.save
       expect(schedule.activities).to include(activity)
     end 
+
+    it 'has many labs' do 
+      lab = FactoryGirl.build(:lab)
+      schedule.labs << lab
+      schedule.save
+      expect(schedule.labs).to include(lab)
+    end
+
+    it 'belongs to a cohort' do 
+      cohort = FactoryGirl.build(:cohort)
+      schedule.cohort = cohort
+      expect(schedule.cohort).to eq(cohort)
+    end
   end
 end
 
