@@ -1,0 +1,8 @@
+<%= binding.pry %>
+<% if cohort.users.include?(current_user) %>
+hi
+  <%= cohort.name %> <%= link_to "leave cohort", user_cohort_path(cohort), remote: true, method: "delete", class: "btn btn-xs btn-primary" %>
+<%else %>
+
+  <%= cohort.name %> <%= link_to "add cohort", user_cohorts_path(cohort_id: cohort.id), remote: true, method: "post", class: "btn btn-xs btn-primary" %>
+<%end %>

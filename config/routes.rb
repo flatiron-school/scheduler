@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+
+  resources :user_cohorts
   resources :cohorts, param: :slug do 
     resources :schedules, param: :slug
     # post "/cohorts/:cohort_slug/schedules", to: "schedules#create", as: "/schedules"

@@ -25,19 +25,19 @@ class GithubWrapper
   end
 
   def create_schedule_in_repo
-    self.client.create_contents(repo_name, 
+    created_content = self.client.create_contents(repo_name, 
       "week-#{self.schedule.week}/day-#{schedule.day}.md", 
       "add week-#{schedule.week}/day-#{schedule.day}.md", 
       markdown_content)
+    self.schedule.sha = created_content[:content][:sha]
+    self.schedule.save
   end
 
   def update_schedule_in_repo
-    binding.pry
-    sha = self.client.contents(repo_name)[:sha]
     self.client.update_contents(repo_name, 
       "week-#{self.schedule.week}/day-#{self.schedule.day}.md", 
       "update week-#{self.schedule.week}/day-#{self.schedule.day}.md",
-      sha, 
+      self.schedule.sha, 
       markdown_content)
   end
 

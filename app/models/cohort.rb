@@ -1,6 +1,8 @@
 class Cohort < ApplicationRecord
 
   has_many :schedules
+  has_many :user_cohorts
+  has_many :users, through: :user_cohorts
   #ugly val
   # validates_uniqueness_of :name
   #sexy val
