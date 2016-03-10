@@ -21,8 +21,10 @@
               <%= link_to "cohorts", cohorts_path%>
             </li>
             <li>
+            <% if current_user.has_cohort %>
               <%= link_to "new schedule", new_cohort_schedule_path(current_user.active_cohort)%>
             </li>
+            <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>

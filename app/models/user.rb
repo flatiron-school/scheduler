@@ -16,6 +16,12 @@ class User < ApplicationRecord
   end
 
   def active_cohort
-    UserCohort.where("user_id = ? AND active = ?", self.id, true).first.cohort
+    if !UserCohort.where("user_id = ? AND active = ?", self.id, true).empty?
+      UserCohort.where("user_id = ? AND active = ?", self.id, true).first.cohort
+    end
+  end
+
+  def has_cohort
+    self.cohorts.length > 0
   end
 end

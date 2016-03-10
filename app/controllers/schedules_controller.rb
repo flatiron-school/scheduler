@@ -30,10 +30,12 @@ class SchedulesController < ApplicationController
   end
 
   def show
-    binding.pry
+    # binding.pry
     @schedule = Schedule.find_by(slug: params[:slug])
     page = render 'cohorts/schedules/show'
-    if need_to_update_github?
+    if creating_schedule
+      GithubWrapper.new(@schedule.cohort, @schedule, page).create_repo_schedules
+    elsif updating_schedule
       GithubWrapper.new(@schedule.cohort, @schedule, page).update_repo_schedules
     end
   end
@@ -64,8 +66,17 @@ class SchedulesController < ApplicationController
     schedule_params["labs_attributes"].delete_if {|num, lab_hash| lab_hash["name"].empty?}
   end
 
-  def need_to_update_github?
-    request.referrer.split("/").last == "edit" || request.referrer.split("/").last == "new"
+  def creating_schedule
+    request.referrer.split("/").last == "new"
   end
+
+  def updating_schedule
+    request.referrer.split("/").last == "edit"
+  end
+
+
+  # def need_to_update_github?
+  #   request.referrer.split("/").last == "edit" || request.referrer.split("/").last == "new"
+  # end
 
 end

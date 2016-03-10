@@ -4,7 +4,7 @@ class UserCohort < ApplicationRecord
   before_save :reset_active
 
   def reset_active
-    if self.active && UserCohort.where("active = ? AND user_id = ?", true, self.user.id)
+    if self.active && UserCohort.where("active = ? AND user_id = ?", true, self.user.id).first
       former_active = UserCohort.where("active = ? AND user_id = ?", true, self.user.id).first
       former_active.active = false
       former_active.save 
