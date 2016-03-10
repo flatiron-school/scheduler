@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160310131733) do
   create_table "user_cohorts", force: :cascade do |t|
     t.integer "user_id"
     t.integer "cohort_id"
+    t.boolean "active",    default: true
   end
 
   create_table "users", force: :cascade do |t|

@@ -14,4 +14,8 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0,20]
     end
   end
+
+  def active_cohort
+    UserCohort.where("user_id = ? AND active = ?", self.id, true).first.cohort
+  end
 end
