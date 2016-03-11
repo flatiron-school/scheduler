@@ -1,14 +1,10 @@
 require 'capybara/rspec'
 require 'omniauth'
+require 'ostruct'
 OmniAuth.config.test_mode = true
-OmniAuth.config.mock_auth[:github] = {
-    :uid => '1337',
+OmniAuth.config.mock_auth[:github] = OpenStruct.new(:uid => '1337',
     :provider => 'github',
-    :info => {
-      :name => 'sophie'
-    }
-  }
-
+    :info => OpenStruct.new(email: 'sophie@email.com'))
 
 RSpec.configure do |config|
  
@@ -25,4 +21,9 @@ RSpec.configure do |config|
 
 
   require 'factory_girl'
+end
+
+def sign_in
+  visit '/'
+  click_link "signin"
 end
