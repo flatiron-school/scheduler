@@ -1,0 +1,43 @@
+<h1>Week <%= @schedule.week %>, Day <%= @schedule.day %></h1>
+<h3><%= @schedule.pretty_date %></h3>
+
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Activity</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @schedule.activities.each do |activity|  %>
+    <tr>
+      <td><%= activity.hour %></td>
+      <td><%= activity.description %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table> 
+
+
+
+
+<h3>Notes and Objectives</h3>
+  <p>
+    <%= @schedule.notes %>
+  </p>
+
+<h3>Labs</h3> 
+
+<ul>
+  <%@schedule.labs.each do |lab| %>
+
+  <li>
+    <a href="http://www.github.com/learn-co-students/<%= lab.name %>-<%= @schedule.cohort.name %>"><%= lab.name %></a>
+  </li>
+  <%end %>
+</ul>
+
+<%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, class: "btn btn-primary" %>
+
+<a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
+

@@ -1,0 +1,81 @@
+<% if current_user.active_cohort == @cohort%>
+  <div class="col-lg-6 col-lg-offset-3">
+    <div class="form-horizontal">
+      <%= form_for [@cohort, @schedule] do |f| %>
+      <fieldset>
+        <legend><%= @cohort.name %> new schedule</legend>
+        <div class="form-group">
+          <div class="col-lg-2">
+          <%= f.label :week %> 
+          <%= f.number_field :week, class: "form-control" %>
+          </div>
+        
+          <div class="col-lg-2">
+            <%= f.label :day %>
+            <%= f.number_field :day, class: "form-control"%>
+          </div>
+        
+          <div class="col-lg-4">
+            <%= f.label :date %>
+            <%= f.date_field :date, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-8">
+            <%= f.label :notes %>
+            <%= f.text_area :notes, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-4">
+            <%= f.label :labs %>
+            <%= f.fields_for :labs, @schedule.labs do |lab_form|%>
+               <br>
+              <%= lab_form.label :name %>
+              <%= lab_form.text_field :name, class: "form-control" %>
+              <br>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-4">
+            <%= f.label :activities %>
+            <br>
+            <%= f.fields_for :activities, @schedule.activities do |activity_form|%>
+              <%= activity_form.label :time %>
+              <%= activity_form.time_field :time, class: "form-control" %>
+              <br>
+              <%= activity_form.label :description %>
+              <%= activity_form.text_field :description, class: "form-control" %>
+              <br>
+              <%= activity_form.label :reserve_room %>
+              <%= activity_form.check_box :reserve_room %>
+              <br>
+              ––––––––––––––––––––––––––––––––––––––––––––
+              <br>
+              <br>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-4">
+          <%= f.label :deploy %>
+          <%= f.check_box :deploy %>
+          </div>
+        </div>
+
+        <%= f.submit "Create Schedule", class: "btn btn-primary" %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  make <%= @cohort.name %> your active cohort to make a new schedule
+<% end %>
+
+
+

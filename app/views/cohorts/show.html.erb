@@ -1,1 +1,14 @@
 <h1><%= @cohort.name %></h1>
+<a href="http://www.github.com/learn-co-curriculum/<%= @cohort.name %>" class="btn btn-primary">View Repo</a>
+
+<h3>Schedules</h3>
+
+<ul>
+  <% @cohort.schedules.each do |s| %>
+    <li>
+    <%= link_to "week-#{s.week}, day-#{s.day}", cohort_schedule_path(@cohort, s) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "new schedule", new_cohort_schedule_path(@cohort), class: "btn btn-primary" %>
