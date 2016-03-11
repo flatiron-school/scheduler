@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :objective do
     schedule nil
-    content "MyString"
+    content "create a nested form"
   end
 end
