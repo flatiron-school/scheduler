@@ -18,6 +18,7 @@ class SchedulesController < ApplicationController
     @schedule.build_labs(validated_labs_params)
     @schedule.build_activities(validated_activity_params)
     if @schedule.save
+      create_schedule_on_github
       redirect_to cohort_schedule_path(@cohort, @schedule)
     else
       render 'cohorts/schedules/new'
@@ -29,12 +30,7 @@ class SchedulesController < ApplicationController
   end
 
   def show
-    page = render 'cohorts/schedules/show'
-    if creating_schedule
-      GithubWrapper.new(@schedule.cohort, @schedule, page).create_repo_schedules
-    elsif updating_schedule
-      GithubWrapper.new(@schedule.cohort, @schedule, page).update_repo_schedules
-    end
+    render 'cohorts/schedules/show'
   end
 
 
@@ -43,6 +39,7 @@ class SchedulesController < ApplicationController
     @schedule.update_labs(schedule_params)
     @schedule.update_activities(schedule_params)
     if @schedule.save
+      update_schedule_on_github
       redirect_to cohort_schedule_path(@schedule.cohort, @schedule)
     else
       render 'cohorts/schedules/edit'
@@ -52,8 +49,7 @@ class SchedulesController < ApplicationController
   def deploy
     @schedule.deploy = true
     @schedule.save
-    page = render 'cohorts/schedules/show'
-    GithubWrapper.new(@schedule.cohort, @schedule, page).update_readme
+    deploy_schedule_to_readme
   end
 
   private
@@ -69,12 +65,25 @@ class SchedulesController < ApplicationController
     schedule_params["labs_attributes"].delete_if {|num, lab_hash| lab_hash["name"].empty?}
   end
 
-  def creating_schedule
-    request.referrer.split("/").last == "new"
+  def create_schedule_on_github
+    page = render_schedule_template
+    GithubWrapper.new(@schedule.cohort, @schedule, page).create_repo_schedules
   end
 
-  def updating_schedule
-    request.referrer.split("/").last == "edit"
+  def update_schedule_on_github
+    page = render_schedule_template
+    GithubWrapper.new(@schedule.cohort, @schedule, page).update_repo_schedules
+  end
+
+  def deploy_schedule_to_readme
+    page = render_schedule_template
+    GithubWrapper.new(@schedule.cohort, @schedule, page).update_readme
+  end
+
+  def render_schedule_template
+    view = ActionView::Base.new(ActionController::Base.view_paths, {})
+    view.assign(schedule: @schedule)
+    view.render(file: 'cohorts/schedules/github_show.html.erb')
   end
 
   def set_cohort_and_schedule
