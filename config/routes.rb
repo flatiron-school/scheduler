@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :objectives
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
   resources :user_cohorts
