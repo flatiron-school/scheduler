@@ -51,7 +51,7 @@ class SchedulesController < ApplicationController
 
   private
   def schedule_params
-    params.require(:schedule).permit(:week, :day, :date, :notes, :labs_attributes => [:id, :name], :activities_attributes => [:id, :time, :description, :reserve_room])  
+    params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :time, :description, :reserve_room])  
   end
 
   def validated_activity_params

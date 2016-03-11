@@ -34,6 +34,7 @@ class Schedule < ApplicationRecord
       day: schedule_params["day"], 
       date: schedule_params["date"], 
       notes: schedule_params["notes"],
+      deploy: schedule_params["deploy"],
       cohort: cohort)
   end
 
