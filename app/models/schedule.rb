@@ -3,6 +3,7 @@ class Schedule < ApplicationRecord
   has_many :schedule_activities
   has_many :activities, through: :schedule_activities
   has_many :labs, through: :schedule_labs
+  has_many :objectives, dependent: :destroy
   belongs_to :cohort
   accepts_nested_attributes_for :labs
   accepts_nested_attributes_for :activities
@@ -11,7 +12,7 @@ class Schedule < ApplicationRecord
   before_create :slugify
 
   def slugify
-    self.slug = self.date.strftime("%b %d, %Y").downcase.gsub(/[\s,]+/, '-') 
+    self.slug = self.date.strftime("%b %d, %Y").downcase.gsub(/[\s,]+/, '-')
   end
 
   def to_param
@@ -20,7 +21,7 @@ class Schedule < ApplicationRecord
 
   def self.new_for_form
     schedule = Schedule.new
-    3.times do 
+    3.times do
       schedule.labs << Lab.new
     end
     10.times do
@@ -30,9 +31,9 @@ class Schedule < ApplicationRecord
   end
 
   def self.create_from_params(schedule_params, cohort)
-    Schedule.new(week: schedule_params["week"], 
-      day: schedule_params["day"], 
-      date: schedule_params["date"], 
+    Schedule.new(week: schedule_params["week"],
+      day: schedule_params["day"],
+      date: schedule_params["date"],
       notes: schedule_params["notes"],
       deploy: schedule_params["deploy"],
       cohort: cohort)
@@ -76,17 +77,3 @@ class Schedule < ApplicationRecord
     self.date.strftime("%A, %d %b %Y")
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
