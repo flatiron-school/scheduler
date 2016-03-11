@@ -1,18 +1,19 @@
 class SchedulesController < ApplicationController
 
+  before_action :set_cohort_and_schedule, except: [:create, :index, :new]
+  before_action :set_cohort, only: [:create, :index, :new]
+
   def index
-    @cohort = Cohort.find_by_name(params[:cohort_slug])
     @schedules = @cohort.schedules
     render 'cohorts/schedules/index'
   end
+
   def new
-    @cohort = Cohort.find_by_name(params[:cohort_slug])
     @schedule= Schedule.new_for_form
     render "cohorts/schedules/new"
   end
 
   def create
-    @cohort = Cohort.find_by_name(params[:cohort_slug])
     @schedule = Schedule.create_from_params(schedule_params, @cohort)
     @schedule.build_labs(validated_labs_params)
     @schedule.build_activities(validated_activity_params)
@@ -24,14 +25,10 @@ class SchedulesController < ApplicationController
   end
   
   def edit
-    @cohort = Cohort.find_by_name(params[:cohort_slug])
-    @schedule = Schedule.find_by(slug: params[:slug])
     render 'cohorts/schedules/edit'
   end
 
   def show
-    # binding.pry
-    @schedule = Schedule.find_by(slug: params[:slug])
     page = render 'cohorts/schedules/show'
     if creating_schedule
       GithubWrapper.new(@schedule.cohort, @schedule, page).create_repo_schedules
@@ -42,7 +39,6 @@ class SchedulesController < ApplicationController
 
 
   def update
-    @schedule = Schedule.find_by(slug: params[:slug])
     @schedule.update_from_params(schedule_params)
     @schedule.update_labs(schedule_params)
     @schedule.update_activities(schedule_params)
@@ -74,9 +70,13 @@ class SchedulesController < ApplicationController
     request.referrer.split("/").last == "edit"
   end
 
+  def set_cohort_and_schedule
+    @cohort = Cohort.find_by_name(params[:cohort_slug])
+    @schedule = @cohort.schedules.find_by(slug: params[:slug])
+  end
 
-  # def need_to_update_github?
-  #   request.referrer.split("/").last == "edit" || request.referrer.split("/").last == "new"
-  # end
+  def set_cohort
+    @cohort = Cohort.find_by_name(params[:cohort_slug])
+  end
 
 end
