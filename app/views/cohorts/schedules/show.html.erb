@@ -37,5 +37,7 @@
   <%end %>
 </ul>
 
+<%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, class: "btn btn-primary" %>
+
 <a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
 

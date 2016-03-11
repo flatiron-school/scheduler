@@ -49,6 +49,13 @@ class SchedulesController < ApplicationController
     end
   end
 
+  def deploy
+    @schedule.deploy = true
+    @schedule.save
+    page = render 'cohorts/schedules/show'
+    GithubWrapper.new(@schedule.cohort, @schedule, page).update_readme
+  end
+
   private
   def schedule_params
     params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :time, :description, :reserve_room])  
