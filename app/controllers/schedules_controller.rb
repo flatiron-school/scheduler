@@ -17,6 +17,8 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.create_from_params(schedule_params, @cohort)
     @schedule.build_labs(validated_labs_params)
     @schedule.build_activities(validated_activity_params)
+    @schedule.build_objectives(validated_objectives_params)
+    binding.pry
     if @schedule.save
       create_schedule_on_github
       redirect_to cohort_schedule_path(@cohort, @schedule)
@@ -24,7 +26,7 @@ class SchedulesController < ApplicationController
       render 'cohorts/schedules/new'
     end
   end
-  
+
   def edit
     render 'cohorts/schedules/edit'
   end
@@ -54,7 +56,7 @@ class SchedulesController < ApplicationController
 
   private
   def schedule_params
-    params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :time, :description, :reserve_room])  
+    params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :time, :description, :reserve_room], :objectives_attributes => [:id, :content])
   end
 
   def validated_activity_params
@@ -63,6 +65,10 @@ class SchedulesController < ApplicationController
 
   def validated_labs_params
     schedule_params["labs_attributes"].delete_if {|num, lab_hash| lab_hash["name"].empty?}
+  end
+
+  def validated_objectives_params
+    schedule_params["objectives_attributes"].delete_if {|num, obj_hash| obj_hash["content"].empty?}
   end
 
   def create_schedule_on_github

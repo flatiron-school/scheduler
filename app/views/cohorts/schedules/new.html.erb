@@ -6,20 +6,32 @@
         <legend><%= @cohort.name %> new schedule</legend>
         <div class="form-group">
           <div class="col-lg-2">
-          <%= f.label :week %> 
+          <%= f.label :week %>
           <%= f.number_field :week, class: "form-control" %>
           </div>
-        
+
           <div class="col-lg-2">
             <%= f.label :day %>
             <%= f.number_field :day, class: "form-control"%>
           </div>
-        
+
           <div class="col-lg-4">
             <%= f.label :date %>
             <%= f.date_field :date, class: "form-control" %>
           </div>
         </div>
+
+        <!-- OBJECTIVES -->
+        <div class="form-group">
+          <h2>Objectives</h2>
+          <div class="col-lg-6">
+            <%= f.fields_for :objectives, @schedule.objectives do |objective_form| %>
+                  <%= objective_form.label :content, "Students will be able to:" %><br>
+                  <%= objective_form.text_field :content %>
+             <% end %>
+           </div>
+        </div>
+        <!-- END OBJECTIVES -->
 
         <div class="form-group">
           <div class="col-lg-8">
@@ -76,6 +88,3 @@
 <% else %>
   make <%= @cohort.name %> your active cohort to make a new schedule
 <% end %>
-
-
-

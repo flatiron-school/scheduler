@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311124439) do
+ActiveRecord::Schema.define(version: 20160311194011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 20160311124439) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "objectives", force: :cascade do |t|
+    t.integer  "schedule_id"
+    t.string   "content"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "objectives", ["schedule_id"], name: "index_objectives_on_schedule_id", using: :btree
 
   create_table "schedule_activities", force: :cascade do |t|
     t.integer "schedule_id"
@@ -86,4 +95,5 @@ ActiveRecord::Schema.define(version: 20160311124439) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "objectives", "schedules"
 end

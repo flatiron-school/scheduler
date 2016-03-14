@@ -16,18 +16,27 @@
     </tr>
   <% end %>
   </tbody>
-</table> 
+</table>
 
+<!-- NOTES -->
+<% if !@schedule.notes.empty? %>
+  <h3>Notes</h3>
+    <p>
+      <%= @schedule.notes %>
+    </p>
+<% end %>
 
+<!-- OBJECTIVES -->
+<% if !@schedule.objectives.empty? %>
+  <h3>Objectives</h3>
+    <p>
+      <% @schedule.objectives.each do |objective| %>
+        <%= objective.content %>
+      <% end %>
+    </p>
+<% end %>
 
-
-<h3>Notes and Objectives</h3>
-  <p>
-    <%= @schedule.notes %>
-  </p>
-
-<h3>Labs</h3> 
-
+<h3>Labs</h3>
 <ul>
   <%@schedule.labs.each do |lab| %>
 
@@ -40,4 +49,3 @@
 <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, class: "btn btn-primary" %>
 
 <a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
-

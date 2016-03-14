@@ -3,15 +3,17 @@ class Schedule < ApplicationRecord
   has_many :schedule_activities
   has_many :activities, through: :schedule_activities
   has_many :labs, through: :schedule_labs
+  has_many :objectives, dependent: :destroy
   belongs_to :cohort
   accepts_nested_attributes_for :labs
   accepts_nested_attributes_for :activities
+  accepts_nested_attributes_for :objectives
   validates :date, presence: true
 
   before_create :slugify
 
   def slugify
-    self.slug = self.date.strftime("%b %d, %Y").downcase.gsub(/[\s,]+/, '-') 
+    self.slug = self.date.strftime("%b %d, %Y").downcase.gsub(/[\s,]+/, '-')
   end
 
   def to_param
@@ -20,19 +22,26 @@ class Schedule < ApplicationRecord
 
   def self.new_for_form
     schedule = Schedule.new
-    3.times do 
+
+    3.times do
+      schedule.objectives << Objective.new
+    end
+
+    3.times do
       schedule.labs << Lab.new
     end
+
     10.times do
       schedule.activities << Activity.new
     end
+
     schedule
   end
 
   def self.create_from_params(schedule_params, cohort)
-    Schedule.new(week: schedule_params["week"], 
-      day: schedule_params["day"], 
-      date: schedule_params["date"], 
+    Schedule.new(week: schedule_params["week"],
+      day: schedule_params["day"],
+      date: schedule_params["date"],
       notes: schedule_params["notes"],
       deploy: schedule_params["deploy"],
       cohort: cohort)
@@ -49,6 +58,14 @@ class Schedule < ApplicationRecord
     validated_activity_params.each do |num, activity_hash|
       activity = Activity.find_by(time: activity_hash["time"], description: activity_hash["description"]) || Activity.new(time: activity_hash["time"], description: activity_hash["description"])
       self.activities << activity
+    end
+  end
+
+  def build_objectives(validated_objectives_params)
+    validated_objectives_params.each do |num, objective_hash|
+      objective = Objective.find_by(content: objective_hash[:content]) || Objective.new(content: objective_hash[:content])
+      self.objectives << objective
+      objective.schedule = self
     end
   end
 
@@ -76,17 +93,3 @@ class Schedule < ApplicationRecord
     self.date.strftime("%A, %d %b %Y")
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
