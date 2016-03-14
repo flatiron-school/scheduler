@@ -18,7 +18,6 @@ class SchedulesController < ApplicationController
     @schedule.build_labs(validated_labs_params)
     @schedule.build_activities(validated_activity_params)
     @schedule.build_objectives(validated_objectives_params)
-    binding.pry
     if @schedule.save
       create_schedule_on_github
       redirect_to cohort_schedule_path(@cohort, @schedule)
