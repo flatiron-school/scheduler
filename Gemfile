@@ -17,12 +17,14 @@ gem 'reverse_markdown'
 gem "octokit", "~> 4.0"
 gem "figaro"
 gem 'vcr'
-gem 'webmock'
+# gem 'webmock'
 # gem 'rake', '< 11.0'
 gem 'devise', github: 'twalpole/devise', branch: 'rails5'
 gem 'omniauth-github'
-# gem 'omniauth', '~> 1.3', '>= 1.3.1'
-# gem 'devise'
+gem 'google-api-client'
+# , :require => 'google/api_client'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
 # gem 'draper'
 group :development, :test do

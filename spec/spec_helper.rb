@@ -2,13 +2,19 @@ require 'capybara/rspec'
 require 'omniauth'
 require 'ostruct'
 require_relative './support/vcr_setup.rb'
-OmniAuth.config.test_mode = true
-OmniAuth.config.mock_auth[:github] = OpenStruct.new(:uid => '1337',
-    :provider => 'github',
+# OmniAuth.config.test_mode = true
+# OmniAuth.config.mock_auth[:github] = OpenStruct.new(:uid => '1337',
+#     :provider => 'github',
+#     :info => OpenStruct.new(email: 'sophie@email.com'))
+
+OmniAuth.config.mock_auth[:google_oath2] = OpenStruct.new(:uid => '1337',
+    :provider => 'google_oath2',
     :info => OpenStruct.new(email: 'sophie@email.com'))
 
-require 'webmock/rspec'  
-WebMock.disable_net_connect!(allow_localhost: true)  
+require 'webmock/rspec'
+WebMock.enable_net_connect!(allow_localhost: true)  
+
+# WebMock.disable_net_connect!(allow_localhost: true)  
 
 RSpec.configure do |config|
  
