@@ -11,7 +11,7 @@
   <tbody>
   <% @schedule.activities.each do |activity|  %>
     <tr>
-      <td><%= activity.hour %></td>
+      <td><%= activity.start_hour %></td>
       <td><%= activity.description %></td>
     </tr>
   <% end %>
@@ -49,3 +49,5 @@
 <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, class: "btn btn-primary" %>
 
 <a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
+
+<%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", id: "edit", class: "btn btn-primary" %>

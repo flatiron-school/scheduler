@@ -56,7 +56,7 @@ class Schedule < ApplicationRecord
 
   def build_activities(validated_activity_params)
     validated_activity_params.each do |num, activity_hash|
-      activity = Activity.find_by(time: activity_hash["time"], description: activity_hash["description"]) || Activity.new(time: activity_hash["time"], description: activity_hash["description"])
+      activity = Activity.find_by(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"]) || Activity.new(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"])
       self.activities << activity
     end
   end
@@ -91,5 +91,23 @@ class Schedule < ApplicationRecord
 
   def pretty_date
     self.date.strftime("%A, %d %b %Y")
+  end
+
+  def reservation_activities
+    self.activities.reject { |a| !a.reserve_room }
+  end
+
+  def calendar_events
+    reservation_activities.map do |activity|
+      start_num_of_hours = activity.start_time.hour
+      end_num_of_hours = activity.end_time.hour
+      start = self.date + start_num_of_hours.hours
+      endt =  self.date + end_num_of_hours.hours
+      {summary: activity.description, 
+        start: {dateTime: start.to_datetime},  
+        end: {dateTime: endt.to_datetime},  
+        description: activity.description,  
+      } 
+    end
   end
 end
