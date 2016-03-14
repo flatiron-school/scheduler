@@ -17,7 +17,6 @@ class User < ApplicationRecord
 
   def self.find_for_google_oauth2(auth)
     data = auth.info
-    # binding.pry
     if validate_email(auth)
       User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.provider = auth.provider
@@ -31,16 +30,6 @@ class User < ApplicationRecord
     else
       return nil
     end
-    # user = User.find_by(email: data.email)
-    # if user
-    #   user.provider = access_token.provider
-    #   user.uid = access_token.uid
-    #   user.token = access_token.credentials.token
-    #   user.save
-    #   user
-    # else
-    #   redirect_to root_path, notice: "Google Calendar Authorization Error."
-    # end
   end
 
   def active_cohort

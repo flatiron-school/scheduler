@@ -6,8 +6,12 @@ RSpec.describe Activity, type: :model do
   end
 
   context "validations" do 
-    it "is invalid without a time" do 
-      expect(FactoryGirl.build(:activity, time: nil)).to_not be_valid
+    it "is invalid without a start time" do 
+      expect(FactoryGirl.build(:activity, start_time: nil)).to_not be_valid
+    end
+
+    it 'is invalid without an end time' do 
+      expect(FactoryGirl.build(:activity, end_time: nil)).to_not be_valid
     end
 
     it 'is invalid without a description' do 
@@ -18,12 +22,16 @@ RSpec.describe Activity, type: :model do
   describe "attributes" do 
     let(:activity) { FactoryGirl.build(:activity) }
     
-    it "has a time" do 
-      expect(activity.time).to eq("2000-01-01 09:00:00.000000000 +0000")
+    it "has a start time" do 
+      expect(activity.start_time).to eq("2000-01-01 09:00:00.000000000 +0000")
     end 
 
-    it "has a formatted time" do 
-      expect(activity.hour).to eq("09:00")
+    it "has an end_time" do 
+      expect(activity.end_time).to eq("2000-01-01 09:30:00.000000000 +0000")
+    end
+
+    it "has a formatted start time" do 
+      expect(activity.start_hour).to eq("09:00")
     end
 
     it "has description" do 

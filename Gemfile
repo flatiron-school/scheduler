@@ -17,7 +17,7 @@ gem 'reverse_markdown'
 gem "octokit", "~> 4.0"
 gem "figaro"
 gem 'vcr'
-# gem 'webmock'
+gem 'webmock'
 # gem 'rake', '< 11.0'
 gem 'devise', github: 'twalpole/devise', branch: 'rails5'
 gem 'omniauth-github'
