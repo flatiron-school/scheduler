@@ -2,8 +2,8 @@ class GoogleCalWrapper
 
   RESOURCE_ID_MAP = {
     "flatironschool.com_36383633393236392d333336@resource.calendar.google.com" => "Classroom - Kay", 
-    "flatironschool.com_31373632383930392d313938@resource.calendar.google.com" => "Classroom - Hopper",
-    "flatironschool.com_31373234393535322d343338@resource.calendar.google.com" => "Classroom - Turing"
+    "flatironschool.com_31373234393535322d343338@resource.calendar.google.com" => "Classroom - Turing",
+    "flatironschool.com_31373632383930392d313938@resource.calendar.google.com" => "Classroom - Hopper"
   }
 
   RESOURCE_IDS = [
@@ -40,7 +40,6 @@ class GoogleCalWrapper
       room_conflicts = []
       if !free_room_id
         data.each do |busy, reservations|
-          # binding.pry
           reservations.each do |reservation|
             room_conflicts << conflict?(reservation, activity_start_time, activity_end_time)
           end
