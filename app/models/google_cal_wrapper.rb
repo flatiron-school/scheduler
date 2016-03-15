@@ -76,8 +76,8 @@ class GoogleCalWrapper
       
       {summary: activity.description, 
         location: available_location,
-        start: {dateTime: start_time},  
-        end: {dateTime: end_time},  
+        start: {dateTime: (start_time.to_datetime - 1.hours)},  
+        end: {dateTime: (end_time.to_datetime - 1.hours)},  
         description: activity.description,  
       } 
     end
