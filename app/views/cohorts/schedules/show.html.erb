@@ -51,3 +51,7 @@
 <a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
 
 <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", id: "edit", class: "btn btn-primary" %>
+
+<%= link_to "reserve rooms", edit_cohort_schedule_path(@schedule.cohort, @schedule), method: "post", id: "edit", class: "btn btn-primary" %>
+
+<br>

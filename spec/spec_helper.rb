@@ -16,7 +16,7 @@ OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
 require 'webmock/rspec'
 # WebMock.enable_net_connect!(allow_localhost: true)  
 
-WebMock.disable_net_connect!(allow_localhost: true)  
+# WebMock.disable_net_connect!(allow_localhost: true)  
 
 RSpec.configure do |config|
  
