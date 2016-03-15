@@ -12,7 +12,7 @@ module FlatironScheduler
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.time_zone = 'EST'
-    # config.active_record.default_timezone = 'Eastern Time (US & Canada)'
-    # config.active_record.time_zone_aware_types << :time
+    config.active_record.default_timezone = :local
+    config.active_record.time_zone_aware_types = [:time, :datetime]
   end
 end

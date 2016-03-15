@@ -56,6 +56,7 @@ class Schedule < ApplicationRecord
 
   def build_activities(validated_activity_params)
     validated_activity_params.each do |num, activity_hash|
+      binding.pry
       activity = Activity.find_by(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"]) || Activity.new(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"])
       self.activities << activity
     end
@@ -82,8 +83,10 @@ class Schedule < ApplicationRecord
   end
 
   def update_activities(schedule_params)
+    binding.pry
     schedule_params["activities_attributes"].each do |num, activity_hash|
       activity = Activity.find(activity_hash[:id])
+      binding.pry
       activity.update(activity_hash)
       activity.save
     end

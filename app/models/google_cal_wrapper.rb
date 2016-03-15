@@ -7,11 +7,9 @@ class GoogleCalWrapper
   }
 
   RESOURCE_IDS = [
-    {
-      id: "flatironschool.com_36383633393236392d333336@resource.calendar.google.com",
-      id: "flatironschool.com_31373234393535322d343338@resource.calendar.google.com",
-      id: "flatironschool.com_31373632383930392d313938@resource.calendar.google.com"
-    }
+    {id: "flatironschool.com_36383633393236392d333336@resource.calendar.google.com"},
+    {id: "flatironschool.com_31373234393535322d343338@resource.calendar.google.com"},
+    {id: "flatironschool.com_31373632383930392d313938@resource.calendar.google.com"}
   ]
 
   attr_accessor :client, :service
@@ -30,28 +28,54 @@ class GoogleCalWrapper
     @service = @client.discovered_api('calendar', 'v3')
   end
 
-  def best_available_location(start_time, end_time)
-    check_available_rooms(start_time, end_time)
+  def best_available_location(date, activity_start_time, activity_end_time)
+    check_available_rooms(date, activity_start_time, activity_end_time)
   end
 
-  def check_available_rooms(start_time, end_time)
+  def check_available_rooms(date, activity_start_time, activity_end_time)
     binding.pry
-    response = @client.execute(api_method: @service.freebusy.query,
-      parameters: {
-        timeMin: start_time,
+    start_time = date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-5] << "1400"
+    end_time = (date + 23.hours).strftime("%Y-%m-%dT%H:%M:%S+%H%M")
+    
+    response = @client.execute(api_method: @service.freebusy.query, 
+      body: JSON.dump({timeMin: start_time,
         timeMax: end_time,
         timeZone: "EST",
-        items: RESOURCE_IDS
-      })
-    response = JSON.parse(response)
-    #response[:calendars]
-    #iterate over response[:calendars] and compare the blocked activities for each room
-    # to the start and end time of the activity we are trying to book, as passed in to this method
-    # use the #conflict? and/or other helper methods
-    # ultimately, this method should return the name, i.e. 'Classroom - Kay', if the best available
-    # room. Use Resource Map constant to get room name from resource ID. Best to worst: Kay, Turing, Hopper.
-    # start time of activity should be after end time of busy event OR end time of activity should be
-    # before start time of busy event AND should end before start of next busy event. 
+        items: RESOURCE_IDS}),
+      headers: {'Content-Type' => 'application/json'}
+    )
+    response = JSON.parse(response.body)
+    free_room = nil
+    response["calendars"].each do |cal_id, data|
+      data.each do |busy, times|
+        binding.pry
+        i = 0
+        while i <= times.length
+          binding.pry
+          if i == 0 
+            binding.pry
+            if activity_start_time < times[i]["start"]
+              binding.pry
+              free_room = cal_id
+              break
+            end
+          else
+            binding.pry
+            if activity_start_time >= times[i]["end"] && activity_end_time <= times[i + 1]["end"]
+              binding.pry
+              free_room = cal_id
+              break
+            end
+          end
+        end
+        binding.pry
+        if free_room
+          break
+        end
+      end
+    end
+    binding.pry
+  
   end
 
   def conflict?
@@ -59,7 +83,9 @@ class GoogleCalWrapper
   end
 
   def build_calendar_events(reservation_activities, date)
+    binding.pry
     reservation_activities.map do |activity|
+      binding.pry
       start_time = format_date(date, activity.start_time)
       end_time = format_date(date, activity.end_time)
       
@@ -67,7 +93,7 @@ class GoogleCalWrapper
       # end_num_of_hours = activity.end_time.hour
       # start = 
       # endt =  
-      available_location = best_available_location(start, endt)
+      available_location = best_available_location(date, start_time, end_time)
       {summary: activity.description, 
         location: available_location,
         start: {dateTime: start_time},  
@@ -79,8 +105,11 @@ class GoogleCalWrapper
 
   def format_date(date, activity_time)
     binding.pry
-    num_of_hours = activity_time.hour
-    date + (num_of_hours + 4).hours.to_datetime.strftime("%Y-%m-%dT%H:%M:%S+%H%M")
+    # num_of_hours = activity_time.hour
+    # num_of_hours = num_of_hours.to_datetime.hour
+    # date = date.to_s[0..-4] << "EST"
+    date = date + (activity_time.hour.hours)
+    date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")
   end
 
 
