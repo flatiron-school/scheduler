@@ -16,11 +16,11 @@ class GoogleCalWrapper
 
   attr_accessor :client, :service
 
-  def initialize
-    configure_google_calendar_client
+  def initialize(current_user)
+    configure_client(current_user)
   end
 
-  def configure_client
+  def configure_client(current_user)
     @client = Google::APIClient.new
     @client.authorization.access_token = current_user.token
     @client.authorization.refresh_token = current_user.refresh_token
@@ -31,10 +31,11 @@ class GoogleCalWrapper
   end
 
   def best_available_location(start_time, end_time)
-    check_available_rooms
+    check_available_rooms(start_time, end_time)
   end
 
   def check_available_rooms(start_time, end_time)
+    binding.pry
     response = @client.execute(api_method: @service.freebusy.query,
       parameters: {
         timeMin: start_time,
@@ -57,20 +58,29 @@ class GoogleCalWrapper
 
   end
 
-  def build_calendar_events(reservation_activities)
+  def build_calendar_events(reservation_activities, date)
     reservation_activities.map do |activity|
-      start_num_of_hours = activity.start_time.hour
-      end_num_of_hours = activity.end_time.hour
-      start = self.date + (start_num_of_hours + 4).hours
-      endt =  self.date + (end_num_of_hours + 4).hours
+      start_time = format_date(date, activity.start_time)
+      end_time = format_date(date, activity.end_time)
+      
+      # start_num_of_hours = activity.start_time.hour
+      # end_num_of_hours = activity.end_time.hour
+      # start = 
+      # endt =  
       available_location = best_available_location(start, endt)
       {summary: activity.description, 
         location: available_location,
-        start: {dateTime: start.to_datetime},  
-        end: {dateTime: endt.to_datetime},  
+        start: {dateTime: start_time},  
+        end: {dateTime: end_time},  
         description: activity.description,  
       } 
     end
+  end
+
+  def format_date(date, activity_time)
+    binding.pry
+    num_of_hours = activity_time.hour
+    date + (num_of_hours + 4).hours.to_datetime.strftime("%Y-%m-%dT%H:%M:%S+%H%M")
   end
 
 

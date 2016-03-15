@@ -55,8 +55,9 @@ class SchedulesController < ApplicationController
 
   def reserve_rooms
     configure_google_calendar_client
+    activities = @schedule.reservation_activities
     binding.pry
-    @calendar.build_calendar_events(@schedule.reservation_activities).each do |event|
+    @calendar.build_calendar_events(activities, @schedule.date).each do |event|
       @calendar.client.execute(:api_method => @calendar.service.events.insert,
         :parameters => {'calendarId' => "flatironschool.com_varhig47emek2egdjn2n2pqm40@group.calendar.google.com", 'sendNotifications' => true},
         :body => JSON.dump(event),
@@ -112,7 +113,7 @@ class SchedulesController < ApplicationController
   end
 
   def configure_google_calendar_client
-    @calendar = GoogleCalendarWrapper.new
+    @calendar = GoogleCalWrapper.new(current_user)
   end
 
 end
