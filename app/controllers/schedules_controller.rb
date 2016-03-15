@@ -56,9 +56,10 @@ class SchedulesController < ApplicationController
 
   def reserve_rooms
     configure_google_calendar_client
+    binding.pry
     @schedule.calendar_events.each do |event|
-      @client.execute(:api_method => @service.events.insert,
-        :parameters => {'calendarId' => current_user.email, 'sendNotifications' => true},
+      @calendar.client.execute(:api_method => @calendar.service.events.insert,
+        :parameters => {'calendarId' => "flatironschool.com_varhig47emek2egdjn2n2pqm40@group.calendar.google.com", 'sendNotifications' => true},
         :body => JSON.dump(event),
         :headers => {'Content-Type' => 'application/json'})
     end
@@ -112,13 +113,7 @@ class SchedulesController < ApplicationController
   end
 
   def configure_google_calendar_client
-    @client = Google::APIClient.new
-    @client.authorization.access_token = current_user.token
-    @client.authorization.refresh_token = current_user.refresh_token
-    @client.authorization.client_id = ENV['GOOGLE_CLIENT_ID']
-    @client.authorization.client_secret = ENV['GOOGLE_CLIENT_SECRET']
-    @client.authorization.refresh!
-    @service = @client.discovered_api('calendar', 'v3')
+    @calendar = GoogleCalendarWrapper.new
   end
 
 end
