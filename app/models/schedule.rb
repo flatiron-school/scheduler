@@ -56,7 +56,6 @@ class Schedule < ApplicationRecord
 
   def build_activities(validated_activity_params)
     validated_activity_params.each do |num, activity_hash|
-      binding.pry
       activity = Activity.find_by(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"]) || Activity.new(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"])
       self.activities << activity
     end
@@ -83,10 +82,8 @@ class Schedule < ApplicationRecord
   end
 
   def update_activities(schedule_params)
-    binding.pry
     schedule_params["activities_attributes"].each do |num, activity_hash|
       activity = Activity.find(activity_hash[:id])
-      binding.pry
       activity.update(activity_hash)
       activity.save
     end
@@ -100,18 +97,4 @@ class Schedule < ApplicationRecord
     self.activities.reject { |a| !a.reserve_room }
   end
 
-  # def calendar_events(available_location)
-  #   reservation_activities.map do |activity|
-  #     start_num_of_hours = activity.start_time.hour
-  #     end_num_of_hours = activity.end_time.hour
-  #     start = self.date + (start_num_of_hours + 4).hours
-  #     endt =  self.date + (end_num_of_hours + 4).hours
-  #     {summary: activity.description, 
-  #       location: available_location,
-  #       start: {dateTime: start.to_datetime},  
-  #       end: {dateTime: endt.to_datetime},  
-  #       description: activity.description,  
-  #     } 
-  #   end
-  # end
 end

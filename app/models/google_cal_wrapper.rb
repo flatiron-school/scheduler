@@ -40,7 +40,7 @@ class GoogleCalWrapper
       room_conflicts = []
       if !free_room_id
         data.each do |busy, reservations|
-          binding.pry
+          # binding.pry
           reservations.each do |reservation|
             room_conflicts << conflict?(reservation, activity_start_time, activity_end_time)
           end
@@ -61,8 +61,7 @@ class GoogleCalWrapper
         
 
   def conflict?(reservation, activity_start_time, activity_end_time)
-    binding.pry
-    if activity_start_time >= reservation["end"] || activity_end_time <= reservation["start"]
+    if activity_start_time >= (reservation["end"].to_datetime + 1.hours) || activity_end_time <= (reservation["start"].to_datetime + 1.hours)
       return false
     else
       return true
@@ -89,12 +88,10 @@ class GoogleCalWrapper
     hour = activity_time.hour
     minute = activity_time.to_datetime.minute
     date = date + (hour.hours) + (minute.minutes)
-    # date = date + 1.hours
     date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
   end
 
   def get_exisiting_reservations(date)
-    binding.pry
     start_time = date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
     end_time = (date + 23.hours).strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
     
