@@ -75,6 +75,7 @@ class GoogleCalWrapper
       end_time = format_date(date, activity.end_time) 
       end_time = end_time.to_datetime - 11.hours
       available_location = best_available_location(date, start_time, end_time)
+      
       {summary: activity.description, 
         location: available_location,
         start: {dateTime: start_time},  
