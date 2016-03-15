@@ -30,6 +30,10 @@ class GoogleCalWrapper
     @service = @client.discovered_api('calendar', 'v3')
   end
 
+  def best_available_location(start_time, end_time)
+    check_available_rooms
+  end
+
   def check_available_rooms(start_time, end_time)
     response = @client.execute(api_method: @service.freebusy.query,
       parameters: {
@@ -39,7 +43,32 @@ class GoogleCalWrapper
         items: RESOURCE_IDS
       })
     response = JSON.parse(response)
-    binding.pry
+    #response[:calendars]
+    #iterate over response[:calendars] and compare the blocked activities for each room
+    # to the start and end time of the activity we are trying to book, as passed in to this method
+    # use the #conflict? and/or other helper methods
+    # ultimately, this method should return the name, i.e. 'Classroom - Kay', if the best available
+    # room. Use Resource Map constant to get room name from resource ID. Best to worst: Kay, Turing, Hopper.
+  end
+
+  def conflict?
+
+  end
+
+  def build_calendar_events(reservation_activities)
+    reservation_activities.map do |activity|
+      start_num_of_hours = activity.start_time.hour
+      end_num_of_hours = activity.end_time.hour
+      start = self.date + (start_num_of_hours + 4).hours
+      endt =  self.date + (end_num_of_hours + 4).hours
+      available_location = best_available_location(start, endt)
+      {summary: activity.description, 
+        location: available_location,
+        start: {dateTime: start.to_datetime},  
+        end: {dateTime: endt.to_datetime},  
+        description: activity.description,  
+      } 
+    end
   end
 
 

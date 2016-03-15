@@ -18,7 +18,6 @@ class SchedulesController < ApplicationController
     @schedule.build_labs(validated_labs_params)
     @schedule.build_activities(validated_activity_params)
     @schedule.build_objectives(validated_objectives_params)
-    # binding.pry
     if @schedule.save
       create_schedule_on_github
       redirect_to cohort_schedule_path(@cohort, @schedule)
@@ -57,7 +56,7 @@ class SchedulesController < ApplicationController
   def reserve_rooms
     configure_google_calendar_client
     binding.pry
-    @schedule.calendar_events.each do |event|
+    @calendar.build_calendar_events(@schedule.reservation_activities).each do |event|
       @calendar.client.execute(:api_method => @calendar.service.events.insert,
         :parameters => {'calendarId' => "flatironschool.com_varhig47emek2egdjn2n2pqm40@group.calendar.google.com", 'sendNotifications' => true},
         :body => JSON.dump(event),
