@@ -33,66 +33,47 @@ class GoogleCalWrapper
   end
 
   def check_available_rooms(date, activity_start_time, activity_end_time)
-    binding.pry
-    start_time = date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-5] << "1400"
-    end_time = (date + 23.hours).strftime("%Y-%m-%dT%H:%M:%S+%H%M")
-    
-    response = @client.execute(api_method: @service.freebusy.query, 
-      body: JSON.dump({timeMin: start_time,
-        timeMax: end_time,
-        timeZone: "EST",
-        items: RESOURCE_IDS}),
-      headers: {'Content-Type' => 'application/json'}
-    )
-    response = JSON.parse(response.body)
-    free_room = nil
+    response = get_exisiting_reservations(date)
+    free_room_id = nil
+
     response["calendars"].each do |cal_id, data|
-      data.each do |busy, times|
-        binding.pry
-        i = 0
-        while i <= times.length
-          binding.pry
-          if i == 0 
-            binding.pry
-            if activity_start_time < times[i]["start"]
-              binding.pry
-              free_room = cal_id
-              break
-            end
-          else
-            binding.pry
-            if activity_start_time >= times[i]["end"] && activity_end_time <= times[i + 1]["end"]
-              binding.pry
-              free_room = cal_id
-              break
-            end
+      room_conflicts = []
+      if !free_room_id
+        data.each do |busy, reservations|
+          reservations.each do |reservation|
+            room_conflicts << conflict?(reservation, activity_start_time, activity_end_time)
           end
-        end
-        binding.pry
-        if free_room
-          break
+          if !room_conflicts.any?
+            free_room_id = cal_id
+            break
+          end
         end
       end
     end
-    binding.pry
-  
+
+    get_free_room(free_room_id)
   end
 
-  def conflict?
+  def get_free_room(free_room_id)
+    RESOURCE_ID_MAP[free_room_id]
+  end
+        
 
+  def conflict?(reservation, activity_start_time, activity_end_time)
+    if activity_start_time >= reservation["end"] || activity_end_time <= reservation["start"]
+      return false
+    else
+      return true
+    end
   end
 
   def build_calendar_events(reservation_activities, date)
-    binding.pry
     reservation_activities.map do |activity|
-      binding.pry
       start_time = format_date(date, activity.start_time)
-      end_time = format_date(date, activity.end_time)
+      start_time = start_time.to_datetime - 11.hours
       
-      # start_num_of_hours = activity.start_time.hour
-      # end_num_of_hours = activity.end_time.hour
-      # start = 
-      # endt =  
+      end_time = format_date(date, activity.end_time) 
+      end_time = end_time.to_datetime - 11.hours
       available_location = best_available_location(date, start_time, end_time)
       {summary: activity.description, 
         location: available_location,
@@ -104,44 +85,26 @@ class GoogleCalWrapper
   end
 
   def format_date(date, activity_time)
-    binding.pry
-    # num_of_hours = activity_time.hour
-    # num_of_hours = num_of_hours.to_datetime.hour
-    # date = date.to_s[0..-4] << "EST"
-    date = date + (activity_time.hour.hours)
+    hour = activity_time.hour
+    minute = activity_time.to_datetime.minute
+    date = date + (hour.hours) + (minute.minutes)
     date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")
   end
 
+  def get_exisiting_reservations(date)
+    start_time = date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-5] << "1400"
+    end_time = (date + 23.hours).strftime("%Y-%m-%dT%H:%M:%S+%H%M")
+    
+    response = @client.execute(api_method: @service.freebusy.query, 
+      body: JSON.dump({timeMin: start_time,
+        timeMax: end_time,
+        timeZone: "EST",
+        items: RESOURCE_IDS}),
+      headers: {'Content-Type' => 'application/json'}
+    )
 
-
-
-#  {
-#   "kind": "calendar#freeBusy",
-#  "timeMin": "2016-03-15T00:00:00.000Z",
-#  "timeMax": "2016-03-15T23:00:00.000Z",
-#  "calendars": {
-#   "flatironschool.com_31373234393535322d343338@resource.calendar.google.com": {
-#    "busy": [
-#     {
-#      "start": "2016-03-14T19:00:00-05:00",
-#      "end": "2016-03-14T20:00:00-05:00"
-#     },
-#     {
-#      "start": "2016-03-15T15:30:00-05:00",
-#      "end": "2016-03-15T16:00:00-05:00"
-#     },
-#     {
-#      "start": "2016-03-15T16:45:00-05:00",
-#      "end": "2016-03-15T17:00:00-05:00"
-#     },
-#     {
-#      "start": "2016-03-15T17:15:00-05:00",
-#      "end": "2016-03-15T18:00:00-05:00"
-#     }
-#    ]
-#   }
-#  }
-# }
+    JSON.parse(response.body)
+  end
 
 
 end
