@@ -89,6 +89,7 @@ class GoogleCalWrapper
     hour = activity_time.hour
     minute = activity_time.to_datetime.minute
     date = date + (hour.hours) + (minute.minutes)
+    # date = date + 1.hours
     date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
   end
 
