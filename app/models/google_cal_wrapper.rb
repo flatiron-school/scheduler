@@ -49,6 +49,8 @@ class GoogleCalWrapper
     # use the #conflict? and/or other helper methods
     # ultimately, this method should return the name, i.e. 'Classroom - Kay', if the best available
     # room. Use Resource Map constant to get room name from resource ID. Best to worst: Kay, Turing, Hopper.
+    # start time of activity should be after end time of busy event OR end time of activity should be
+    # before start time of busy event AND should end before start of next busy event. 
   end
 
   def conflict?
