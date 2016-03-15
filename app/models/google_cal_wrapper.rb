@@ -40,6 +40,7 @@ class GoogleCalWrapper
       room_conflicts = []
       if !free_room_id
         data.each do |busy, reservations|
+          binding.pry
           reservations.each do |reservation|
             room_conflicts << conflict?(reservation, activity_start_time, activity_end_time)
           end
@@ -60,6 +61,7 @@ class GoogleCalWrapper
         
 
   def conflict?(reservation, activity_start_time, activity_end_time)
+    binding.pry
     if activity_start_time >= reservation["end"] || activity_end_time <= reservation["start"]
       return false
     else
@@ -70,10 +72,8 @@ class GoogleCalWrapper
   def build_calendar_events(reservation_activities, date)
     reservation_activities.map do |activity|
       start_time = format_date(date, activity.start_time)
-      start_time = start_time.to_datetime - 11.hours
       
       end_time = format_date(date, activity.end_time) 
-      end_time = end_time.to_datetime - 11.hours
       available_location = best_available_location(date, start_time, end_time)
       
       {summary: activity.description, 
@@ -89,12 +89,13 @@ class GoogleCalWrapper
     hour = activity_time.hour
     minute = activity_time.to_datetime.minute
     date = date + (hour.hours) + (minute.minutes)
-    date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")
+    date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
   end
 
   def get_exisiting_reservations(date)
-    start_time = date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-5] << "1400"
-    end_time = (date + 23.hours).strftime("%Y-%m-%dT%H:%M:%S+%H%M")
+    binding.pry
+    start_time = date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
+    end_time = (date + 23.hours).strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
     
     response = @client.execute(api_method: @service.freebusy.query, 
       body: JSON.dump({timeMin: start_time,
