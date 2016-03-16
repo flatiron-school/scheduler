@@ -18,6 +18,13 @@ class GoogleCalWrapper
     configure_client(current_user)
   end
 
+  def book_events(schedule)
+    responses = make_google_calendar_reservations(schedule.reservation_activities, schedule.date)
+    parse_booked_events(responses, schedule)
+  end
+
+  private
+
   def configure_client(current_user)
     @client = Google::APIClient.new
     @client.authorization.access_token = current_user.token
@@ -26,6 +33,33 @@ class GoogleCalWrapper
     @client.authorization.client_secret = ENV['GOOGLE_CLIENT_SECRET']
     @client.authorization.refresh!
     @service = @client.discovered_api('calendar', 'v3')
+  end
+
+  def make_google_calendar_reservations(reservation_activities, date)
+    build_calendar_events(reservation_activities, date).map do |event|
+      @client.execute(:api_method => @service.events.insert,
+        :parameters => {'calendarId' => "flatironschool.com_varhig47emek2egdjn2n2pqm40@group.calendar.google.com", 'sendNotifications' => true},
+        :body => JSON.dump(event),
+        :headers => {'Content-Type' => 'application/json'})
+    end
+  end
+
+  def build_calendar_events(reservation_activities, date)
+    reservation_activities.map do |activity|
+      start_time = format_date(date, activity.start_time)
+      
+      end_time = format_date(date, activity.end_time) 
+      available_location = best_available_location(date, start_time, end_time)
+
+      build_event(activity.description, available_location, start_time, end_time)
+    end
+  end
+
+  def format_date(date, activity_time)
+    hour = activity_time.hour
+    minute = activity_time.to_datetime.minute
+    date = date + (hour.hours) + (minute.minutes)
+    date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
   end
 
   def best_available_location(date, activity_start_time, activity_end_time)
@@ -54,42 +88,6 @@ class GoogleCalWrapper
     get_free_room(free_room_id)
   end
 
-  def get_free_room(free_room_id)
-    RESOURCE_ID_MAP[free_room_id]
-  end
-        
-
-  def conflict?(reservation, activity_start_time, activity_end_time)
-    if activity_start_time >= (reservation["end"].to_datetime + 1.hours) || activity_end_time <= (reservation["start"].to_datetime + 1.hours)
-      return false
-    else
-      return true
-    end
-  end
-
-  def build_calendar_events(reservation_activities, date)
-    reservation_activities.map do |activity|
-      start_time = format_date(date, activity.start_time)
-      
-      end_time = format_date(date, activity.end_time) 
-      available_location = best_available_location(date, start_time, end_time)
-      
-      {summary: activity.description, 
-        location: available_location,
-        start: {dateTime: (start_time.to_datetime - 1.hours)},  
-        end: {dateTime: (end_time.to_datetime - 1.hours)},  
-        description: activity.description,  
-      } 
-    end
-  end
-
-  def format_date(date, activity_time)
-    hour = activity_time.hour
-    minute = activity_time.to_datetime.minute
-    date = date + (hour.hours) + (minute.minutes)
-    date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
-  end
-
   def get_exisiting_reservations(date)
     start_time = date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
     end_time = (date + 23.hours).strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
@@ -103,6 +101,41 @@ class GoogleCalWrapper
     )
 
     JSON.parse(response.body)
+  end
+
+
+  def conflict?(reservation, activity_start_time, activity_end_time)
+    if activity_start_time >= (reservation["end"].to_datetime + 1.hours) || activity_end_time <= (reservation["start"].to_datetime + 1.hours)
+      return false
+    else
+      return true
+    end
+  end
+
+  def get_free_room(free_room_id)
+    RESOURCE_ID_MAP[free_room_id]
+  end
+        
+  def build_event(activity_description, available_location, start_time, end_time)
+    {
+      summary: activity_description, 
+      location: available_location,
+      start: {dateTime: (start_time.to_datetime - 1.hours)},  
+      end: {dateTime: (end_time.to_datetime - 1.hours)},  
+      description: activity_description,  
+    } 
+  end
+
+  def parse_booked_events(booked_events, schedule)
+    clear_schedule_calendar_events(schedule)
+    booked_events.each do |event|
+      body = JSON.parse(event.body)
+      CalendarEvent.create(schedule: schedule, name: body["summary"], location: body["location"], reserved_at: body["updated"], reserved_by: body["creator"]["email"])
+    end
+  end
+
+  def clear_schedule_calendar_events(schedule)
+    CalendarEvent.where("schedule_id = ?", schedule.id).destroy_all
   end
 
 

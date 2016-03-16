@@ -12,8 +12,8 @@ feature "CreateNewSchedules", :type => :feature do
         expect(page.body).to include('lab-1')
         expect(page.body).to include('barking-dog')
         expect(page.body).to include('lab-3')
-        expect(page.body).to include('09:00')
-        expect(page.body).to include('TODO')
+        expect(page.body).to include('09:30')
+        expect(page.body).to include('Blogs')
         expect(Schedule.last.sha).to eq('864fbc93a8eb788bf5dae0c9f2cd3b04cd01b2b2')
       end
     end

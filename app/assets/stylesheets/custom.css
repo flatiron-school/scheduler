@@ -1,0 +1,47 @@
+.schedule-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.schedule-table {
+  /*height: 300px;*/
+  height: 100%;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: scroll
+}
+
+.deploy-history {
+  /*height: 300px;*/
+  height: 100%;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 10px;
+  overflow: scroll;
+}
+
+.schedule-container {
+  padding-left: 13%;
+  height: 400px;
+}
+
+.schedule-info {
+  padding-left: 14%;
+  /*width: 714px;
+  padding-left: 10px;*/
+}
+
+.deployed {
+  margin-top: 10px;
+}
+
+.reserved {
+  margin-top: 10px;
+}
+
+.activity-list {
+  list-style: none
+}
+

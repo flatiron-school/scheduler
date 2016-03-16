@@ -4,6 +4,7 @@ class Schedule < ApplicationRecord
   has_many :activities, through: :schedule_activities
   has_many :labs, through: :schedule_labs
   has_many :objectives, dependent: :destroy
+  has_many :calendar_events
   belongs_to :cohort
   accepts_nested_attributes_for :labs
   accepts_nested_attributes_for :activities

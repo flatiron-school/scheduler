@@ -79,7 +79,7 @@ def make_schedule_to_edit
   lab = Lab.new(name: "lab-79")
   schedule.labs << lab
   lab.save
-  activity = Activity.new(start_time: "9:00AM", end_time: "9:30AM", description: "TODO")
+  activity = Activity.new(start_time: "9:30AM", end_time: "10:00AM", description: "Blogs", reserve_room: true)
   schedule.activities << activity
   schedule.save
   schedule
