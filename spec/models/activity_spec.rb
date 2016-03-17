@@ -23,11 +23,11 @@ RSpec.describe Activity, type: :model do
     let(:activity) { FactoryGirl.build(:activity) }
     
     it "has a start time" do 
-      expect(activity.start_time).to eq("2000-01-01 09:00:00.000000000 +0000")
+      expect(activity.start_time).to eq("2000-01-01 09:00:00.000000000 -0500")
     end 
 
     it "has an end_time" do 
-      expect(activity.end_time).to eq("2000-01-01 09:30:00.000000000 +0000")
+      expect(activity.end_time).to eq("2000-01-01 09:30:00.000000000 -0500")
     end
 
     it "has a formatted start time" do 

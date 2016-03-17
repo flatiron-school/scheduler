@@ -18,15 +18,16 @@ class User < ApplicationRecord
   def self.find_for_google_oauth2(auth)
     data = auth.info
     if validate_email(auth)
-      User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user = User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.provider = auth.provider
         user.uid = auth.uid
-        user.token = auth.credentials.token
-        user.refresh_token = auth.credentials.refresh_token
         user.email = auth.info.email
         user.password = Devise.friendly_token[0,20]
-        user.save
       end
+      user.token = auth.credentials.token
+      user.refresh_token = auth.credentials.refresh_token
+      user.save
+      return user
     else
       return nil
     end

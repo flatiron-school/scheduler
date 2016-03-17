@@ -3,27 +3,33 @@ require 'rails_helper'
 feature "CreateNewCalendarEvent", :type => :feature do
   describe "make a room reservation on google calendar" do
     it "reserves a classroom on the google calendar for any schedule activities that have reserve_room = true" do
-      schedule = make_schedule_to_edit
-      sign_in
-      visit "/cohorts/web-1117/schedules/#{schedule.slug}"
-      click_button "reserve rooms"
-      expect(current_path).to eq('/cohorts/web-1115')
-      expect(page.body).to include('web-1115')
+      VCR.use_cassette("google_calendar_reservations") do 
+        schedule = make_schedule_to_edit
+        sign_in
+        visit "/cohorts/web-1117/schedules/#{schedule.slug}"
+        click_link "reserve rooms"
+        
+        new_calendar_event = schedule.calendar_events.first
+        
+        expect(new_calendar_event.schedule).to eq(schedule)
+        expect(new_calendar_event.name).to eq('Blogs')
+        expect(new_calendar_event.location).to eq('Classroom - Kay')
+        expect(new_calendar_event.reserved_by).to eq('sophie@flatironschool.com')
+        expect(new_calendar_event.link).to eq('https://www.google.com/calendar/event?eid=OW9wOHJndHVsZWhndDhraW12b241cHA3YTggZmxhdGlyb25zY2hvb2wuY29tX3ZhcmhpZzQ3ZW1lazJlZ2RqbjJuMnBxbTQwQGc')
+      end
     end
   end
 
-  describe "edit an exist cohort" do 
-    it "edits a cohort" do 
-      cohort = FactoryGirl.build(:cohort)
-      cohort.save
-
-      sign_in
-      visit "/cohorts/#{cohort.name}"
-      click_link "edit"
-      fill_in "Name", with: "web-1120"
-      click_button "Update Cohort"
-      expect(current_path).to eq('/cohorts/web-1120')
-      expect(page.body).to include('web-1120')
+  describe "reserve rooms and update page" do 
+    it "reserves a room and updates the page with the reservation confirmation, without refreshing" do 
+      VCR.use_cassette("google_calendar_reservations") do 
+        schedule = make_schedule_to_edit
+        sign_in
+        visit "/cohorts/web-1117/schedules/#{schedule.slug}"
+        click_link "reserve rooms"
+        expect(page.body).to include("Blogs\nlocation: Classroom - Kay")
+        expect(current_path).to eq("/cohorts/web-1117/schedules/#{schedule.slug}")
+      end
     end
   end
 end

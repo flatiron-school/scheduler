@@ -15,7 +15,7 @@ RSpec.describe Schedule, type: :model do
     let(:schedule) { FactoryGirl.build(:schedule) }
     
     it "has a date" do 
-      expect(schedule.date).to eq("02 Jun 2016")
+      expect(schedule.date).to eq("2016-06-02 00:00:00.000000000 -0500")
     end 
 
     it "has notes" do 

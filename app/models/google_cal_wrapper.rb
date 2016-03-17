@@ -130,7 +130,12 @@ class GoogleCalWrapper
     clear_schedule_calendar_events(schedule)
     booked_events.each do |event|
       body = JSON.parse(event.body)
-      CalendarEvent.create(schedule: schedule, name: body["summary"], location: body["location"], reserved_at: body["updated"], reserved_by: body["creator"]["email"])
+      CalendarEvent.create(schedule: schedule, 
+        name: body["summary"], 
+        location: body["location"], 
+        reserved_at: body["updated"], 
+        reserved_by: body["creator"]["email"],
+        link: body["htmlLink"])
     end
   end
 

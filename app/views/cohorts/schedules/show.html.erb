@@ -36,7 +36,9 @@
       <p>
         <ul class="activity-list">
           <% @schedule.calendar_events.each do |event| %>
-            <li><strong><%= event.name %></strong></li>
+            <li>
+              <a href="<%= event.link %>"><strong><%= event.name %></strong></a>
+            </li>
             <li>location: <%= event.location %></li>
             <li>reserved at: <%= event.reserved_at %></li>
             <li>reserved by: <%= event.reserved_by %></li>
@@ -46,7 +48,7 @@
       <% else %>
         <p>rooms not yet reserved</p>
       <% end %>
-       <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", id: "edit", class: "btn btn-primary" %>
+       <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", id: "reserve-rooms", class: "btn btn-primary" %>
     </div>
   </div>
 

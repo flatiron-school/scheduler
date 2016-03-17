@@ -71,7 +71,7 @@ class Schedule < ApplicationRecord
   end
 
   def update_from_params(schedule_params)
-    self.update(week: schedule_params["week"], day: schedule_params["day"], date: schedule_params["date"], notes: schedule_params["notes"])
+    self.update(notes: schedule_params["notes"], deploy: schedule_params["deploy"])
   end
 
   def update_labs(schedule_params)

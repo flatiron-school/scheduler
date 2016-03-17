@@ -12,8 +12,8 @@ feature "CreateNewSchedules", :type => :feature do
         expect(page.body).to include('lab-1')
         expect(page.body).to include('barking-dog')
         expect(page.body).to include('lab-3')
-        expect(page.body).to include('09:30')
-        expect(page.body).to include('Blogs')
+        expect(page.body).to include('09:00')
+        expect(page.body).to include('TODO')
         expect(Schedule.last.sha).to eq('864fbc93a8eb788bf5dae0c9f2cd3b04cd01b2b2')
       end
     end
@@ -26,7 +26,7 @@ feature "CreateNewSchedules", :type => :feature do
         sign_in
         visit "/cohorts/web-1117/schedules/#{schedule.slug}/edit"
         fill_in_edit_schedule_form
-        expect(current_path).to eq('/cohorts/web-1117/schedules/feb-01-2017')
+        expect(current_path).to eq('/cohorts/web-1117/schedules/jan-02-2017')
         expect(page.body).to include('Week 1')
         expect(page.body).to include('Day 40')
         expect(page.body).to include('lab-100')

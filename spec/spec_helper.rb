@@ -7,12 +7,12 @@ OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
   :provider => 'google_oauth2',
   :uid => '123545',
   :credentials => 
-    {:token => "2395uqoru235jfasdlfn23984u", 
-    :refresh_token => "12310asljf232"},
+    {:token => "ya29.qAJGcLrXXXXX50CvRAJqtmIul643P5q0efkaXROhBpPZIFamuONTDEudEomhpZEPU7Jg", 
+    :refresh_token => "1/efxXXXXXXXtTjVXupMvX1bgLa7jfy9z9gIQTNqRl0g0"},
   :info => {email: "sophie@flatironschool.com"}
 })
 
- 
+
 require 'webmock/rspec'
 # WebMock.enable_net_connect!(allow_localhost: true)  
 
@@ -75,7 +75,7 @@ end
 def make_schedule_to_edit
   cohort = Cohort.create(name: "web-1117")
   cohort.save
-  schedule = Schedule.new("date"=>"Thu, 01 Feb 2017 00:00:00 UTC +00:00", "notes"=>"Here are some notes", "week"=>"1", "day"=>"40", "cohort"=>cohort, "sha"=>"864fbc93a8eb788bf5dae0c9f2cd3b04cd01b2b2")
+  schedule = Schedule.new("date"=>"2017-01-02 00:00:00.000000000 -0500", "notes"=>"Here are some notes", "week"=>"1", "day"=>"40", "cohort"=>cohort, "sha"=>"864fbc93a8eb788bf5dae0c9f2cd3b04cd01b2b2")
   lab = Lab.new(name: "lab-79")
   schedule.labs << lab
   lab.save
