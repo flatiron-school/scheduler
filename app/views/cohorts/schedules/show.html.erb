@@ -31,24 +31,11 @@
       <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, class: "btn btn-primary" %>
     </div>
     <div class="reserved">
-    <strong>Room Reservations:</strong>
-      <% if !@schedule.calendar_events.empty? %>
-      <p>
-        <ul class="activity-list">
-          <% @schedule.calendar_events.each do |event| %>
-            <li>
-              <a href="<%= event.link %>"><strong><%= event.name %></strong></a>
-            </li>
-            <li>location: <%= event.location %></li>
-            <li>reserved at: <%= event.reserved_at %></li>
-            <li>reserved by: <%= event.reserved_by %></li>
-          <% end %>
-        </ul>
-      </p>
-      <% else %>
-        <p>rooms not yet reserved</p>
-      <% end %>
-       <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", id: "reserve-rooms", class: "btn btn-primary" %>
+      <strong>Room Reservations:</strong>
+      <div id="rooms">
+        <%= render partial: "cohorts/schedules/room_reservations", locals: {schedule: @schedule} %>
+      </div>
+       <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "reserve-rooms", class: "btn btn-primary" %>
     </div>
   </div>
 

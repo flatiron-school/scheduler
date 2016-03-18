@@ -7,14 +7,14 @@ feature "CreateNewSchedules", :type => :feature do
         make_new_schedule
         expect(current_path).to eq('/cohorts/web-1117/schedules/feb-01-2017')
         expect(page.body).to include('Week 1')
-        expect(page.body).to include('Day 40')
+        expect(page.body).to include('Day 42')
         expect(page.body).to include('test notes')
         expect(page.body).to include('lab-1')
         expect(page.body).to include('barking-dog')
         expect(page.body).to include('lab-3')
         expect(page.body).to include('09:00')
         expect(page.body).to include('TODO')
-        expect(Schedule.last.sha).to eq('864fbc93a8eb788bf5dae0c9f2cd3b04cd01b2b2')
+        expect(Schedule.last.sha).to eq('eaf2a2f462d1174763d1b8b50a5b789e7af0f19d')
       end
     end
   end

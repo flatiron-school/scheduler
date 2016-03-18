@@ -56,6 +56,10 @@ class SchedulesController < ApplicationController
   def reserve_rooms
     configure_google_calendar_client
     @calendar.book_events(@schedule)
+    respond_to do |format|
+      format.js {render template: 'cohorts/schedules/reserve_rooms.js.erb'}
+    end
+
   end
 
   private

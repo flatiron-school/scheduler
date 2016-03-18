@@ -1,14 +1,13 @@
 require 'capybara/rspec'
 require 'omniauth'
-require 'ostruct'
 require_relative './support/vcr_setup.rb'
 OmniAuth.config.test_mode = true
 OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
   :provider => 'google_oauth2',
   :uid => '123545',
   :credentials => 
-    {:token => "ya29.qAJGcLrXXXXX50CvRAJqtmIul643P5q0efkaXROhBpPZIFamuONTDEudEomhpZEPU7Jg", 
-    :refresh_token => "1/efxXXXXXXXtTjVXupMvX1bgLa7jfy9z9gIQTNqRl0g0"},
+    {:token => "ya29.qQL2xp3t6UC9THBfNXYdss3gIjhPHgEgK3KHMHMpfqIs4AAhMgsPXJCEgqgbiZRVTQ", 
+    :refresh_token => "1/lrauDufexJEGW4wwcv1saJ5lsyL8ZH9GZzdnLOAa9TY"},
   :info => {email: "sophie@flatironschool.com"}
 })
 
@@ -31,6 +30,9 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  Capybara.javascript_driver = :rack_test
+
+
 
   require 'factory_girl'
 end
@@ -42,7 +44,7 @@ end
 
 def fill_in_schedule_form
   fill_in "schedule[week]", with: "1"
-  fill_in "schedule[day]", with: "40"
+  fill_in "schedule[day]", with: "42"
   fill_in "schedule[date]", with: "01/02/2017"
   fill_in "schedule[notes]", with: "test notes"
   fill_in "schedule[labs_attributes][0][name]", with: "lab-1"

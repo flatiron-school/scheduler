@@ -2,11 +2,11 @@
 http_interactions:
 - request:
     method: put
-    uri: https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-40.md
+    uri: https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-42.md
     body:
       encoding: UTF-8
-      string: '{"content":"IyBXZWVrIDEsIERheSA0MAoKIyMjIFdlZG5lc2RheSwgMDEgRmViIDIwMTcKCnwgVGltZSB8IEFjdGl2aXR5IHwKfCAtLS0gfCAtLS0gfAp8IDA5OjAwIHwgVE9ETyB8CgojIyMgTm90ZXMgYW5kIE9iamVjdGl2ZXMKCnRlc3Qgbm90ZXMKCiMjIyBMYWJzCgotIFtsYWItMV0oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2xhYi0xLXdlYi0xMTE3KQotIFtiYXJraW5nLWRvZ10oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2JhcmtpbmctZG9nLXdlYi0xMTE3KQotIFtsYWItM10oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2xhYi0zLXdlYi0xMTE3KQo=","message":"add
-        week-1/day-40.md"}'
+      string: '{"content":"IyBXZWVrIDEsIERheSA0MgoKIyMjIFdlZG5lc2RheSwgMDEgRmViIDIwMTcKCnwgVGltZSB8IEFjdGl2aXR5IHwKfCAtLS0gfCAtLS0gfAp8IDA5OjAwIHwgVE9ETyB8CgojIyMgTm90ZXMgYW5kIE9iamVjdGl2ZXMKCnRlc3Qgbm90ZXMKCiMjIyBMYWJzCgotIFtsYWItMV0oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2xhYi0xLXdlYi0xMTE3KQotIFtiYXJraW5nLWRvZ10oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2JhcmtpbmctZG9nLXdlYi0xMTE3KQotIFtsYWItM10oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2xhYi0zLXdlYi0xMTE3KQo=","message":"add
+        week-1/day-42.md"}'
     headers:
       Accept:
       - application/vnd.github.v3+json
@@ -15,7 +15,7 @@ http_interactions:
       Content-Type:
       - application/json
       Authorization:
-      - token a112373def1be969144f07f275e809ee313eab87
+      - token <OCTO_TOKEN>
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -26,7 +26,7 @@ http_interactions:
       Server:
       - GitHub.com
       Date:
-      - Thu, 17 Mar 2016 15:22:27 GMT
+      - Fri, 18 Mar 2016 15:48:26 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -36,16 +36,16 @@ http_interactions:
       X-Ratelimit-Limit:
       - '5000'
       X-Ratelimit-Remaining:
-      - '4999'
+      - '4992'
       X-Ratelimit-Reset:
-      - '1458231746'
+      - '1458316513'
       Cache-Control:
       - private, max-age=60, s-maxage=60
       Vary:
       - Accept, Authorization, Cookie, X-GitHub-OTP
       - Accept-Encoding
       Etag:
-      - '"cc97075c008a922aa6372a9293c6fc30"'
+      - '"c08a83a43a3ae1f4cf6d3d48112816c6"'
       X-Oauth-Scopes:
       - admin:org, repo, user
       X-Accepted-Oauth-Scopes:
@@ -68,15 +68,15 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       X-Served-By:
-      - 52437fedc85beec8da3449496900fb9a
+      - a30e6f9aa7cf5731b87dfb3b9992202d
       X-Github-Request-Id:
-      - 620EF307:18060:C8DD1D:56EACBB2
+      - 6B6B3A33:6B9D:2926E4E:56EC234A
     body:
       encoding: UTF-8
-      string: '{"content":{"name":"day-40.md","path":"week-1/day-40.md","sha":"864fbc93a8eb788bf5dae0c9f2cd3b04cd01b2b2","size":356,"url":"https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-40.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1117/blob/master/week-1/day-40.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/blobs/864fbc93a8eb788bf5dae0c9f2cd3b04cd01b2b2","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1117/master/week-1/day-40.md","type":"file","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-40.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/blobs/864fbc93a8eb788bf5dae0c9f2cd3b04cd01b2b2","html":"https://github.com/learn-co-curriculum/web-1117/blob/master/week-1/day-40.md"}},"commit":{"sha":"e6f7944b43b4682defef5a53c247327d9bc59525","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/commits/e6f7944b43b4682defef5a53c247327d9bc59525","html_url":"https://github.com/learn-co-curriculum/web-1117/commit/e6f7944b43b4682defef5a53c247327d9bc59525","author":{"name":"Sophie
-        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-03-17T15:22:26Z"},"committer":{"name":"Sophie
-        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-03-17T15:22:26Z"},"tree":{"sha":"914d85031b5b6912a6634fb7ac5e9aaad07fd15e","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/trees/914d85031b5b6912a6634fb7ac5e9aaad07fd15e"},"message":"add
-        week-1/day-40.md","parents":[{"sha":"ac45c1fbf38381fcd3be28af81e7842277e82c50","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/commits/ac45c1fbf38381fcd3be28af81e7842277e82c50","html_url":"https://github.com/learn-co-curriculum/web-1117/commit/ac45c1fbf38381fcd3be28af81e7842277e82c50"}]}}'
+      string: '{"content":{"name":"day-42.md","path":"week-1/day-42.md","sha":"eaf2a2f462d1174763d1b8b50a5b789e7af0f19d","size":356,"url":"https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-42.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1117/blob/master/week-1/day-42.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/blobs/eaf2a2f462d1174763d1b8b50a5b789e7af0f19d","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1117/master/week-1/day-42.md","type":"file","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-42.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/blobs/eaf2a2f462d1174763d1b8b50a5b789e7af0f19d","html":"https://github.com/learn-co-curriculum/web-1117/blob/master/week-1/day-42.md"}},"commit":{"sha":"93ef300170852e5f18cc98dae2b98ef9dc10ae19","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/commits/93ef300170852e5f18cc98dae2b98ef9dc10ae19","html_url":"https://github.com/learn-co-curriculum/web-1117/commit/93ef300170852e5f18cc98dae2b98ef9dc10ae19","author":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-03-18T15:48:26Z"},"committer":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-03-18T15:48:26Z"},"tree":{"sha":"84a2aeeaf1b85899ec983b7e16035e359310f261","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/trees/84a2aeeaf1b85899ec983b7e16035e359310f261"},"message":"add
+        week-1/day-42.md","parents":[{"sha":"2bf530d1f866845d25d812c0199a133cea171545","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/commits/2bf530d1f866845d25d812c0199a133cea171545","html_url":"https://github.com/learn-co-curriculum/web-1117/commit/2bf530d1f866845d25d812c0199a133cea171545"}]}}'
     http_version: 
-  recorded_at: Thu, 17 Mar 2016 15:22:26 GMT
+  recorded_at: Fri, 18 Mar 2016 15:48:26 GMT
 recorded_with: VCR 3.0.1
