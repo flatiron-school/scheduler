@@ -77,6 +77,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.8.0)
+      capybara (>= 2.3.0, < 2.7.0)
+      json
     chronic (0.10.2)
     coderay (1.1.1)
     coffee-rails (4.1.1)
@@ -294,6 +297,7 @@ DEPENDENCIES
   activemodel-serializers-xml!
   byebug
   capybara
+  capybara-webkit
   chronic
   coffee-rails (~> 4.1.0)
   devise!

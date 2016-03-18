@@ -98,4 +98,8 @@ class Schedule < ApplicationRecord
     self.activities.reject { |a| !a.reserve_room }
   end
 
+  def deployed?
+    !!self.deployed_on
+  end
+
 end

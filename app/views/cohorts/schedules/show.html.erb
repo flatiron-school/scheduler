@@ -25,11 +25,11 @@
 
   <!-- DEPLOYMENT HISTORY -->
   <div class="deploy-history col-md-5">
-    <div class="deployed">
       <strong>Schedule Last Deployed:</strong><br><br>
-      <p>not yet deployed/yesterday</p>
-      <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, class: "btn btn-primary" %>
-    </div>
+      <div id="deployment-history">
+        <%= render partial: "cohorts/schedules/deploy_history", locals: {schedule: @schedule} %>
+      </div>
+      <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "deploy", class: "btn btn-primary" %>
     <div class="reserved">
       <strong>Room Reservations:</strong>
       <div id="rooms">

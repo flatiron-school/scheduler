@@ -4,8 +4,9 @@ feature "CreateNewCalendarEvent", :type => :feature do
   describe "make a room reservation on google calendar", :js => true do
     it "reserves a classroom on the google calendar for any schedule activities that have reserve_room = true" do
       VCR.use_cassette("google_calendar_reservations") do 
-        schedule = make_schedule_to_edit
         sign_in
+        schedule = make_schedule_to_edit
+        binding.pry
         visit "/cohorts/web-1117/schedules/#{schedule.slug}"
         click_link "reserve rooms"
         

@@ -51,6 +51,9 @@ class SchedulesController < ApplicationController
     @schedule.deploy = true
     @schedule.save
     deploy_schedule_to_readme
+    respond_to do |format|
+      format.js {render template: 'cohorts/schedules/deploy.js.erb'}
+    end
   end
 
   def reserve_rooms

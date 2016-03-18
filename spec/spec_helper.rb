@@ -1,13 +1,14 @@
 require 'capybara/rspec'
 require 'omniauth'
+require 'rails_helper'
 require_relative './support/vcr_setup.rb'
 OmniAuth.config.test_mode = true
 OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
   :provider => 'google_oauth2',
   :uid => '123545',
   :credentials => 
-    {:token => "ya29.qQL2xp3t6UC9THBfNXYdss3gIjhPHgEgK3KHMHMpfqIs4AAhMgsPXJCEgqgbiZRVTQ", 
-    :refresh_token => "1/lrauDufexJEGW4wwcv1saJ5lsyL8ZH9GZzdnLOAa9TY"},
+    {:token => ENV['TEST_GOOGLE_ACCESS_TOKEN'], 
+    :refresh_token => ENV['TEST_GOOGLE_REFRESH_TOKEN']},
   :info => {email: "sophie@flatironschool.com"}
 })
 
@@ -30,7 +31,7 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  Capybara.javascript_driver = :rack_test
+  Capybara.javascript_driver = :webkit
 
 
 

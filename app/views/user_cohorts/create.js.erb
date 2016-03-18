@@ -1,3 +1,6 @@
+
+$("#new-schedule").html("<%= j render(partial: 'layouts/new_schedule_link') %>")
+
 <% if @former_active %>
   $("#cohort-" + <%= @former_active.id %>).html("<%= j render(partial: 'cohorts/user_cohort_button', locals: {cohort: @former_active}) %>")
   $("#cohort-" + <%= @cohort.id %>).html("<%= j render(partial: 'cohorts/user_cohort_button', locals: {cohort: @cohort}) %>")
