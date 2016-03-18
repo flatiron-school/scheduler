@@ -22,27 +22,26 @@
         </div>
 
         <!-- OBJECTIVES -->
+        <h2>Objectives</h2>
         <div class="form-group">
-          <h2>Objectives</h2>
           <div class="col-lg-6">
             <%= f.fields_for :objectives, @schedule.objectives do |objective_form| %>
                   <%= objective_form.label :content, "Students will be able to:" %><br>
-                  <%= objective_form.text_field :content %>
+                  <%= objective_form.text_field :content, class: "form-control" %>
              <% end %>
            </div>
         </div>
         <!-- END OBJECTIVES -->
-
+        <h2>Notes</h2>
         <div class="form-group">
           <div class="col-lg-8">
-            <%= f.label :notes %>
             <%= f.text_area :notes, class: "form-control" %>
           </div>
         </div>
 
+        <h2>Labs</h2>
         <div class="form-group">
           <div class="col-lg-4">
-            <%= f.label :labs %>
             <%= f.fields_for :labs, @schedule.labs do |lab_form|%>
                <br>
               <%= lab_form.label :name %>
@@ -52,9 +51,9 @@
           </div>
         </div>
 
+        <h2>Activities</h2>
         <div class="form-group">
           <div class="col-lg-4">
-            <%= f.label :activities %>
             <br>
             <%= f.fields_for :activities, @schedule.activities do |activity_form|%>
               <%= activity_form.label :start_time %>

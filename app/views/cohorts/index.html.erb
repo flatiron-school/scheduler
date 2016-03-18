@@ -1,8 +1,14 @@
-<h1>Cohorts</h1>
-<ulx>
-  <% @cohorts.each do |c| %>
-    <li id="cohort-<%= c.id %>">
-     <%= render partial: 'cohorts/user_cohort_button', locals: {cohort: c} %>
-    </li>
-  <% end  %>
-</ul>
+<div class="row">
+  <div class="well">
+    <ul id="cohort-index">
+    <div>
+      <h1>Cohorts  <%= link_to "add cohort", new_cohort_path, class: 'btn btn-primary' %></h1>
+    </div>
+      <% @cohorts.each do |c| %>
+        <li class="" id="cohort-<%= c.id %>">
+         <%= render partial: 'cohorts/user_cohort_button', locals: {cohort: c} %>
+        </li>
+      <% end  %>
+    </ul>
+  </div>
+</div>

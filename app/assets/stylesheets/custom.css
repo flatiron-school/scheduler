@@ -46,3 +46,12 @@
   list-style: none
 }
 
+#cohort-index {
+  list-style: none;
+}
+
+#cohort-index > li {
+  font-size: 25px;
+  padding-top: 10px;
+}
+
