@@ -1,0 +1,5 @@
+<% if schedule.deployed? %>
+  <p><%= schedule.deployed_on.strftime("%A, %d %b %Y") %></p>
+<% else %>
+  <p>This schedule hasn't been deployed yet</p>
+<% end %>

@@ -5,11 +5,11 @@
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application'%>
   </head>
 
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <%= link_to "Flatiron Scheduler", root_path, class: "navbar-brand"%>
@@ -20,11 +20,9 @@
             <li>
               <%= link_to "cohorts", cohorts_path%>
             </li>
-            <li>
-            <% if current_user.has_cohort %>
-              <%= link_to "new schedule", new_cohort_schedule_path(current_user.active_cohort)%>
+            <li id="new-schedule">
+              <%= render partial: "layouts/new_schedule_link" %>
             </li>
-            <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>

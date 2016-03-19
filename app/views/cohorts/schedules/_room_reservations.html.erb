@@ -1,0 +1,16 @@
+<% if !schedule.calendar_events.empty? %>
+  <p>
+    <ul class="activity-list">
+      <% schedule.calendar_events.each do |event| %>
+        <li>
+          <a href="<%= event.link %>"><strong><%= event.name %></strong></a>
+        </li>
+        <li>location: <%= event.location %></li>
+        <li>reserved at: <%= event.reserved_at %></li>
+        <li>reserved by: <%= event.reserved_by %></li>
+      <% end %>
+    </ul>
+  </p>
+<% else %>
+  <p>rooms not yet reserved</p>
+<% end %>

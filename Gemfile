@@ -15,22 +15,31 @@ gem 'turbolinks', '~> 5.x'
 gem 'jbuilder', '~> 2.0'
 gem 'reverse_markdown'
 gem "octokit", "~> 4.0"
-gem "figaro"
-gem 'vcr'
-gem 'webmock'
 # gem 'rake', '< 11.0'
 gem 'devise', github: 'twalpole/devise', branch: 'rails5'
 gem 'omniauth-github'
-# gem 'omniauth', '~> 1.3', '>= 1.3.1'
-# gem 'devise'
+gem 'google-api-client', '0.8.2', require: 'google/api_client'
+gem 'chronic'
+# gem 'google-api-client'
+# gem 'google-api-client', '0.9'
+# , :require => 'google/api_client'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
 # gem 'draper'
 group :development, :test do
+  gem "figaro"
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
   gem 'pry'
   gem 'factory_girl_rails'
+end
+
+group :test do 
+  gem 'vcr'
+  gem 'webmock'
+  gem "capybara-webkit"
 end
 
 group :development do

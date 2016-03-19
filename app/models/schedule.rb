@@ -4,6 +4,7 @@ class Schedule < ApplicationRecord
   has_many :activities, through: :schedule_activities
   has_many :labs, through: :schedule_labs
   has_many :objectives, dependent: :destroy
+  has_many :calendar_events
   belongs_to :cohort
   accepts_nested_attributes_for :labs
   accepts_nested_attributes_for :activities
@@ -56,7 +57,7 @@ class Schedule < ApplicationRecord
 
   def build_activities(validated_activity_params)
     validated_activity_params.each do |num, activity_hash|
-      activity = Activity.find_by(time: activity_hash["time"], description: activity_hash["description"]) || Activity.new(time: activity_hash["time"], description: activity_hash["description"])
+      activity = Activity.find_by(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"]) || Activity.new(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"])
       self.activities << activity
     end
   end
@@ -70,7 +71,7 @@ class Schedule < ApplicationRecord
   end
 
   def update_from_params(schedule_params)
-    self.update(week: schedule_params["week"], day: schedule_params["day"], date: schedule_params["date"], notes: schedule_params["notes"])
+    self.update(notes: schedule_params["notes"], deploy: schedule_params["deploy"])
   end
 
   def update_labs(schedule_params)
@@ -92,4 +93,13 @@ class Schedule < ApplicationRecord
   def pretty_date
     self.date.strftime("%A, %d %b %Y")
   end
+
+  def reservation_activities
+    self.activities.reject { |a| !a.reserve_room }
+  end
+
+  def deployed?
+    !!self.deployed_on
+  end
+
 end

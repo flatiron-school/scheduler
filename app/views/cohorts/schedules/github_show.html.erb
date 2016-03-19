@@ -11,7 +11,7 @@
   <tbody>
   <% @schedule.activities.each do |activity|  %>
     <tr>
-      <td><%= activity.hour %></td>
+      <td><%= activity.start_hour %></td>
       <td><%= activity.description %></td>
     </tr>
   <% end %>

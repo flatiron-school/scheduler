@@ -19,7 +19,7 @@ RSpec.describe User, :type => :model do
     end
 
     it "has a cohort that is its active cohort" do 
-      user = FactoryGirl.build(:user)
+      user = User.create(email: "sophie@email.com", password: "password", password_confirmation: "password")
       cohort = FactoryGirl.build(:cohort)
       UserCohort.create(user: user, cohort: cohort)
       expect(user.active_cohort).to eq(cohort)

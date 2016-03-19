@@ -1,16 +1,28 @@
-<h1><%= @cohort.name %></h1>
-<a href="http://www.github.com/learn-co-curriculum/<%= @cohort.name %>" class="btn btn-primary">View Repo</a>
 
-<h3>Schedules</h3>
 
-<ul>
-  <% @cohort.schedules.each do |s| %>
-    <li>
-    <%= link_to "week-#{s.week}, day-#{s.day}", cohort_schedule_path(@cohort, s) %>
-    </li>
-  <% end %>
-</ul>
 
-<%= link_to "new schedule", new_cohort_schedule_path(@cohort), class: "btn btn-primary" %>
+<div class="row">
+  <div id="cohort-index-title">
+    <h1><%= @cohort.name %></h1>
+    <div class="col-md-12">
+      <a href="http://www.github.com/learn-co-curriculum/<%= @cohort.name %>" class="btn btn-primary col-md-4 col-md-offset-4 cohort-show-btn">View Repo</a>  
+    </div>
+    <div class="col-md-12">
+      <%= link_to "new schedule", new_cohort_schedule_path(@cohort), class: "btn btn-primary col-md-4 col-md-offset-4 cohort-show-btn" %> 
+    </div>
+    <div class="col-md-12">
+      <%= link_to "edit", edit_cohort_path(@cohort), id: "edit", class: "btn btn-primary col-md-4 col-md-offset-4 cohort-show-btn" %>
+    </div>
+  </div>
 
-<%= link_to "edit", edit_cohort_path(@cohort), id: "edit" %>
+  <div class="cohort-list col-md-4 col-md-offset-4">
+  <h2>Schedules</h2>
+    <ul id="cohort-index">
+      <% @cohort.schedules.each do |s| %>
+        <li>
+         <%= link_to "week-#{s.week}, day-#{s.day}", cohort_schedule_path(@cohort, s) %>
+        </li>
+      <% end  %>
+    </ul>
+  </div>
+</div>

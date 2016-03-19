@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :activity do
-    time "9:00"
+    start_time "9:00"
+    end_time "9:30"
     description "Blogs"
     reserve_room false
-    # association :schedule, factory: :schedule
   end
 end

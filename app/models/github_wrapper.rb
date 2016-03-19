@@ -49,6 +49,8 @@ class GithubWrapper
         "week-#{self.schedule.week}/day-#{self.schedule.day}.md",
         sha,
         markdown_content)
+      self.schedule.deployed_on = Date.today
+      self.schedule.save
     end
   end
 end

@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :user_cohorts
   resources :cohorts, param: :slug do 
     resources :schedules, param: :slug
-    post "cohorts/:slug/schedules/:slug/deploy", to: "schedules#deploy", as: "schedule/deploy"
+    post "/schedules/:slug/deploy", to: "schedules#deploy", as: "schedule/deploy"
+    post "/schedules/:slug/reserve-rooms", to: "schedules#reserve_rooms", as: "schedule/reserve"
     # post "/cohorts/:cohort_slug/schedules", to: "schedules#create", as: "/schedules"
   end
 

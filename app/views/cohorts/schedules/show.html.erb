@@ -1,51 +1,97 @@
-<h1>Week <%= @schedule.week %>, Day <%= @schedule.day %></h1>
-<h3><%= @schedule.pretty_date %></h3>
+<div class="schedule-title">
+  <h1>Week <%= @schedule.week %>, Day <%= @schedule.day %></h1>
+  <h4><%= @schedule.pretty_date %></h4>
+</div>
 
-<table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>Time</th>
-      <th>Activity</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @schedule.activities.each do |activity|  %>
-    <tr>
-      <td><%= activity.hour %></td>
-      <td><%= activity.description %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class="row schedule-container">
+  <div class="schedule-table col-md-5">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Activity</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @schedule.activities.each do |activity|  %>
+        <tr>
+          <td><%= activity.start_hour %></td>
+          <td><%= activity.description %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<!-- NOTES -->
-<% if !@schedule.notes.empty? %>
-  <h3>Notes</h3>
-    <p>
-      <%= @schedule.notes %>
-    </p>
-<% end %>
+  <!-- DEPLOYMENT HISTORY -->
+  <div class="deploy-history col-md-5">
+      <strong>Schedule Last Deployed:</strong><br><br>
+      <div id="deployment-history">
+        <%= render partial: "cohorts/schedules/deploy_history", locals: {schedule: @schedule} %>
+      </div>
+      <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "deploy", class: "btn btn-primary" %>
+    <div class="reserved">
+      <strong>Room Reservations:</strong>
+      <div id="rooms">
+        <%= render partial: "cohorts/schedules/room_reservations", locals: {schedule: @schedule} %>
+      </div>
+       <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "reserve-rooms", class: "btn btn-primary" %>
+    </div>
+  </div>
+
+</div>
+
+<div class="row schedule-info">
+
+  <% if !@schedule.notes.empty? %>
+      <h3>Notes</h3>
+        <p>
+          <%= @schedule.notes %>
+        </p>
+    <% end %>
+
+</div>
+
 
 <!-- OBJECTIVES -->
-<% if !@schedule.objectives.empty? %>
-  <h3>Objectives</h3>
-    <p>
-      <% @schedule.objectives.each do |objective| %>
-        <%= objective.content %>
-      <% end %>
-    </p>
-<% end %>
+<div class="row schedule-info">
+
+  <% if !@schedule.objectives.empty? %>
+    <h3>Objectives</h3>
+      <p>
+        <% @schedule.objectives.each do |objective| %>
+          <%= objective.content %>
+        <% end %>
+      </p>
+  <% end %>
+
+</div>
+
+<!-- LABS -->
+<div class="row schedule-info">
 
 <h3>Labs</h3>
-<ul>
-  <%@schedule.labs.each do |lab| %>
+  <ul>
+    <%@schedule.labs.each do |lab| %>
 
-  <li>
-    <a href="http://www.github.com/learn-co-students/<%= lab.name %>-<%= @schedule.cohort.name %>"><%= lab.name %></a>
-  </li>
-  <%end %>
-</ul>
+    <li>
+      <a href="http://www.github.com/learn-co-students/<%= lab.name %>-<%= @schedule.cohort.name %>"><%= lab.name %></a>
+    </li>
+    <%end %>
+  </ul>
 
-<%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, class: "btn btn-primary" %>
+</div>
 
-<a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
+<!-- BUTTONS -->
+
+<div class="row schedule-info">
+
+  <a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
+
+
+
+  <%= link_to "edit schedule", edit_cohort_schedule_path(@schedule.cohort, @schedule), id: "edit", class: "btn btn-primary" %>
+
+</div>
+  <br>
+  </br>

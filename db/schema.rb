@@ -11,17 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311194011) do
+ActiveRecord::Schema.define(version: 20160318164748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
-    t.time     "time"
     t.string   "description"
     t.boolean  "reserve_room", default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.time     "start_time"
+    t.time     "end_time"
+  end
+
+  create_table "calendar_events", force: :cascade do |t|
+    t.integer  "schedule_id"
+    t.string   "name"
+    t.string   "location"
+    t.datetime "reserved_at"
+    t.string   "reserved_by"
+    t.string   "link"
   end
 
   create_table "cohorts", force: :cascade do |t|
@@ -60,14 +70,15 @@ ActiveRecord::Schema.define(version: 20160311194011) do
   create_table "schedules", force: :cascade do |t|
     t.datetime "date"
     t.text     "notes"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "slug"
     t.string   "week"
     t.string   "day"
-    t.boolean  "deploy",     default: false
+    t.boolean  "deploy",      default: false
     t.integer  "cohort_id"
     t.string   "sha"
+    t.datetime "deployed_on"
   end
 
   create_table "user_cohorts", force: :cascade do |t|
@@ -90,6 +101,8 @@ ActiveRecord::Schema.define(version: 20160311194011) do
     t.inet     "last_sign_in_ip"
     t.string   "provider"
     t.string   "uid"
+    t.string   "token"
+    t.string   "refresh_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

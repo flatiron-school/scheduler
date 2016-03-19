@@ -51,15 +51,27 @@ class SchedulesController < ApplicationController
     @schedule.deploy = true
     @schedule.save
     deploy_schedule_to_readme
+    respond_to do |format|
+      format.js {render template: 'cohorts/schedules/deploy.js.erb'}
+    end
+  end
+
+  def reserve_rooms
+    configure_google_calendar_client
+    @calendar.book_events(@schedule)
+    respond_to do |format|
+      format.js {render template: 'cohorts/schedules/reserve_rooms.js.erb'}
+    end
+
   end
 
   private
   def schedule_params
-    params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :time, :description, :reserve_room], :objectives_attributes => [:id, :content])
+    params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :start_time, :end_time, :description, :reserve_room], :objectives_attributes => [:id, :content])
   end
 
   def validated_activity_params
-    schedule_params["activities_attributes"].delete_if {|num, activity_hash| activity_hash["time"].empty? || activity_hash["description"].empty?}
+    schedule_params["activities_attributes"].delete_if {|num, activity_hash| activity_hash["start_time"].empty? || activity_hash["description"].empty? || activity_hash["end_time"].empty?}
   end
 
   def validated_labs_params
@@ -98,6 +110,10 @@ class SchedulesController < ApplicationController
 
   def set_cohort
     @cohort = Cohort.find_by_name(params[:cohort_slug])
+  end
+
+  def configure_google_calendar_client
+    @calendar = GoogleCalWrapper.new(current_user)
   end
 
 end

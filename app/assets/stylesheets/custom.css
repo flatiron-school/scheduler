@@ -1,0 +1,92 @@
+.schedule-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.schedule-table {
+  /*height: 300px;*/
+  height: 100%;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: scroll
+}
+
+.deploy-history {
+  /*height: 300px;*/
+  height: 100%;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 10px;
+  overflow: scroll;
+  padding-top: 9px;
+}
+
+.schedule-container {
+  padding-left: 13%;
+  height: 400px;
+}
+
+.schedule-info {
+  padding-left: 14%;
+  /*width: 714px;
+  padding-left: 10px;*/
+}
+
+.deployed {
+  margin-top: 10px;
+}
+
+.reserved {
+  margin-top: 10px;
+}
+
+.activity-list {
+  list-style: none
+}
+
+#cohort-index {
+  list-style: none;
+}
+
+#cohort-index > li {
+  font-size: 25px;
+  padding-top: 10px;
+}
+
+.cohort-list > ul {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+.cohort-list {
+  border-style: solid;
+  border-width: 1px;
+  margin-top: 20px;
+}
+
+#cohort-index-title {
+  text-align: center;
+}
+
+.cohort-btn {
+  height: 30px;
+  width: 100px;
+  margin-left: 29%;
+}
+
+ul > #active-cohort-btn:hover {
+  color: #ffffff;
+  background-color: #9954bb;
+  border-color: #9954bb;
+}
+
+#add-cohort {
+  width: 33%;
+}
+
+.cohort-show-btn {
+  margin-bottom: 15px;
+}
+
