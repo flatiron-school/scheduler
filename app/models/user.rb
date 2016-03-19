@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
   def self.find_for_google_oauth2(auth)
     data = auth.info
+    binding.pry
     if validate_email(auth)
       user = User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.provider = auth.provider

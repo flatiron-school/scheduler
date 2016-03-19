@@ -19,8 +19,15 @@ class GoogleCalWrapper
   end
 
   def book_events(schedule)
-    responses = make_google_calendar_reservations(schedule.reservation_activities, schedule.date)
+    responses = make_google_calendar_reservations(schedule)
     parse_booked_events(responses, schedule)
+  end
+
+  def get_cohort_calendar_id
+    response = @client.execute(api_method: @service.calendar_list.list)
+    cals = JSON.parse(response.body)
+    calendar = get_cohort_calendar(cals)
+    calendar.first["id"] 
   end
 
   private
@@ -35,10 +42,14 @@ class GoogleCalWrapper
     @service = @client.discovered_api('calendar', 'v3')
   end
 
-  def make_google_calendar_reservations(reservation_activities, date)
-    build_calendar_events(reservation_activities, date).map do |event|
+  def get_cohort_calendar(cals)
+    cals["items"].select {|cal| cal["summary"].downcase == "web-1115"}
+  end
+
+  def make_google_calendar_reservations(schedule)
+    build_calendar_events(schedule.reservation_activities, schedule.date).map do |event|
       @client.execute(:api_method => @service.events.insert,
-        :parameters => {'calendarId' => "flatironschool.com_varhig47emek2egdjn2n2pqm40@group.calendar.google.com", 'sendNotifications' => true},
+        :parameters => {'calendarId' => schedule.cohort.calendar_id, 'sendNotifications' => true},
         :body => JSON.dump(event),
         :headers => {'Content-Type' => 'application/json'})
     end
