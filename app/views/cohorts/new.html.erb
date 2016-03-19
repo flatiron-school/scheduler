@@ -8,7 +8,7 @@
     <div class="form-horizontal">
       <%= form_for @cohort do |f| %>
         <h4>Cohort Name</h4>
-        <%= f.text_field :name, class: "form-control" %>
+        <%= f.text_field :name, class: "form-control", id: "Name" %>
         <%= f.submit "Create Cohort", class: "btn btn-primary", style: "width: 100%; margin-top: 20px" %>
       <% end %>
     </div>  
