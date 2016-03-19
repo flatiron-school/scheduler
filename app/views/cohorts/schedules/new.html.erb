@@ -87,5 +87,7 @@
     </div>
   </div>
 <% else %>
-  make <%= @cohort.name %> your active cohort to make a new schedule
+<div class="alert alert-dismissible alert-danger cohort-warning">
+  Sorry, you can only make a new schedule for your active cohort. To make <%= @cohort.name %> your active cohort, visit the <%= link_to "cohort's index page", cohorts_path %> and click the "make active cohort" button.
+</div>
 <% end %>
