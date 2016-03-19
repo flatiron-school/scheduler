@@ -1,7 +1,16 @@
-<div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
+<div id="sign-in-container">
   
-<%#= link_to "sign in with github", user_omniauth_authorize_path(:github), class: "btn btn-lg btn-info", id:"signin"%>
+  <% if notice %>
+    <div class="col-md-12">
+      <div class="col-md-6 col-md-offset-3 alert alert-danger"style="text-align: center;">
+      <%= notice %>
+      </div>
+    </div>
+  <% end %>
 
-<%= link_to "sign in with your flatiron gmail", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-lg btn-primary", id:"signin"%>
-  
+  <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
+  <%= link_to "sign in with your flatiron gmail", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-lg btn-primary", id:"signin"%>
+    
+  </div>
+
 </div>
