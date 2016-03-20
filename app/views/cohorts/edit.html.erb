@@ -1,5 +1,20 @@
-<%= form_for @cohort do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit "Update Cohort" %>
-<% end %>
+<div style="text-align: center;">
+    <h1>edit cohort <%= @cohort.name %></h1>
+    <div class="form-horizontal">
+      <%= form_for @cohort do |f| %>
+        <h4>Cohort Name</h4>
+        <%= f.text_field :name, class: "form-control", id: "Name" %>
+        <h4>Calendar ID</h4>
+        <%= f.text_field :calendar_id, class: "form-control", id: "calendar-id" %>
+        <%= f.submit "Edit Cohort", class: "btn btn-primary", style: "width: 100%; margin-top: 20px" %>
+      <% end %>
+    </div>  
+  </div>
+</div>
+
+<div class="container">
+ 
+
+<!--  -->
+<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">Bottom</button>
