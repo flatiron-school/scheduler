@@ -19,23 +19,64 @@
 </table> 
 
 
+<div class="row schedule-info">
+
+  <% if !@schedule.blog_assignments.empty? %>
+      <h3>Blogs</h3>
+        <p>
+          <ul>
+            <% @schedule.blog_assignments.each do  |blog_assignment| %>
+               <li>
+                  <a href="<%= blog_assignment.student.blog_url %>"><%= blog_assignment.student.first_name %></a>
+                </li>
+            <% end %>
+          </ul>
+        </p>
+    <% end %>
+
+</div>
 
 
-<h3>Notes and Objectives</h3>
-  <p>
-    <%= @schedule.notes %>
-  </p>
+<div class="row schedule-info">
 
-<h3>Labs</h3> 
+  <% if !@schedule.notes.empty? %>
+      <h3>Notes</h3>
+        <p>
+          <%= @schedule.notes %>
+        </p>
+    <% end %>
 
-<ul>
-  <%@schedule.labs.each do |lab| %>
+</div>
 
-  <li>
-    <a href="http://www.github.com/learn-co-students/<%= lab.name %>-<%= @schedule.cohort.name %>"><%= lab.name %></a>
-  </li>
-  <%end %>
-</ul>
+
+<div class="row schedule-info">
+
+  <% if !@schedule.objectives.empty? %>
+    <h3>Objectives</h3>
+      <p>
+        <% @schedule.objectives.each do |objective| %>
+          <%= objective.content %>
+        <% end %>
+      </p>
+  <% end %>
+
+</div>
+
+<div class="row schedule-info">
+
+<h3>Labs</h3>
+  <ul>
+    <%@schedule.labs.each do |lab| %>
+
+    <li>
+      <a href="http://www.github.com/learn-co-students/<%= lab.name %>-<%= @schedule.cohort.name %>"><%= lab.name %></a>
+    </li>
+    <%end %>
+  </ul>
+
+</div>
+
+
 
 
 

@@ -43,6 +43,7 @@ class GithubWrapper
 
   def update_readme
     if self.schedule.deploy
+      binding.pry
       sha = self.client.readme(repo_name)[:sha]
       self.client.update_content(repo_name, 
         "README.md", 
