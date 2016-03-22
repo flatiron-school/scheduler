@@ -10,11 +10,11 @@ class CohortsController < ApplicationController
   end
 
   def create
-    cohort = Cohort.new(cohort_params)
-    cal_id = @calendar.get_cohort_calendar_id
-    cohort.calendar_id = cal_id
-    if cohort.save
-      redirect_to cohort
+    @cohort = Cohort.new(cohort_params)
+    cal_id = @calendar.get_cohort_calendar_id(@cohort)
+    @cohort.calendar_id = cal_id
+    if @cohort.save
+      redirect_to @cohort
     else
       render :new
     end

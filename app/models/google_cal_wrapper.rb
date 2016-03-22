@@ -23,10 +23,10 @@ class GoogleCalWrapper
     parse_booked_events(responses, schedule)
   end
 
-  def get_cohort_calendar_id
+  def get_cohort_calendar_id(cohort)
     response = @client.execute(api_method: @service.calendar_list.list)
     cals = JSON.parse(response.body)
-    calendar = get_cohort_calendar(cals)
+    calendar = get_cohort_calendar(cals, cohort)
     calendar.first["id"] 
   end
 
@@ -42,8 +42,8 @@ class GoogleCalWrapper
     @service = @client.discovered_api('calendar', 'v3')
   end
 
-  def get_cohort_calendar(cals)
-    cals["items"].select {|cal| cal["summary"].downcase == "web-1115"}
+  def get_cohort_calendar(cals, cohort)
+    cals["items"].select {|cal| cal["summary"].downcase == cohort.name.downcase}
   end
 
   def make_google_calendar_reservations(schedule)
