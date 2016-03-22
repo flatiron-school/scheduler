@@ -15,14 +15,30 @@
     </div>
   </div>
 
-  <div class="cohort-list col-md-4 col-md-offset-4">
-  <h2>Schedules</h2>
-    <ul id="cohort-index">
-      <% @cohort.schedules.each do |s| %>
-        <li>
-         <%= link_to "week-#{s.week}, day-#{s.day}", cohort_schedule_path(@cohort, s) %>
-        </li>
-      <% end  %>
-    </ul>
-  </div>
+  <div class="row schedule-container">
+    <div class="schedule-table col-md-5">
+      <h2>Schedules</h2>
+        <ul id="cohort-index">
+          <% @cohort.schedules.each do |s| %>
+            <li>
+             <%= link_to "week-#{s.week}, day-#{s.day}", cohort_schedule_path(@cohort, s) %>
+            </li>
+          <% end  %>
+        </ul>
+    </div>
+  
+    <div class="schedule-table col-md-5">
+      <h2>Students</h2>
+        <ul id="cohort-index">
+          <% @cohort.students.each do |student| %>
+            <li>
+            <%= student.first_name%>
+
+            </li>
+          <% end  %>
+        </ul>
+    </div>
+
+
+ 
 </div>

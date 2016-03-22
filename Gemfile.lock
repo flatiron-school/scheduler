@@ -130,6 +130,9 @@ GEM
       signet (~> 0.6)
     hashdiff (0.3.0)
     hashie (3.4.3)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -321,6 +324,7 @@ DEPENDENCIES
   factory_girl_rails
   figaro
   google-api-client (= 0.8.2)
+  httparty
   jbuilder (~> 2.0)
   jquery-rails
   launchy

@@ -41,6 +41,26 @@
 
 </div>
 
+<!-- BLOGS -->
+<div class="row schedule-info">
+
+  <% if !@schedule.blog_assignments.empty? %>
+      <h3>Blogs</h3>
+        <p>
+          <ul>
+            <% @schedule.blog_assignments.each do  |blog_assignment| %>
+               <li>
+                  <a href="<%= blog_assignment.student.blog_url %>"><%= blog_assignment.student.first_name %></a>
+                </li>
+            <% end %>
+          </ul>
+        </p>
+    <% end %>
+
+</div>
+
+
+<!-- NOTES -->
 <div class="row schedule-info">
 
   <% if !@schedule.notes.empty? %>

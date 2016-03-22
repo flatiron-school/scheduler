@@ -31,7 +31,6 @@ class CohortsController < ApplicationController
   end
 
   def show
-    binding.pry
     render :show
   end
 
