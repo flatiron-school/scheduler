@@ -1,6 +1,7 @@
 class CohortsController < ApplicationController
 
   before_action :set_cohort, only: [:edit, :show, :update]
+  before_action :configure_google_calendar_client, only: [:create]
 
   def index
     @cohorts = Cohort.all
@@ -10,6 +11,7 @@ class CohortsController < ApplicationController
   end
 
   def create
+    binding.pry
     @cohort = Cohort.new(cohort_params)
     cal_id = @calendar.get_cohort_calendar_id(@cohort)
     @cohort.calendar_id = cal_id
