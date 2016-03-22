@@ -11,6 +11,8 @@ class CohortsController < ApplicationController
 
   def create
     cohort = Cohort.new(cohort_params)
+    cal_id = @calendar.get_cohort_calendar_id
+    cohort.calendar_id = cal_id
     if cohort.save
       redirect_to cohort
     else
@@ -38,5 +40,9 @@ class CohortsController < ApplicationController
 
   def set_cohort
     @cohort = Cohort.find_by_name(params[:slug])
+  end
+
+  def configure_google_calendar_client
+    @calendar = GoogleCalWrapper.new(current_user)
   end
 end

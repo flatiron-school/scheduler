@@ -27,6 +27,8 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
 # gem 'draper'
+# gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'bootstrap-sass', '~> 3.3.6'
 group :development, :test do
   gem "figaro"
   gem 'byebug'
