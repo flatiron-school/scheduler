@@ -13,7 +13,8 @@ class Cohort < ApplicationRecord
 
   has_attached_file :roster_csv
   validates_attachment_file_name :roster_csv, :matches => [/csv\Z/]
-  
+  attr_accessible :roster_csv_file_name
+ 
   def to_param
     self.name
   end
