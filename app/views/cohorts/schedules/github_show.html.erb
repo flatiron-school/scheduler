@@ -27,7 +27,7 @@
           <ul>
             <% @schedule.blog_assignments.each do  |blog_assignment| %>
                <li>
-                  <a href="<%= blog_assignment.student.blog_url %>"><%= blog_assignment.student.first_name %></a>
+                  <a href="<%= blog_assignment.student.blog_url %>"><%= blog_assignment.student.full_name %></a>
                 </li>
             <% end %>
           </ul>
@@ -54,8 +54,11 @@
   <% if !@schedule.objectives.empty? %>
     <h3>Objectives</h3>
       <p>
+      <ul>
         <% @schedule.objectives.each do |objective| %>
+        <li>
           <%= objective.content %>
+        </li>
         <% end %>
       </p>
   <% end %>

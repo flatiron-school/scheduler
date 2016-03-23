@@ -1,4 +1,6 @@
-<% if schedule.deployed? %>
+<% if github_wrapper %>
+  <p><strong>error: </strong><%= github_wrapper.error.message %></p>
+<% elsif schedule.deployed? %>
   <p><%= schedule.deployed_on.strftime("%A, %d %b %Y") %></p>
 <% else %>
   <p>This schedule hasn't been deployed yet</p>

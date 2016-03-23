@@ -28,7 +28,7 @@
       <strong>Schedule Last Deployed:</strong>
       <div id="deployment-history">
         <br>
-        <%= render partial: "cohorts/schedules/deploy_history", locals: {schedule: @schedule} %>
+        <%= render partial: "cohorts/schedules/deploy_history", locals: {schedule: @schedule, github_wrapper: nil} %>
       </div>
       <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "deploy", class: "btn btn-primary" %>
     <div class="reserved">
@@ -52,7 +52,7 @@
           <ul>
             <% @schedule.blog_assignments.each do  |blog_assignment| %>
                <li>
-                  <a href="<%= blog_assignment.student.blog_url %>"><%= blog_assignment.student.first_name %></a>
+                  <a href="<%= blog_assignment.student.blog_url %>"><%= blog_assignment.student.full_name %></a>
                 </li>
             <% end %>
           </ul>
@@ -81,8 +81,11 @@
   <% if !@schedule.objectives.empty? %>
     <h3>Objectives</h3>
       <p>
+      <ul>
         <% @schedule.objectives.each do |objective| %>
+        <li>
           <%= objective.content %>
+        </li>
         <% end %>
       </p>
   <% end %>

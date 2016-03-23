@@ -1,6 +1,6 @@
 class GithubWrapper
 
-  attr_accessor :client, :schedule, :markdown_content, :repo_name
+  attr_accessor :client, :schedule, :markdown_content, :repo_name, :error
 
   def initialize(cohort, schedule, page)
     configure_client
@@ -43,13 +43,17 @@ class GithubWrapper
 
   def update_readme
     if self.schedule.deploy
-      binding.pry
       sha = self.client.readme(repo_name)[:sha]
-      self.client.update_content(repo_name, 
-        "README.md", 
-        "week-#{self.schedule.week}/day-#{self.schedule.day}.md",
-        sha,
-        markdown_content)
+      begin 
+        self.client.update_content(repo_name, 
+          "README.md", 
+          "week-#{self.schedule.week}/day-#{self.schedule.day}.md",
+          sha,
+          markdown_content)
+      rescue Exception => e
+        @error =  e
+        return  
+      end
       self.schedule.deployed_on = Date.today
       self.schedule.save
     end

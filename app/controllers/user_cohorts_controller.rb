@@ -4,7 +4,6 @@ class UserCohortsController < ApplicationController
   def create
     @former_active = current_user.active_cohort
     @cohort = Cohort.find(params["cohort_id"])
-    binding.pry
     @user_cohort = UserCohort.create(user_id: current_user.id, cohort_id: @cohort.id)
     @cohort = @user_cohort.cohort
     respond_to do |format|

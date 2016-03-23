@@ -1,1 +1,1 @@
-$("#deployment-history").html("<%=j render partial: 'cohorts/schedules/deploy_history', locals: {schedule: @schedule} %>")
+$("#deployment-history").html("<%=j render partial: 'cohorts/schedules/deploy_history', locals: {schedule: @schedule, github_wrapper: @github_wrapper} %>")

@@ -2,6 +2,7 @@ class SchedulesController < ApplicationController
 
   before_action :set_cohort_and_schedule, except: [:create, :index, :new]
   before_action :set_cohort, only: [:create, :index, :new]
+  before_action :set_github_wrapper, only: [:create, :deploy, :update]
 
   def index
     @schedules = @cohort.schedules
@@ -84,18 +85,15 @@ class SchedulesController < ApplicationController
   end
 
   def create_schedule_on_github
-    page = render_schedule_template
-    GithubWrapper.new(@schedule.cohort, @schedule, page).create_repo_schedules
+    @github_wrapper.create_repo_schedules
   end
 
   def update_schedule_on_github
-    page = render_schedule_template
-    GithubWrapper.new(@schedule.cohort, @schedule, page).update_repo_schedules
+    @github_wrapper.update_repo_schedules
   end
 
   def deploy_schedule_to_readme
-    page = render_schedule_template
-    GithubWrapper.new(@schedule.cohort, @schedule, page).update_readme
+    @github_wrapper.update_readme
   end
 
   def render_schedule_template
@@ -115,6 +113,11 @@ class SchedulesController < ApplicationController
 
   def configure_google_calendar_client
     @calendar = GoogleCalWrapper.new(current_user)
+  end
+
+  def set_github_wrapper
+    page = render_schedule_template
+    @github_wrapper = GithubWrapper.new(@schedule.cohort, @schedule, page)
   end
 
 end

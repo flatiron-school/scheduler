@@ -21,7 +21,6 @@ class Cohort < ApplicationRecord
   after_save :create_members
 
   def create_members
-    binding.pry
     return if !roster_csv.path  
     
     csv_rows = CSV.foreach(roster_csv.path, headers: true)

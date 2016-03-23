@@ -35,7 +35,6 @@ class CohortsController < ApplicationController
   end
 
   def get_blog_schedule
-    binding.pry
     response = HTTParty.get("http://localhost:8080/api/cohorts/#{@cohort.name}/schedules")
   end
 
