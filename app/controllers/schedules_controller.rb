@@ -2,7 +2,7 @@ class SchedulesController < ApplicationController
 
   before_action :set_cohort_and_schedule, except: [:create, :index, :new]
   before_action :set_cohort, only: [:create, :index, :new]
-  before_action :set_github_wrapper, only: [:create, :deploy, :update]
+  before_action :set_github_wrapper, only: [:deploy, :update]
 
   def index
     @schedules = @cohort.schedules
@@ -21,6 +21,7 @@ class SchedulesController < ApplicationController
     @schedule.build_objectives(validated_objectives_params)
     @schedule.get_blogs
     if @schedule.save
+      set_github_wrapper
       create_schedule_on_github
       redirect_to cohort_schedule_path(@cohort, @schedule)
     else
@@ -97,7 +98,6 @@ class SchedulesController < ApplicationController
   end
 
   def render_schedule_template
-    puts @schedule
     view = ActionView::Base.new(ActionController::Base.view_paths, {})
     view.assign(schedule: @schedule)
     view.render(file: 'cohorts/schedules/github_show.html.erb')
