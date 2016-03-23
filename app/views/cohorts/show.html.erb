@@ -17,6 +17,21 @@
 
   <div class="row schedule-container">
     <div class="schedule-table col-md-5">
+      <h2>Students</h2>
+        <ul id="student-index">
+          <% @cohort.students.each do |student| %>
+            <li>
+              <%= student.full_name%>
+              <ul>
+                <a href="http://www.github.com/<%= student.github_username %>">GitHub</a> |
+                <a href="http://www.learn.co/<%= student.github_username %>">Learn Profile</a>
+              </ul>
+            </li>
+          <% end  %>
+        </ul>
+    </div>
+  
+    <div class="schedule-table col-md-5">
       <h2>Schedules</h2>
         <ul id="cohort-index">
           <% @cohort.schedules.each do |s| %>
@@ -26,19 +41,4 @@
           <% end  %>
         </ul>
     </div>
-  
-    <div class="schedule-table col-md-5">
-      <h2>Students</h2>
-        <ul id="cohort-index">
-          <% @cohort.students.each do |student| %>
-            <li>
-            <%= student.first_name%>
-
-            </li>
-          <% end  %>
-        </ul>
-    </div>
-
-
- 
 </div>

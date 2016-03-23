@@ -27,11 +27,12 @@
   <div class="deploy-history col-md-5">
       <strong>Schedule Last Deployed:</strong>
       <div id="deployment-history">
-        <br><br>
+        <br>
         <%= render partial: "cohorts/schedules/deploy_history", locals: {schedule: @schedule} %>
       </div>
       <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "deploy", class: "btn btn-primary" %>
     <div class="reserved">
+        <br>
       <strong>Room Reservations:</strong>
       <div id="rooms">
         <%= render partial: "cohorts/schedules/room_reservations", locals: {schedule: @schedule} %>
