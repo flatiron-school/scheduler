@@ -97,6 +97,7 @@ class SchedulesController < ApplicationController
   end
 
   def render_schedule_template
+    puts @schedule
     view = ActionView::Base.new(ActionController::Base.view_paths, {})
     view.assign(schedule: @schedule)
     view.render(file: 'cohorts/schedules/github_show.html.erb')
