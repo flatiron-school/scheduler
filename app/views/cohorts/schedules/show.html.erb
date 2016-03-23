@@ -25,12 +25,14 @@
 
   <!-- DEPLOYMENT HISTORY -->
   <div class="deploy-history col-md-5">
-      <strong>Schedule Last Deployed:</strong><br><br>
+      <strong>Schedule Last Deployed:</strong>
       <div id="deployment-history">
+        <br>
         <%= render partial: "cohorts/schedules/deploy_history", locals: {schedule: @schedule} %>
       </div>
       <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "deploy", class: "btn btn-primary" %>
     <div class="reserved">
+        <br>
       <strong>Room Reservations:</strong>
       <div id="rooms">
         <%= render partial: "cohorts/schedules/room_reservations", locals: {schedule: @schedule} %>
@@ -41,6 +43,26 @@
 
 </div>
 
+<!-- BLOGS -->
+<div class="row schedule-info">
+
+  <% if !@schedule.blog_assignments.empty? %>
+      <h3>Blogs</h3>
+        <p>
+          <ul>
+            <% @schedule.blog_assignments.each do  |blog_assignment| %>
+               <li>
+                  <a href="<%= blog_assignment.student.blog_url %>"><%= blog_assignment.student.first_name %></a>
+                </li>
+            <% end %>
+          </ul>
+        </p>
+    <% end %>
+
+</div>
+
+
+<!-- NOTES -->
 <div class="row schedule-info">
 
   <% if !@schedule.notes.empty? %>

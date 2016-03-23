@@ -11,7 +11,6 @@ class CohortsController < ApplicationController
   end
 
   def create
-    binding.pry
     @cohort = Cohort.new(cohort_params)
     cal_id = @calendar.get_cohort_calendar_id(@cohort)
     @cohort.calendar_id = cal_id
@@ -35,9 +34,14 @@ class CohortsController < ApplicationController
     render :show
   end
 
+  def get_blog_schedule
+    binding.pry
+    response = HTTParty.get("http://localhost:8080/api/cohorts/#{@cohort.name}/schedules")
+  end
+
   private
   def cohort_params
-    params.require(:cohort).permit(:name)
+    params.require(:cohort).permit(:name, :roster_csv)
   end
 
   def set_cohort

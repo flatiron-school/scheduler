@@ -1,10 +1,12 @@
 class Schedule < ApplicationRecord
+  include HTTParty
   has_many :schedule_labs
   has_many :schedule_activities
   has_many :activities, through: :schedule_activities
   has_many :labs, through: :schedule_labs
   has_many :objectives, dependent: :destroy
   has_many :calendar_events
+  has_many :blog_assignments
   belongs_to :cohort
   accepts_nested_attributes_for :labs
   accepts_nested_attributes_for :activities
@@ -100,6 +102,30 @@ class Schedule < ApplicationRecord
 
   def deployed?
     !!self.deployed_on
+  end
+
+  def get_blogs
+    assignments = retrieve_blogs_from_api
+    if !assignments.empty?
+      assignments["schedules"].each do |assignment|
+        student = Student.find_by(first_name: assignment["user"]["first_name"], last_name: assignment["user"]["last_name"])
+        if assignment["user"]["blog"]
+          student.blog_url = assignment["user"]["blog"]["url"]
+          student.save
+        end
+        blog_assignment = BlogAssignment.create(student: student, schedule: self, due_date: assignment["due_date"])
+        self.blog_assignments << blog_assignment
+        self.save
+      end
+    end
+  end
+
+  def retrieve_blogs_from_api
+    HTTParty.get("#{ENV['BLOG_API_ENDPOINT']}/api/cohorts/#{self.cohort.name}/blog_assignments/#{self.date_for_api_call}")
+  end
+
+  def date_for_api_call
+    self.date.strftime("%Y-%m-%d")
   end
 
 end

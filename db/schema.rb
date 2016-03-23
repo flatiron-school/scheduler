@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319183952) do
+ActiveRecord::Schema.define(version: 20160322172634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(version: 20160319183952) do
     t.time     "end_time"
   end
 
+  create_table "blog_assignments", force: :cascade do |t|
+    t.integer "schedule_id"
+    t.integer "student_id"
+    t.date    "due_date"
+  end
+
   create_table "calendar_events", force: :cascade do |t|
     t.integer  "schedule_id"
     t.string   "name"
@@ -36,9 +42,13 @@ ActiveRecord::Schema.define(version: 20160319183952) do
 
   create_table "cohorts", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.string   "calendar_id"
+    t.string   "roster_csv_file_name"
+    t.string   "roster_csv_content_type"
+    t.integer  "roster_csv_file_size"
+    t.datetime "roster_csv_updated_at"
   end
 
   add_index "cohorts", ["name"], name: "index_cohorts_on_name", using: :btree
@@ -80,6 +90,15 @@ ActiveRecord::Schema.define(version: 20160319183952) do
     t.integer  "cohort_id"
     t.string   "sha"
     t.datetime "deployed_on"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "github_username"
+    t.string  "email"
+    t.string  "blog_url"
+    t.integer "cohort_id"
   end
 
   create_table "user_cohorts", force: :cascade do |t|

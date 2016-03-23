@@ -100,3 +100,16 @@ ul > #active-cohort-btn:hover {
   margin-top: 10%;
 }
 
+#student-index > ul {
+  list-style: none;
+  padding-left: none;
+  font-size: 22px;
+}
+
+#student-index > li {
+  padding-top: 10px;
+  padding-left: none;
+  font-size: 22px;
+  list-style: none;
+}
+

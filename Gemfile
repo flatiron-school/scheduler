@@ -20,6 +20,8 @@ gem 'devise', github: 'twalpole/devise', branch: 'rails5'
 gem 'omniauth-github'
 gem 'google-api-client', '0.8.2', require: 'google/api_client'
 gem 'chronic'
+gem 'paperclip'
+gem 'httparty'
 # gem 'google-api-client'
 # gem 'google-api-client', '0.9'
 # , :require => 'google/api_client'
@@ -29,6 +31,7 @@ gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-se
 # gem 'draper'
 # gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'bootstrap-sass', '~> 3.3.6'
+# gem 'common_tools'
 group :development, :test do
   gem "figaro"
   gem 'byebug'
