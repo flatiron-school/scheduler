@@ -42,3 +42,4 @@ Rails.application.configure do
 end
 
 ENV["host"] = "http://localhost:3000"
+ENV['BLOG_API_ENDPOINT'] = 'https://flatiron-blogger.herokuapp.com'

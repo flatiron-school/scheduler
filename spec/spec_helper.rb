@@ -13,7 +13,7 @@ OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
 })
 
 
-require 'webmock/rspec'
+# require 'webmock/rspec'
 # WebMock.enable_net_connect!(allow_localhost: true)  
 
 # WebMock.disable_net_connect!(allow_localhost: true)  
@@ -45,7 +45,7 @@ end
 
 def fill_in_schedule_form
   fill_in "schedule[week]", with: "1"
-  fill_in "schedule[day]", with: "42"
+  fill_in "schedule[day]", with: "44"
   fill_in "schedule[date]", with: "01/02/2017"
   fill_in "schedule[notes]", with: "test notes"
   fill_in "schedule[labs_attributes][0][name]", with: "lab-1"
@@ -74,11 +74,20 @@ def make_new_schedule
   fill_in_schedule_form
 end
 
+def make_new_cohort
+  sign_in
+  cohort = FactoryGirl.build(:cohort)
+  cohort.save
+  UserCohort.create(user: User.find_by(email: "sophie@flatironschool.com"), cohort: cohort, active: true)
+  cohort
+end
+
 
 def make_schedule_to_edit
   cohort = Cohort.create(name: "web-1117")
   cohort.save
-  schedule = Schedule.new("date"=>"2017-01-02 00:00:00.000000000 -0500", "notes"=>"Here are some notes", "week"=>"1", "day"=>"40", "cohort"=>cohort, "sha"=>"864fbc93a8eb788bf5dae0c9f2cd3b04cd01b2b2")
+  UserCohort.create(user: User.find_by(email: "sophie@flatironschool.com"), cohort: cohort, active: true)
+  schedule = Schedule.new("date"=>"2017-01-02 00:00:00.000000000 -0500", "notes"=>"Here are some notes", "week"=>"1", "day"=>"44", "cohort"=>cohort, "sha"=>"c251a71e96e5983a688557b788571ba47cb819d6")
   lab = Lab.new(name: "lab-79")
   schedule.labs << lab
   lab.save

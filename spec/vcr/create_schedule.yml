@@ -1,12 +1,63 @@
 ---
 http_interactions:
 - request:
-    method: put
-    uri: https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-42.md
+    method: get
+    uri: https://flatiron-blogger.herokuapp.com/api/cohorts/web-1117/blog_assignments/2017-02-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"a402b4f39afd27bf5ac1e85da2385095"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 3f123bae-6122-46c1-bbec-c162de27ccd7
+      X-Runtime:
+      - '0.023431'
+      Vary:
+      - Origin
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.0/2014-12-25)
+      Date:
+      - Fri, 25 Mar 2016 20:44:23 GMT
+      Content-Length:
+      - '16'
+      Via:
+      - 1.1 vegur
     body:
       encoding: UTF-8
-      string: '{"content":"IyBXZWVrIDEsIERheSA0MgoKIyMjIFdlZG5lc2RheSwgMDEgRmViIDIwMTcKCnwgVGltZSB8IEFjdGl2aXR5IHwKfCAtLS0gfCAtLS0gfAp8IDA5OjAwIHwgVE9ETyB8CgojIyMgTm90ZXMgYW5kIE9iamVjdGl2ZXMKCnRlc3Qgbm90ZXMKCiMjIyBMYWJzCgotIFtsYWItMV0oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2xhYi0xLXdlYi0xMTE3KQotIFtiYXJraW5nLWRvZ10oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2JhcmtpbmctZG9nLXdlYi0xMTE3KQotIFtsYWItM10oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2xhYi0zLXdlYi0xMTE3KQo=","message":"add
-        week-1/day-42.md"}'
+      string: '{"schedules":[]}'
+    http_version: 
+  recorded_at: Fri, 25 Mar 2016 20:44:23 GMT
+- request:
+    method: put
+    uri: https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-44.md
+    body:
+      encoding: UTF-8
+      string: '{"content":"IyBXZWVrIDEsIERheSA0NAoKIyMjIFdlZG5lc2RheSwgMDEgRmViIDIwMTcKCnwgVGltZSB8IEFjdGl2aXR5IHwKfCAtLS0gfCAtLS0gfAp8IDA5OjAwIHwgVE9ETyB8CgojIyMgTm90ZXMKCnRlc3Qgbm90ZXMKCiMjIyBMYWJzCgotIFtsYWItMV0oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2xhYi0xLXdlYi0xMTE3KQotIFtiYXJraW5nLWRvZ10oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2JhcmtpbmctZG9nLXdlYi0xMTE3KQotIFtsYWItM10oaHR0cDovL3d3dy5naXRodWIuY29tL2xlYXJuLWNvLXN0dWRlbnRzL2xhYi0zLXdlYi0xMTE3KQoK","message":"add
+        week-1/day-44.md"}'
     headers:
       Accept:
       - application/vnd.github.v3+json
@@ -26,7 +77,7 @@ http_interactions:
       Server:
       - GitHub.com
       Date:
-      - Fri, 18 Mar 2016 15:48:26 GMT
+      - Fri, 25 Mar 2016 20:44:24 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -36,16 +87,16 @@ http_interactions:
       X-Ratelimit-Limit:
       - '5000'
       X-Ratelimit-Remaining:
-      - '4992'
+      - '4985'
       X-Ratelimit-Reset:
-      - '1458316513'
+      - '1458940827'
       Cache-Control:
       - private, max-age=60, s-maxage=60
       Vary:
       - Accept, Authorization, Cookie, X-GitHub-OTP
       - Accept-Encoding
       Etag:
-      - '"c08a83a43a3ae1f4cf6d3d48112816c6"'
+      - '"9226beff61fc42f578b23bffa2e3860b"'
       X-Oauth-Scopes:
       - admin:org, repo, user
       X-Accepted-Oauth-Scopes:
@@ -68,15 +119,15 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       X-Served-By:
-      - a30e6f9aa7cf5731b87dfb3b9992202d
+      - 4c8b2d4732c413f4b9aefe394bd65569
       X-Github-Request-Id:
-      - 6B6B3A33:6B9D:2926E4E:56EC234A
+      - 620EF307:36CA:C4FDD09:56F5A327
     body:
       encoding: UTF-8
-      string: '{"content":{"name":"day-42.md","path":"week-1/day-42.md","sha":"eaf2a2f462d1174763d1b8b50a5b789e7af0f19d","size":356,"url":"https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-42.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1117/blob/master/week-1/day-42.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/blobs/eaf2a2f462d1174763d1b8b50a5b789e7af0f19d","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1117/master/week-1/day-42.md","type":"file","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-42.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/blobs/eaf2a2f462d1174763d1b8b50a5b789e7af0f19d","html":"https://github.com/learn-co-curriculum/web-1117/blob/master/week-1/day-42.md"}},"commit":{"sha":"93ef300170852e5f18cc98dae2b98ef9dc10ae19","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/commits/93ef300170852e5f18cc98dae2b98ef9dc10ae19","html_url":"https://github.com/learn-co-curriculum/web-1117/commit/93ef300170852e5f18cc98dae2b98ef9dc10ae19","author":{"name":"Sophie
-        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-03-18T15:48:26Z"},"committer":{"name":"Sophie
-        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-03-18T15:48:26Z"},"tree":{"sha":"84a2aeeaf1b85899ec983b7e16035e359310f261","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/trees/84a2aeeaf1b85899ec983b7e16035e359310f261"},"message":"add
-        week-1/day-42.md","parents":[{"sha":"2bf530d1f866845d25d812c0199a133cea171545","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/commits/2bf530d1f866845d25d812c0199a133cea171545","html_url":"https://github.com/learn-co-curriculum/web-1117/commit/2bf530d1f866845d25d812c0199a133cea171545"}]}}'
+      string: '{"content":{"name":"day-44.md","path":"week-1/day-44.md","sha":"c251a71e96e5983a688557b788571ba47cb819d6","size":342,"url":"https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-44.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1117/blob/master/week-1/day-44.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/blobs/c251a71e96e5983a688557b788571ba47cb819d6","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1117/master/week-1/day-44.md","type":"file","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1117/contents/week-1/day-44.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/blobs/c251a71e96e5983a688557b788571ba47cb819d6","html":"https://github.com/learn-co-curriculum/web-1117/blob/master/week-1/day-44.md"}},"commit":{"sha":"c07d3904b05ba0b930d38383f8b4dadfc403745c","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/commits/c07d3904b05ba0b930d38383f8b4dadfc403745c","html_url":"https://github.com/learn-co-curriculum/web-1117/commit/c07d3904b05ba0b930d38383f8b4dadfc403745c","author":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-03-25T20:44:23Z"},"committer":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-03-25T20:44:23Z"},"tree":{"sha":"df638cf3e81075a6644293963d567fd739b0a99a","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/trees/df638cf3e81075a6644293963d567fd739b0a99a"},"message":"add
+        week-1/day-44.md","parents":[{"sha":"2785ec8318e5ce45f7e5627ac3312bec4e977920","url":"https://api.github.com/repos/learn-co-curriculum/web-1117/git/commits/2785ec8318e5ce45f7e5627ac3312bec4e977920","html_url":"https://github.com/learn-co-curriculum/web-1117/commit/2785ec8318e5ce45f7e5627ac3312bec4e977920"}]}}'
     http_version: 
-  recorded_at: Fri, 18 Mar 2016 15:48:26 GMT
+  recorded_at: Fri, 25 Mar 2016 20:44:23 GMT
 recorded_with: VCR 3.0.1
