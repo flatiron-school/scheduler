@@ -1,4 +1,4 @@
-<% if current_user.active_cohort == @cohort%>
+<% if current_user_active_cohort(@cohort)%>
   <div class="col-lg-6 col-lg-offset-3">
     <div class="form-horizontal">
       <%= form_for [@cohort, @schedule] do |f| %>
