@@ -87,3 +87,4 @@ Rails.application.configure do
 end
 
 ENV['BLOG_API_ENDPOINT'] = 'https://flatiron-blogger.herokuapp.com'
+ENV['host'] = "https://flatiron-scheduler.herokuapp.com"

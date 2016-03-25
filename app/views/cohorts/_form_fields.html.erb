@@ -1,0 +1,16 @@
+<div clas="form-group">
+
+  <h4>Cohort Name</h4>
+  <%= f.text_field :name, class: "form-control", id: "Name" %>
+
+</div>
+
+
+<div class="form-group">
+  <h4 data-container="body" data-toggle="popover" data-placement="bottom" data-content="To download the csv roster for your cohort, visit the cohort's organization on learn.co and click the 'download csv roster' button">Upload Roster CSV*</h4>
+      
+  <span class="btn btn-success btn-file">
+    <%= f.label :upload_csv %>
+    <%= f.file_field :roster_csv %>
+  </span>
+</div>

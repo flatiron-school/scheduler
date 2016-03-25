@@ -1,0 +1,11 @@
+<% if !schedule.objectives.empty? %>
+    <h3>Objectives</h3>
+      <p>
+      <ul>
+        <% schedule.objectives.each do |objective| %>
+        <li>
+          <%= objective.content %>
+        </li>
+        <% end %>
+      </p>
+  <% end %>

@@ -1,0 +1,16 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Activity</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% schedule.activities.each do |activity|  %>
+    <tr>
+      <td><%= activity.start_hour %></td>
+      <td><%= activity.description %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
