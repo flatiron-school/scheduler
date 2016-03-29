@@ -61,4 +61,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
 
-ENV['BLOG_API_ENDPOINT'] = 'http://localhost:8080'
+# ENV['BLOG_API_ENDPOINT'] = 'http://localhost:8080'
+ENV['BLOG_API_ENDPOINT'] = 'https://flatiron-blogger.herokuapp.com'
+ENV["host"] = "http://localhost:3000"
+

@@ -1,85 +1,8 @@
-<% if current_user.active_cohort == @cohort%>
+<% if current_user_active_cohort(@cohort)%>
   <div class="col-lg-6 col-lg-offset-3">
     <div class="form-horizontal">
       <%= form_for [@cohort, @schedule] do |f| %>
-      <fieldset>
-        <legend><%= @cohort.name %> new schedule</legend>
-        <div class="form-group">
-          <div class="col-lg-2">
-          <%= f.label :week %>
-          <%= f.number_field :week, class: "form-control" %>
-          </div>
-
-          <div class="col-lg-2">
-            <%= f.label :day %>
-            <%= f.number_field :day, class: "form-control"%>
-          </div>
-
-          <div class="col-lg-4">
-            <%= f.label :date %>
-            <%= f.date_field :date, class: "form-control" %>
-          </div>
-        </div>
-
-        <!-- OBJECTIVES -->
-        <h2>Objectives</h2>
-        <div class="form-group">
-          <div class="col-lg-6">
-            <%= f.fields_for :objectives, @schedule.objectives do |objective_form| %>
-                  <%= objective_form.label :content, "Students will be able to:" %><br>
-                  <%= objective_form.text_field :content, class: "form-control" %>
-             <% end %>
-           </div>
-        </div>
-        <!-- END OBJECTIVES -->
-        <h2>Notes</h2>
-        <div class="form-group">
-          <div class="col-lg-8">
-            <%= f.text_area :notes, class: "form-control" %>
-          </div>
-        </div>
-
-        <h2>Labs</h2>
-        <div class="form-group">
-          <div class="col-lg-4">
-            <%= f.fields_for :labs, @schedule.labs do |lab_form|%>
-               <br>
-              <%= lab_form.label :name %>
-              <%= lab_form.text_field :name, class: "form-control" %>
-              <br>
-            <% end %>
-          </div>
-        </div>
-
-        <h2>Activities</h2>
-        <div class="form-group">
-          <div class="col-lg-4">
-            <br>
-            <%= f.fields_for :activities, @schedule.activities do |activity_form|%>
-              <%= activity_form.label :start_time %>
-              <%= activity_form.time_field :start_time, class: "form-control" %>
-              <%= activity_form.label :end_time %>
-              <%= activity_form.time_field :end_time, class: "form-control" %>
-              <br>
-              <%= activity_form.label :description %>
-              <%= activity_form.text_field :description, class: "form-control" %>
-              <br>
-              <%= activity_form.label :reserve_room %>
-              <%= activity_form.check_box :reserve_room %>
-              <br>
-              <br>
-              <div style="border-bottom: solid; border-width: 1px"></div>
-              <br>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-lg-4">
-          <%= f.label :deploy %>
-          <%= f.check_box :deploy %>
-          </div>
-        </div>
+        <%= render partial: "cohorts/schedules/form_fields/form_fields", locals: {f: f, cohort: @cohort, schedule: @schedule} %>
 
         <%= f.submit "Create Schedule", class: "btn btn-primary" %>
         </fieldset>

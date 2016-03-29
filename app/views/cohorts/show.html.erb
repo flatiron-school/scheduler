@@ -1,44 +1,15 @@
-
-
-
 <div class="row">
   <div id="cohort-index-title">
     <h1><%= @cohort.name %></h1>
-    <div class="col-md-12">
-      <a href="http://www.github.com/learn-co-curriculum/<%= @cohort.name %>" class="btn btn-primary col-md-4 col-md-offset-4 cohort-show-btn">View Repo</a>  
-    </div>
-    <div class="col-md-12">
-      <%= link_to "new schedule", new_cohort_schedule_path(@cohort), class: "btn btn-primary col-md-4 col-md-offset-4 cohort-show-btn" %> 
-    </div>
-    <div class="col-md-12">
-      <%= link_to "edit", edit_cohort_path(@cohort), id: "edit", class: "btn btn-primary col-md-4 col-md-offset-4 cohort-show-btn" %>
-    </div>
+    <%= render partial: 'cohort_buttons', locals: {cohort: @cohort} %>
   </div>
 
   <div class="row schedule-container">
     <div class="schedule-table col-md-5">
-      <h2>Students</h2>
-        <ul id="student-index">
-          <% @cohort.students.each do |student| %>
-            <li>
-              <%= student.full_name%>
-              <ul>
-                <a href="http://www.github.com/<%= student.github_username %>">GitHub</a> |
-                <a href="http://www.learn.co/<%= student.github_username %>">Learn Profile</a>
-              </ul>
-            </li>
-          <% end  %>
-        </ul>
+      <%= render partial: 'cohort_students', locals: {cohort: @cohort} %>
     </div>
   
     <div class="schedule-table col-md-5">
-      <h2>Schedules</h2>
-        <ul id="cohort-index">
-          <% @cohort.schedules.each do |s| %>
-            <li>
-             <%= link_to "week-#{s.week}, day-#{s.day}", cohort_schedule_path(@cohort, s) %>
-            </li>
-          <% end  %>
-        </ul>
+      <%= render partial: 'cohort_schedules', locals: {cohort: @cohort} %>
     </div>
 </div>

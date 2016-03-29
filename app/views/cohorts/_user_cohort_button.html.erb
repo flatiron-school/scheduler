@@ -1,8 +1,8 @@
-<% if cohort.users.include?(current_user) %>
+<% if current_user_owns_cohort(cohort) %>
   
   <%= link_to cohort.name, cohort_path(cohort) %> 
 
-  <% if current_user.active_cohort != cohort %>
+  <% if is_not_active_cohort(cohort) %>
     
     <%= link_to "make active", user_cohort_path(cohort), remote: true, method: "patch", class: "btn btn-sm btn-primary cohort-btn" %>
   <% else %>

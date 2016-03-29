@@ -98,12 +98,18 @@ class SchedulesController < ApplicationController
   end
 
   def render_schedule_template
-    view = ActionView::Base.new(ActionController::Base.view_paths, {})
-    view.assign(schedule: @schedule)
-    view.render(file: 'cohorts/schedules/github_show.html.erb')
+    renderer = ApplicationController.renderer.new
+    warden = env["warden"]
+    renderer.instance_variable_set(:@env, {"HTTP_HOST"=> "#{ENV['host']}",
+      "HTTPS"=>"off",   
+      "REQUEST_METHOD"=>"GET",   
+      "SCRIPT_NAME"=>"",   
+      "warden" => warden})
+    renderer.render(file: 'cohorts/schedules/github_show.html.erb', assigns: { schedule: @schedule}) 
   end
 
   def set_cohort_and_schedule
+
     @cohort = Cohort.find_by_name(params[:cohort_slug])
     @schedule = @cohort.schedules.find_by(slug: params[:slug])
   end

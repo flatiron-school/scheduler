@@ -2,10 +2,8 @@
     <h1>edit cohort <%= @cohort.name %></h1>
     <div class="form-horizontal">
       <%= form_for @cohort do |f| %>
-        <h4>Cohort Name</h4>
-        <%= f.text_field :name, class: "form-control", id: "Name" %>
-        <h4 data-container="body" data-toggle="popover" data-placement="bottom" data-content="To obtain the calendar id of your cohort's calendar, go to the Flatiron School Google calendar settings and select the calendar for your cohort. The calendar ID is found in the 'calendar address' field.">Calendar ID*</h4>
-        <%= f.text_field :calendar_id, class: "form-control", id: "calendar-id" %>
+        <%= render partial: 'form_fields', locals: {f: f} %>
+        <%= render partial: 'calendar_id_form_fields', locals: {f: f} %>
         <%= f.submit "Edit Cohort", class: "btn btn-primary", style: "width: 100%; margin-top: 20px" %>
       <% end %>
     </div>  

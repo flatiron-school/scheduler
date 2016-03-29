@@ -1,0 +1,9 @@
+<% if labs?(schedule) %>
+<ul>
+  <%schedule.labs.each do |lab| %>
+    <li>
+      <a href="http://www.github.com/learn-co-students/<%= lab.name %>-<%= schedule.cohort.name %>"><%= lab.name %></a>
+    </li>
+  <%end %>
+</ul>
+<% end %>

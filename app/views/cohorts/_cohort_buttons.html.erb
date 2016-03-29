@@ -1,0 +1,9 @@
+<div class="col-md-12">
+  <a href="http://www.github.com/learn-co-curriculum/<%= cohort.name %>" class="btn btn-primary col-md-4 col-md-offset-4 cohort-show-btn">View Repo</a>  
+</div>
+<div class="col-md-12">
+  <%= link_to "new schedule", new_cohort_schedule_path(cohort), class: "btn btn-primary col-md-4 col-md-offset-4 cohort-show-btn" %> 
+</div>
+<div class="col-md-12">
+  <%= link_to "edit", edit_cohort_path(cohort), id: "edit", class: "btn btn-primary col-md-4 col-md-offset-4 cohort-show-btn" %>
+</div>

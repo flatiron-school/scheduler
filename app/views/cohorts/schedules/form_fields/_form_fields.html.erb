@@ -1,0 +1,32 @@
+  <fieldset>
+        <legend><%= cohort.name %> new schedule</legend>
+        <% if schedule.new_record? %>
+          <%= render partial: 'cohorts/schedules/form_fields/new_schedule_form_fields', locals: {f: f, shedule: schedule} %>
+        <% else %>
+            <%= render partial: 'cohorts/schedules/form_fields/edit_schedule_form_fields', locals: {f: f, schedule: schedule} %>
+        <% end %>
+
+        <!-- OBJECTIVES -->
+        <h2>Objectives</h2>
+        <%= render partial: 'cohorts/schedules/form_fields/schedule_objectives_fields', locals: {f: f, schedule: schedule} %>
+        <!-- END OBJECTIVES -->
+
+        <!-- NOTES -->
+        <h2>Notes</h2>
+        <%= render partial: 'cohorts/schedules/form_fields/schedule_notes_fields', locals: {f: f, schedule: schedule} %>
+        <!-- END NOTES -->
+
+        <!-- LABS -->
+        <h2>Labs</h2>
+        <%= render partial: 'cohorts/schedules/form_fields/schedule_labs_fields', locals: {f: f, schedule: schedule} %>
+        <!-- END LABS -->
+
+        <h2>Activities</h2>
+        <%= render partial: 'cohorts/schedules/form_fields/schedule_activities_fields', locals: {f: f, schedule: schedule} %>
+
+        <div class="form-group">
+          <div class="col-lg-4">
+          <%= f.label :deploy %>
+          <%= f.check_box :deploy %>
+          </div>
+        </div>
