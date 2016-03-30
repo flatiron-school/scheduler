@@ -46,6 +46,12 @@ TEST_GOOGLE_ACCESS_TOKEN: <credential goes here>
 TEST_GOOGLE_REFRESH_TOKEN: <credential goes here>
 ```
 * Run `rspec` to get familiar with the test suite. Tests use [VCR](https://github.com/vcr/vcr) to stub web requests. 
+* **Note:** There is no seed data provided with this app. Instead:
+    * run `rails s`
+    * visit the `/cohorts/new` page
+    * Give the cohort a name of `web-1115`
+    * Upload the student CSV roster found [here](https://www.dropbox.com/s/wmi5vyai7w1x3ln/web-0416.csv?dl=0).
+    * The app will automatically pull this cohort's calendar ID from Google Calendar. The Flatiron Blogger App is set up to provide endpoints for a dummy schedule for this cohort, with a start date of March, 2017 and an end date of June, 2017. 
 
 ## Tips
 
