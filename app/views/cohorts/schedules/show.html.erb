@@ -26,52 +26,51 @@
          <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "reserve-rooms", class: "btn btn-primary" %>
       </div>
     </div>
+    
 
-  
+    <!-- BLOGS -->
+    <div class="row schedule-info" style="clear: both;">
 
-  <!-- BLOGS -->
-  <div class="row schedule-info">
+      <%= render partial: 'cohorts/schedules/schedule_blogs', locals: {schedule: @schedule} %>
 
-    <%= render partial: 'cohorts/schedules/schedule_blogs', locals: {schedule: @schedule} %>
-
-  </div>
-
-
-  <!-- NOTES -->
-  <div class="row schedule-info">
-
-    <%= render partial: 'cohorts/schedules/schedule_notes', locals: {schedule: @schedule} %>
-
-  </div>
+    </div>
 
 
-  <!-- OBJECTIVES -->
-  <div class="row schedule-info">
+    <!-- NOTES -->
+    <div class="row schedule-info">
 
-    <%= render partial: 'cohorts/schedules/schedule_objectives', locals: {schedule: @schedule} %>
+      <%= render partial: 'cohorts/schedules/schedule_notes', locals: {schedule: @schedule} %>
 
-  </div>
-
-  <!-- LABS -->
-  <div class="row schedule-info">
-
-  <h3>Labs</h3>
-    <%= render partial: 'cohorts/schedules/schedule_labs', locals: {schedule: @schedule} %>
-
-  </div>
-
-  <!-- BUTTONS -->
-
-  <div class="row schedule-info">
-
-    <a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
+    </div>
 
 
+    <!-- OBJECTIVES -->
+    <div class="row schedule-info">
 
-    <%= link_to "edit schedule", edit_cohort_schedule_path(@schedule.cohort, @schedule), id: "edit", class: "btn btn-primary" %>
+      <%= render partial: 'cohorts/schedules/schedule_objectives', locals: {schedule: @schedule} %>
 
+    </div>
+
+    <!-- LABS -->
+    <div class="row schedule-info">
+
+    <h3>Labs</h3>
+      <%= render partial: 'cohorts/schedules/schedule_labs', locals: {schedule: @schedule} %>
+
+    </div>
+
+    <!-- BUTTONS -->
+
+    <div class="row schedule-info">
+
+      <a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
+
+
+
+      <%= link_to "edit schedule", edit_cohort_schedule_path(@schedule.cohort, @schedule), id: "edit", class: "btn btn-primary" %>
+
+    </div>
   </div>
 </div>
-  </div>
-  <br>
-  </br>
+<br>
+</br>
