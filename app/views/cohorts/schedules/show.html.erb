@@ -1,74 +1,77 @@
-<div class="schedule-title">
-  <h1>Week <%= @schedule.week %>, Day <%= @schedule.day %></h1>
-  <h4><%= @schedule.pretty_date %></h4>
-</div>
-
-<div class="row schedule-container">
-  <div class="schedule-table col-md-5">
-    <%= render partial: "cohorts/schedules/schedule_table", locals: {schedule: @schedule} %>
+<div class="containter-fluid">
+  <div class="schedule-title">
+    <h1>Week <%= @schedule.week %>, Day <%= @schedule.day %></h1>
+    <h4><%= @schedule.pretty_date %></h4>
   </div>
 
-  <!-- DEPLOYMENT HISTORY -->
-  <div class="deploy-history col-md-5">
-      <strong>Schedule Last Deployed:</strong>
-      <div id="deployment-history">
-        <br>
-        <%= render partial: "cohorts/schedules/deploy_history", locals: {schedule: @schedule, github_wrapper: nil} %>
-      </div>
-      <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "deploy", class: "btn btn-primary" %>
-    <div class="reserved">
-        <br>
-      <strong>Room Reservations:</strong>
-      <div id="rooms">
-        <%= render partial: "cohorts/schedules/room_reservations", locals: {schedule: @schedule} %>
-      </div>
-       <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "reserve-rooms", class: "btn btn-primary" %>
+  <div class="row schedule-container">
+    <div class="schedule-table col-md-5">
+      <%= render partial: "cohorts/schedules/schedule_table", locals: {schedule: @schedule} %>
     </div>
+
+    <!-- DEPLOYMENT HISTORY -->
+    <div class="schedule-table col-md-5" style="padding-top: 1%;">
+        <strong>Schedule Last Deployed:</strong>
+        <div id="deployment-history">
+          <br>
+          <%= render partial: "cohorts/schedules/deploy_history", locals: {schedule: @schedule, github_wrapper: nil} %>
+        </div>
+        <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "deploy", class: "btn btn-primary" %>
+      <div class="reserved">
+          <br>
+        <strong>Room Reservations:</strong>
+        <div id="rooms">
+          <%= render partial: "cohorts/schedules/room_reservations", locals: {schedule: @schedule} %>
+        </div>
+         <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "reserve-rooms", class: "btn btn-primary" %>
+      </div>
+    </div>
+
+  
+
+  <!-- BLOGS -->
+  <div class="row schedule-info">
+
+    <%= render partial: 'cohorts/schedules/schedule_blogs', locals: {schedule: @schedule} %>
+
   </div>
 
+
+  <!-- NOTES -->
+  <div class="row schedule-info">
+
+    <%= render partial: 'cohorts/schedules/schedule_notes', locals: {schedule: @schedule} %>
+
+  </div>
+
+
+  <!-- OBJECTIVES -->
+  <div class="row schedule-info">
+
+    <%= render partial: 'cohorts/schedules/schedule_objectives', locals: {schedule: @schedule} %>
+
+  </div>
+
+  <!-- LABS -->
+  <div class="row schedule-info">
+
+  <h3>Labs</h3>
+    <%= render partial: 'cohorts/schedules/schedule_labs', locals: {schedule: @schedule} %>
+
+  </div>
+
+  <!-- BUTTONS -->
+
+  <div class="row schedule-info">
+
+    <a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
+
+
+
+    <%= link_to "edit schedule", edit_cohort_schedule_path(@schedule.cohort, @schedule), id: "edit", class: "btn btn-primary" %>
+
+  </div>
 </div>
-
-<!-- BLOGS -->
-<div class="row schedule-info">
-
-  <%= render partial: 'cohorts/schedules/schedule_blogs', locals: {schedule: @schedule} %>
-
-</div>
-
-
-<!-- NOTES -->
-<div class="row schedule-info">
-
-  <%= render partial: 'cohorts/schedules/schedule_notes', locals: {schedule: @schedule} %>
-
-</div>
-
-
-<!-- OBJECTIVES -->
-<div class="row schedule-info">
-
-  <%= render partial: 'cohorts/schedules/schedule_objectives', locals: {schedule: @schedule} %>
-
-</div>
-
-<!-- LABS -->
-<div class="row schedule-info">
-
-<h3>Labs</h3>
-  <%= render partial: 'cohorts/schedules/schedule_labs', locals: {schedule: @schedule} %>
-
-</div>
-
-<!-- BUTTONS -->
-
-<div class="row schedule-info">
-
-  <a href="http://www.github.com/learn-co-curriculum/<%= @schedule.cohort.name %>" class="btn btn-primary">View Repo</a>
-
-
-
-  <%= link_to "edit schedule", edit_cohort_schedule_path(@schedule.cohort, @schedule), id: "edit", class: "btn btn-primary" %>
-
-</div>
+  </div>
   <br>
   </br>
