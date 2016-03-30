@@ -10,7 +10,9 @@ Daily schedule is automatically posted to your active cohort's GitHub repository
 
 This app integrates with the [Flatiron Blogger app](https://github.com/flatiron-labs/flatiron-blog-app). It hits the blogger API when a new schedule is created to display that blog posts due that day. 
 
-# Getting Started
+# Contributing
+
+## Getting Started
 
 This app requires Ruby 2.3.0 and Rails 5. If you don't have those installed on your machine:
 
@@ -50,11 +52,10 @@ TEST_GOOGLE_REFRESH_TOKEN: <credential goes here>
 * Most of the magic happens in the Schedules Controller. That's where you'll find the actions for deploying a schedule to GitHub and reserving classrooms on Google Calendar. 
 * Check out the GitHub Wrapper class and the Google Calendar Wrapper class for the code that interfaces with those APIs. 
 
-# Road Map
+## Road Map
 
 A few areas that need work:
 
 * Posting a schedule to GitHub and reserving classrooms on Goole Calendar should be extracted and run in background jobs, using something like Sidekiq.
 * Right now, anyone with an `@flatironschool.com` email address can log in. That means students can mess with the schedule. Oh no! We all know how tricky those students can be. You can implement a feature that only allows registered instructors to log in. 
-
- 
+* More tests!  
