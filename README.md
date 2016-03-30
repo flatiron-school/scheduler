@@ -1,24 +1,60 @@
-## README
+# Flatiron Scheduler
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails app that streamlines and automates the scheduling process for instructors at the Flatiron School.
 
-Things you may want to cover:
+# Description
 
-* Ruby version
+Instructors can log in with their Flatiron gmail addresses, add their class' cohort or select a cohort to be their "active" cohort. For you active cohort, you can edit, upload the CSV student roster (download-able from the Learn organization's page for your cohort) and make and edit daily schedules. 
 
-* System dependencies
+Daily schedule is automatically posted to your active cohort's GitHub repository, from which Learn will pull it as the daily schedule on learn.co. Any schedule activities for which you check "reserve room" will be automatically booked in any available classrooms. 
 
-* Configuration
+This app integrates with the [Flatiron Blogger app](https://github.com/flatiron-labs/flatiron-blog-app). It hits the blogger API when a new schedule is created to display that blog posts due that day. 
 
-* Database creation
+# Getting Started
 
-* Database initialization
+This app requires Ruby 2.3.0 and Rails 5. If you don't have those installed on your machine:
 
-* How to run the test suite
+* `rvm install 2.3.0`
 
-* Services (job queues, cache servers, search engines, etc.)
+Note that the Gemfile specifies the Ruby version as well as the Rails version:
 
-* Deployment instructions
+```ruby
+# Gemfile
 
-* ...
+ruby '2.3.0'
+gem 'rails', '>= 5.0.0.beta3', '< 5.1'
+```
+
+Once you have Ruby 2.3.0 installed,
+
+* `git clone git@github.com:flatiron-school/scheduler.git`
+* `cd scheduler`
+* `bundle install`
+* `figaro install` (creates `config/application.yml` and adds it to .gitignore for hiding sensitive information)
+* Get credentials for Github and Google from Sophie DeBenedetto (sophie@flatironschool.com), and add these credentials to `config/application.yml`:
+
+```ruby
+OCTO_TOKEN: <credential goes here>
+GITHUB_ID: <credential goes here>
+GITHUB_SECRET: <credential goes here>
+GOOGLE_CLIENT_ID: <credential goes here>
+GOOGLE_CLIENT_SECRET: <credential goes here>
+
+TEST_GOOGLE_ACCESS_TOKEN: <credential goes here>
+TEST_GOOGLE_REFRESH_TOKEN: <credential goes here>
+```
+* Run `rspec` to get familiar with the test suite. Tests use [VCR](https://github.com/vcr/vcr) to stub web requests. 
+
+## Tips
+
+* Most of the magic happens in the Schedules Controller. That's where you'll find the actions for deploying a schedule to GitHub and reserving classrooms on Google Calendar. 
+* Check out the GitHub Wrapper class and the Google Calendar Wrapper class for the code that interfaces with those APIs. 
+
+# Road Map
+
+A few areas that need work:
+
+* Posting a schedule to GitHub and reserving classrooms on Goole Calendar should be extracted and run in background jobs, using something like Sidekiq.
+* Right now, anyone with an `@flatironschool.com` email address can log in. That means students can mess with the schedule. Oh no! We all know how tricky those students can be. You can implement a feature that only allows registered instructors to log in. 
+
+ 
