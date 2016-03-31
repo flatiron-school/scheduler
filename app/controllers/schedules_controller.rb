@@ -50,6 +50,21 @@ class SchedulesController < ApplicationController
     end
   end
 
+  # def remove_lab
+  #   @lab = Lab.find(params["lab_id"])
+  #   schedule_lab = ScheduleLab.find_by(schedule: @schedule, lab: @lab)
+  #   schedule_lab.destroy
+  #   respond_to do |format|
+  #     format.js {render template: 'cohorts/schedules/remove_lab.js.erb'}
+  #   end
+  # end
+
+  def remove_activity
+  end
+
+  def remove_objective
+  end
+
   def deploy
     @schedule.deploy = true
     @schedule.save
@@ -104,7 +119,6 @@ class SchedulesController < ApplicationController
   end
 
   def set_cohort_and_schedule
-
     @cohort = Cohort.find_by_name(params[:cohort_slug])
     @schedule = @cohort.schedules.find_by(slug: params[:slug])
   end
