@@ -1,21 +1,24 @@
 <div class="form-group">
   <div class="col-lg-4">
     <br>
-    <%= f.fields_for :activities, schedule.activities do |activity_form|%>
-      <%= activity_form.label :start_time %>
-      <%= activity_form.time_field :start_time, class: "form-control" %>
-      <%= activity_form.label :end_time %>
-      <%= activity_form.time_field :end_time, class: "form-control" %>
-      <br>
-      <%= activity_form.label :description %>
-      <%= activity_form.text_field :description, class: "form-control" %>
-      <br>
-      <%= activity_form.label :reserve_room %>
-      <%= activity_form.check_box :reserve_room %>
-      <br>
-      <br>
-      <div style="border-bottom: solid; border-width: 1px"></div>
-      <br>
-    <% end %>
+    <div id="add-activities">
+      <%= f.fields_for :activities, schedule.activities do |activity_form|%>
+        <%= activity_form.label :start_time %>
+        <%= activity_form.time_field :start_time, class: "form-control" %>
+        <%= activity_form.label :end_time %>
+        <%= activity_form.time_field :end_time, class: "form-control" %>
+        <br>
+        <%= activity_form.label :description %>
+        <%= activity_form.text_field :description, class: "form-control" %>
+        <br>
+        <%= activity_form.label :reserve_room %>
+        <%= activity_form.check_box :reserve_room %>
+        <br>
+        <br>
+        <div style="border-bottom: solid; border-width: 1px"></div>
+        <br>
+      <% end %>
+    </div>
+    <button id="add-activity" class="btn btn-primary">+ activity</button>
   </div>
 </div>

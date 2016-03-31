@@ -15,7 +15,6 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    binding.pry
     @schedule = Schedule.create_from_params(schedule_params, @cohort)
     @schedule.build_labs(validated_labs_params)
     @schedule.build_activities(validated_activity_params)

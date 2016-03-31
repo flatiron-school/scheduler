@@ -34,7 +34,7 @@ class Schedule < ApplicationRecord
       schedule.labs << Lab.new
     end
 
-    10.times do
+    3.times do
       schedule.activities << Activity.new
     end
 
