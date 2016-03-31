@@ -1,10 +1,13 @@
 <div class="form-group">
   <div class="col-lg-4">
-    <%= f.fields_for :labs, schedule.labs do |lab_form|%>
-       <br>
-      <%= lab_form.label :name %>
-      <%= lab_form.text_field :name, class: "form-control" %>
-      <br>
-    <% end %>
+    <div id="add-labs">
+      <%= f.fields_for :labs, schedule.labs do |lab_form|%>
+         <br>
+        <%= lab_form.label :name %>
+        <%= lab_form.text_field :name, class: "form-control" %>
+        <br>
+      <% end %>
+    </div>
+    <button id="add-lab" class="btn btn-info">+ lab</button>
   </div>
 </div>
