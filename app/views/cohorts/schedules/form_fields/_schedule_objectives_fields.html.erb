@@ -1,8 +1,20 @@
 <div class="form-group">
   <div class="col-lg-6">
-    <%= f.fields_for :objectives, schedule.objectives do |objective_form| %>
-          <%= objective_form.label :content, "Students will be able to:" %><br>
-          <%= objective_form.text_field :content, class: "form-control" %>
-     <% end %>
+    <div id="add-objectives">
+      <%= f.fields_for :objectives, schedule.objectives do |objective_form| %>
+          <div id="objective-<%= objective_form.object.id %>">
+            <%= objective_form.label :content, "Students will be able to:" %><br>
+            <%= objective_form.text_field :content, class: "form-control" %>
+            <br>
+            <% if !schedule.new_record?%>
+            <%= link_to "remove objective",cohort_schedule_remove_objective_path(schedule.cohort, schedule, objective_id: objective_form.object), method: "post", remote: true, id: "remove-objective", class:"btn btn-primary form-btn" %>
+          <% end %>
+          <br>
+          <br>
+          </div>
+       <% end %>
+     </div>
+     <br>
+       <button class="btn btn-primary form-btn" id="add-objective">+ objective</button>
    </div>
 </div>

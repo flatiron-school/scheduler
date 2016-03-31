@@ -1,10 +1,19 @@
 <div class="form-group">
   <div class="col-lg-4">
-    <%= f.fields_for :labs, schedule.labs do |lab_form|%>
-       <br>
-      <%= lab_form.label :name %>
-      <%= lab_form.text_field :name, class: "form-control" %>
-      <br>
-    <% end %>
+    <div id="add-labs">
+      <%= f.fields_for :labs, schedule.labs do |lab_form|%>
+         <br>
+         <div id="lab-<%= lab_form.object.id %>">
+          <%= lab_form.label :name %>
+          <%= lab_form.text_field :name, class: "form-control" %>
+          <br>
+          <% if !schedule.new_record?%>
+            <%= link_to "remove lab",cohort_schedule_remove_lab_path(schedule.cohort, schedule, lab_id: lab_form.object), method: "post", remote: true, id: "remove-lab", class:"btn btn-primary form-btn" %>
+          <% end %>
+          </div>
+        <br>
+      <% end %>
+    </div>
+    <button id="add-lab" class="btn btn-primary form-btn">+ lab</button>
   </div>
 </div>

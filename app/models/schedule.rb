@@ -34,7 +34,7 @@ class Schedule < ApplicationRecord
       schedule.labs << Lab.new
     end
 
-    10.times do
+    3.times do
       schedule.activities << Activity.new
     end
 
@@ -42,7 +42,7 @@ class Schedule < ApplicationRecord
   end
 
   def self.create_from_params(schedule_params, cohort)
-    Schedule.new(week: schedule_params["week"],
+    schedule = Schedule.new(week: schedule_params["week"],
       day: schedule_params["day"],
       date: schedule_params["date"],
       notes: schedule_params["notes"],
@@ -74,21 +74,60 @@ class Schedule < ApplicationRecord
 
   def update_from_params(schedule_params)
     self.update(notes: schedule_params["notes"], deploy: schedule_params["deploy"])
+    self.update_labs(schedule_params)
+    self.update_activities(schedule_params)
+    self.update_objectives(schedule_params)
   end
 
   def update_labs(schedule_params)
-    schedule_params["labs_attributes"].each do |num, lab_hash|
-      lab = Lab.find(lab_hash[:id])
-      lab.update(lab_hash)
-      lab.save
+    schedule_params["labs_attributes"].try(:each) do |num, lab_hash|
+      if lab_hash["id"]
+        lab = Lab.find(lab_hash["id"])
+        if lab.edited?(lab_hash)
+          sl = ScheduleLab.find_by(schedule_id: self.id, lab_id: lab_hash["id"])
+          sl.destroy
+          lab = Lab.find_or_create_by(name: lab_hash["name"])
+          self.labs << lab
+          self.save
+        end
+      else
+        lab = Lab.find_or_create_by(name: lab_hash["name"])
+        self.labs << lab 
+        self.save
+      end
     end
   end
 
   def update_activities(schedule_params)
-    schedule_params["activities_attributes"].each do |num, activity_hash|
-      activity = Activity.find(activity_hash[:id])
-      activity.update(activity_hash)
-      activity.save
+    schedule_params["activities_attributes"].try(:each) do |num, activity_hash|
+      if activity_hash["id"]
+        activity = Activity.find(activity_hash["id"])
+        if activity.edited?(activity_hash)
+          sa = ScheduleActivity.find_by(schedule_id: self.id, activity_id: activity_hash["id"])
+          sa.destroy
+          activity_data = activity_hash.reject {|k| k == "id"}
+          activity = Activity.find_or_create_by(activity_data)
+          self.activities << activity
+          self.save
+        end
+      else
+        activity = Activity.find_or_create_by(activity_hash)
+        self.activities << activity 
+        self.save
+      end
+    end
+  end
+
+  def update_objectives(schedule_params)
+    schedule_params["objectives_attributes"].try(:each) do |num, objective_hash|
+      if objective_hash["id"]
+        objective = Objective.find(objective_hash["id"])
+        objective.update(objective_hash)
+      else
+        objective = Objective.create(content: objective_hash["content"])
+        self.objectives << objective
+        self.save
+      end
     end
   end
 

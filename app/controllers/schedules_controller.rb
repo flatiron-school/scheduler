@@ -40,8 +40,6 @@ class SchedulesController < ApplicationController
 
   def update
     @schedule.update_from_params(schedule_params)
-    @schedule.update_labs(schedule_params)
-    @schedule.update_activities(schedule_params)
     if @schedule.save
       update_schedule_on_github
       redirect_to cohort_schedule_path(@schedule.cohort, @schedule)
@@ -49,6 +47,7 @@ class SchedulesController < ApplicationController
       render 'cohorts/schedules/edit'
     end
   end
+
 
   def deploy
     @schedule.deploy = true
@@ -104,7 +103,6 @@ class SchedulesController < ApplicationController
   end
 
   def set_cohort_and_schedule
-
     @cohort = Cohort.find_by_name(params[:cohort_slug])
     @schedule = @cohort.schedules.find_by(slug: params[:slug])
   end

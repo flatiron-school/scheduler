@@ -133,3 +133,37 @@ ul > #active-cohort-btn:hover {
     display: block;
 }
 
+html > form > div > button.form-btn {
+  height: 43px;
+  width: 125px;
+}
+
+#add-lab{
+  height: 43px;
+  width: 125px;
+}
+
+#add-activity {
+  height: 43px;
+  width: 125px;
+}
+
+#add-objective {
+  height: 43px;
+  width: 125px;
+}
+
+#remove-activity {
+  height: 43px;
+  width: 125px;
+}
+
+#remove-lab {
+  height: 43px;
+  width: 125px;
+}
+
+
+
+
+
