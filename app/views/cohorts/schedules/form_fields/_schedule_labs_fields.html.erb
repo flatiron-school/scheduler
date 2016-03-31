@@ -6,13 +6,14 @@
          <div id="lab-<%= lab_form.object.id %>">
           <%= lab_form.label :name %>
           <%= lab_form.text_field :name, class: "form-control" %>
+          <br>
           <% if !schedule.new_record?%>
-            <%= link_to "remove lab",cohort_schedule_remove_lab_path(schedule.cohort, schedule, lab_id: lab_form.object), method: "post", remote: true, class:"btn btn-primary" %>
+            <%= link_to "remove lab",cohort_schedule_remove_lab_path(schedule.cohort, schedule, lab_id: lab_form.object), method: "post", remote: true, id: "remove-lab", class:"btn btn-primary form-btn" %>
           <% end %>
           </div>
         <br>
       <% end %>
     </div>
-    <button id="add-lab" class="btn btn-primary">+ lab</button>
+    <button id="add-lab" class="btn btn-primary form-btn">+ lab</button>
   </div>
 </div>

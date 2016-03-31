@@ -19,11 +19,12 @@
             <div style="border-bottom: solid; border-width: 1px"></div>
             <br>
             <% if !schedule.new_record?%>
-            <%= link_to "remove activity",cohort_schedule_remove_activity_path(schedule.cohort, schedule, activity_id: activity_form.object), method: "post", remote: true, class:"btn btn-primary" %>
+            <%= link_to "remove activity",cohort_schedule_remove_activity_path(schedule.cohort, schedule, activity_id: activity_form.object), method: "post", remote: true, id: "remove-activity", class:"btn btn-primary form-btn" %>
           <% end %>
         </div>
       <% end %>
     </div>
-    <button id="add-activity" class="btn btn-primary">+ activity</button>
+    <br>
+    <button id="add-activity" class="btn btn-primary form-btn">+ activity</button>
   </div>
 </div>

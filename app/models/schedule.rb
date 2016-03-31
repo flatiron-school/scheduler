@@ -42,7 +42,7 @@ class Schedule < ApplicationRecord
   end
 
   def self.create_from_params(schedule_params, cohort)
-    Schedule.new(week: schedule_params["week"],
+    schedule = Schedule.new(week: schedule_params["week"],
       day: schedule_params["day"],
       date: schedule_params["date"],
       notes: schedule_params["notes"],
@@ -74,10 +74,13 @@ class Schedule < ApplicationRecord
 
   def update_from_params(schedule_params)
     self.update(notes: schedule_params["notes"], deploy: schedule_params["deploy"])
+    self.update_labs(schedule_params)
+    self.update_activities(schedule_params)
+    self.update_objectives(schedule_params)
   end
 
   def update_labs(schedule_params)
-    schedule_params["labs_attributes"].each do |num, lab_hash|
+    schedule_params["labs_attributes"].try(:each) do |num, lab_hash|
       if lab_hash["id"]
         lab = Lab.find(lab_hash["id"])
         if lab.edited?(lab_hash)
@@ -96,7 +99,7 @@ class Schedule < ApplicationRecord
   end
 
   def update_activities(schedule_params)
-    schedule_params["activities_attributes"].each do |num, activity_hash|
+    schedule_params["activities_attributes"].try(:each) do |num, activity_hash|
       if activity_hash["id"]
         activity = Activity.find(activity_hash["id"])
         if activity.edited?(activity_hash)
@@ -110,6 +113,19 @@ class Schedule < ApplicationRecord
       else
         activity = Activity.find_or_create_by(activity_hash)
         self.activities << activity 
+        self.save
+      end
+    end
+  end
+
+  def update_objectives(schedule_params)
+    schedule_params["objectives_attributes"].try(:each) do |num, objective_hash|
+      if objective_hash["id"]
+        objective = Objective.find(objective_hash["id"])
+        objective.update(objective_hash)
+      else
+        objective = Objective.create(content: objective_hash["content"])
+        self.objectives << objective
         self.save
       end
     end

@@ -40,8 +40,6 @@ class SchedulesController < ApplicationController
 
   def update
     @schedule.update_from_params(schedule_params)
-    @schedule.update_labs(schedule_params)
-    @schedule.update_activities(schedule_params)
     if @schedule.save
       update_schedule_on_github
       redirect_to cohort_schedule_path(@schedule.cohort, @schedule)
@@ -50,20 +48,6 @@ class SchedulesController < ApplicationController
     end
   end
 
-  # def remove_lab
-  #   @lab = Lab.find(params["lab_id"])
-  #   schedule_lab = ScheduleLab.find_by(schedule: @schedule, lab: @lab)
-  #   schedule_lab.destroy
-  #   respond_to do |format|
-  #     format.js {render template: 'cohorts/schedules/remove_lab.js.erb'}
-  #   end
-  # end
-
-  def remove_activity
-  end
-
-  def remove_objective
-  end
 
   def deploy
     @schedule.deploy = true
