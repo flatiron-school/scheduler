@@ -78,17 +78,27 @@ class Schedule < ApplicationRecord
 
   def update_labs(schedule_params)
     schedule_params["labs_attributes"].each do |num, lab_hash|
-      lab = Lab.find(lab_hash[:id])
-      lab.update(lab_hash)
-      lab.save
+      if lab_hash["id"]
+        lab = Lab.find(lab_hash["id"])
+        lab.update(lab_hash)
+      else
+        lab = Lab.find_or_create_by(name: lab_hash["name"])
+        self.labs << lab 
+        self.save
+      end
     end
   end
 
   def update_activities(schedule_params)
     schedule_params["activities_attributes"].each do |num, activity_hash|
-      activity = Activity.find(activity_hash[:id])
-      activity.update(activity_hash)
-      activity.save
+      if activity_hash["id"]
+        activity = Activity.try(:find, activity_hash["id"])
+        activity.update(activity_hash)
+      else
+        activity = Activity.find_or_create_by(activity_hash)
+        self.activities << activity 
+        self.save
+      end
     end
   end
 
