@@ -12,6 +12,7 @@ class CohortsController < ApplicationController
 
   def create
     @cohort = Cohort.new(cohort_params)
+    @cohort.create_members
     cal_id = @calendar.get_cohort_calendar_id(@cohort)
     @cohort.calendar_id = cal_id
     if @cohort.save
@@ -27,6 +28,7 @@ class CohortsController < ApplicationController
 
   def update
     @cohort.update(cohort_params)
+    @cohort.create_members
     redirect_to @cohort
   end
 
@@ -40,7 +42,7 @@ class CohortsController < ApplicationController
 
   private
   def cohort_params
-    params.require(:cohort).permit(:name, :roster_csv)
+    params.require(:cohort).permit(:name, :roster_csv, :calendar_id)
   end
 
   def set_cohort
