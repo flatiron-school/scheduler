@@ -64,4 +64,5 @@ A few areas that need work:
 
 * Posting a schedule to GitHub and reserving classrooms on Goole Calendar should be extracted and run in background jobs, using something like Sidekiq.
 * Right now, anyone with an `@flatironschool.com` email address can log in. That means students can mess with the schedule. Oh no! We all know how tricky those students can be. You can implement a feature that only allows registered instructors to log in. 
+* When a schedule's activities are updated, the google calendar is not updated. If a schedule activity that has `reserve_room=true` updates its start/end time, delete original room reservation first, then make a new one. 
 * More tests!  
