@@ -85,7 +85,7 @@ class Schedule < ApplicationRecord
         lab = Lab.find(lab_hash["id"])
         if lab.edited?(lab_hash)
           sl = ScheduleLab.find_by(schedule_id: self.id, lab_id: lab_hash["id"])
-          sl.destroy
+          sl.destroy if sl
           lab = Lab.find_or_create_by(name: lab_hash["name"])
           self.labs << lab
           self.save
@@ -104,7 +104,7 @@ class Schedule < ApplicationRecord
         activity = Activity.find(activity_hash["id"])
         if activity.edited?(activity_hash)
           sa = ScheduleActivity.find_by(schedule_id: self.id, activity_id: activity_hash["id"])
-          sa.destroy
+          sa.destroy if sa
           activity_data = activity_hash.reject {|k| k == "id"}
           activity = Activity.find_or_create_by(activity_data)
           self.activities << activity

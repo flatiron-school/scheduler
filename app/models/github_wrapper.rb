@@ -34,10 +34,11 @@ class GithubWrapper
   end
 
   def update_schedule_in_repo
+    sha = self.client.contents(repo_name, path: "week-#{self.schedule.week}/day-#{self.schedule.day}.md").sha
     self.client.update_contents(repo_name, 
       "week-#{self.schedule.week}/day-#{self.schedule.day}.md", 
       "update week-#{self.schedule.week}/day-#{self.schedule.day}.md",
-      self.schedule.sha, 
+      sha, 
       markdown_content)
   end
 
