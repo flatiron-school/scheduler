@@ -35,6 +35,7 @@ class GithubWrapper
 
   def update_schedule_in_repo
     sha = self.client.contents(repo_name, path: "week-#{self.schedule.week}/day-#{self.schedule.day}.md").sha
+    puts "HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     puts sha
     self.client.update_contents(repo_name, 
       "week-#{self.schedule.week}/day-#{self.schedule.day}.md", 
@@ -46,6 +47,7 @@ class GithubWrapper
   def update_readme
     if self.schedule.deploy
       sha = self.client.readme(repo_name)[:sha]
+      puts sha
       begin 
         self.client.update_content(repo_name, 
           "README.md", 
