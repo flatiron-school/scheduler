@@ -141,11 +141,14 @@ class GoogleCalWrapper
     clear_schedule_calendar_events(schedule)
     booked_events.each do |event|
       body = JSON.parse(event.body)
+      pus "BODY HERE----------------------------------------------"
+      puts body
+      creator = body["creator"]["email"] || "flatiron scheduler app"
       CalendarEvent.create(schedule: schedule, 
         name: body["summary"], 
         location: body["location"], 
         reserved_at: body["updated"], 
-        reserved_by: body["creator"]["email"],
+        reserved_by: creator,
         link: body["htmlLink"])
     end
   end
