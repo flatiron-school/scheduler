@@ -1,5 +1,6 @@
 module Cohorts
   module SchedulesHelper
+    # NOTE: These feels like boolean methods on schedule
     def blogs?(schedule)
       !schedule.blog_assignments.empty?
     end

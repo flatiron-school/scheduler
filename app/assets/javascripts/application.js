@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+// FIXME: Probably just take the next line out or make it a directive with //=
 // require bootstrap
 //= require bootstrap-sprockets
 //= require spinner
+// FIXME: I think require_tree is a dangerous idea and needlessly requires files
+//        in a random order.
 //= require_tree .

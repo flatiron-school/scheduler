@@ -34,12 +34,13 @@ class User < ApplicationRecord
   end
 
   def active_cohort
+    # FIXME: This seems like a scope on UserCohort
     if !UserCohort.where("user_id = ? AND active = ?", self.id, true).empty?
       UserCohort.where("user_id = ? AND active = ?", self.id, true).first.cohort
     end
   end
 
-  def has_cohort
+  def has_cohort?
     self.cohorts.length > 0
   end
 
