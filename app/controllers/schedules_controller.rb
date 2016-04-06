@@ -10,17 +10,27 @@ class SchedulesController < ApplicationController
   end
 
   def new
+    # FIXME: Models shouldn't know about forms.
     @schedule= Schedule.new_for_form
     render "cohorts/schedules/new"
   end
 
   def create
+    # FIXME: I think all this needs to be pushed into the model and delegated
+    # from @cohort. Also models shouldn't know about params but rather just hashes.
+    # `@cohort.build_schedule` and `@cohort.create_schedule`
+    # That method should call on Schedule and then can trigger these other
+    # build methods. I could also imagine passing flags into these methods
+    # to determine whether to always build_labs, build_activities, etc.
     @schedule = Schedule.create_from_params(schedule_params, @cohort)
     @schedule.build_labs(validated_labs_params)
     @schedule.build_activities(validated_activity_params)
     @schedule.build_objectives(validated_objectives_params)
     @schedule.get_blogs
     if @schedule.save
+      # NOTE: I'd try to get the GitHub interactions into a model by injecting
+      # the wrapper should you need data from the controller but I don't think
+      # you do. @schedule should know more about pushing to GitHub than the controller.
       set_github_wrapper
       create_schedule_on_github
       redirect_to cohort_schedule_path(@cohort, @schedule)
@@ -50,8 +60,12 @@ class SchedulesController < ApplicationController
 
 
   def deploy
+    # NOTE: This seems magic, no idea what it does. Is there a deployments resource
+    # you want to expose that can more directly create a deployment of a schedule
+    # via REST?
     @schedule.deploy = true
     @schedule.save
+    # NOTE: Model should do this.
     deploy_schedule_to_readme
     respond_to do |format|
       format.js {render template: 'cohorts/schedules/deploy.js.erb'}
@@ -59,6 +73,8 @@ class SchedulesController < ApplicationController
   end
 
   def reserve_rooms
+    # NOTE: Sounds like there is a RoomReservation resource controller with a new / create.
+    #       Discover resources to expose through REST when you have a non RESTful action.
     configure_google_calendar_client
     @calendar.book_events(@schedule)
     respond_to do |format|
@@ -72,6 +88,7 @@ class SchedulesController < ApplicationController
     params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :start_time, :end_time, :description, :reserve_room], :objectives_attributes => [:id, :content])
   end
 
+  # NOTE: Why isn't the model doing all these validations?
   def validated_activity_params
     schedule_params["activities_attributes"].delete_if {|num, activity_hash| activity_hash["start_time"].empty? || activity_hash["description"].empty? || activity_hash["end_time"].empty?}
   end
@@ -97,9 +114,15 @@ class SchedulesController < ApplicationController
   end
 
   def render_schedule_template
+    # NOTE: Super cool! Is this really needed here though? Sounds like a
+    #       ScheduleTemplate service object and unless you need the entire
+    #       Controller/View stack can't you just use Tilt to do the ERB rendering?
+    #       It doesn't look like you need any Rails stuff in that view.
+    #       I'd also think about moving/renaming that view as it's really a template
+    #       Not a view rendered by anything else right?
     view = ActionView::Base.new(ActionController::Base.view_paths, {})
     view.assign(schedule: @schedule)
-    view.render(file: 'cohorts/schedules/github_show.html.erb') 
+    view.render(file: 'cohorts/schedules/github_show.html.erb')
   end
 
   def set_cohort_and_schedule

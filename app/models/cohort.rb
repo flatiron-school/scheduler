@@ -16,7 +16,7 @@ class Cohort < ApplicationRecord
   validates_attachment_file_name :roster_csv, :matches => [/csv\Z/]
   # after_create :create_members
   # after_update :create_members
- 
+
   def to_param
     self.name
   end
@@ -24,11 +24,10 @@ class Cohort < ApplicationRecord
 
   def create_members
     return if !roster_csv.path
-    csv_rows = CSV.foreach(roster_csv.path, headers: true)
-    csv_rows.each do |student_row|
-      student = Student.find_or_create_from_row(student_row.to_h)
+    CSV.foreach(roster_csv.path, headers: true).each do |student_row|
+      self.students.find_or_create_from_row(student_row.to_h)
+      # FIXME: Avoid << on associations, it's tremendously ineffecient.
       self.students << student
-      self.save
     end
   end
 

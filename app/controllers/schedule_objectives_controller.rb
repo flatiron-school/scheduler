@@ -3,6 +3,7 @@ class ScheduleObjectivesController < ApplicationController
   before_action :set_cohort_and_schedule
 
   def remove_objective
+    # NOTE: Same about instance variables
     @objective = Objective.find(params["objective_id"])
     @objective.destroy
     respond_to do |format|

@@ -1,9 +1,12 @@
-
+// NOTE: I like to build a js_render helper that wraps `j(render(`
 $("#new-schedule").html("<%= j render(partial: 'layouts/new_schedule_link') %>")
+
+// NOTE: I'd wrap these two lines into 2 JS partials so I could do:
+//      `<%= render 'former_active' if @former_active %>`
+//      `<%= render 'active_cohort' %>`
 
 <% if @former_active %>
   $("#cohort-" + <%= @former_active.id %>).html("<%= j render(partial: 'cohorts/user_cohort_button', locals: {cohort: @former_active}) %>")
-  $("#cohort-" + <%= @cohort.id %>).html("<%= j render(partial: 'cohorts/user_cohort_button', locals: {cohort: @cohort}) %>")
-<% else %>
-  $("#cohort-" + <%= @cohort.id %>).html("<%= j render(partial: 'cohorts/user_cohort_button', locals: {cohort: @cohort}) %>")
 <% end %>
+
+$("#cohort-" + <%= @cohort.id %>).html("<%= j render(partial: 'cohorts/user_cohort_button', locals: {cohort: @cohort}) %>")

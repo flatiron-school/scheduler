@@ -1,5 +1,5 @@
 module CohortsHelper
-
+  # NOTE: Why not current_user.active_cohort?(cohort) in the model?
   def current_user_active_cohort(cohort)
     current_user.active_cohort == cohort
   end

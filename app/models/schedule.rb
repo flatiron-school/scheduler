@@ -23,6 +23,9 @@ class Schedule < ApplicationRecord
     self.slug
   end
 
+  # FIXME: I think this can be moved into a controller and I'd avoid
+  #        using <<
+  #        You could also Schedule.new.tap to avoid the local
   def self.new_for_form
     schedule = Schedule.new
 
@@ -52,13 +55,13 @@ class Schedule < ApplicationRecord
 
   def build_labs(valided_labs_params)
     valided_labs_params.each do |num, lab_hash|
-      lab = Lab.find_by(name: lab_hash["name"]) || Lab.new(name: lab_hash["name"])
-      self.labs << lab
+      self.labs.where(name: lab_hash["name"]).first_or_initialize
     end
   end
 
   def build_activities(validated_activity_params)
     validated_activity_params.each do |num, activity_hash|
+      # FIXME: Same pattern as above.
       activity = Activity.find_by(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"], reserve_room: activity_hash["reserve_room"]) || Activity.new(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"], reserve_room: activity_hash["reserve_room"])
       self.activities << activity
     end
@@ -66,6 +69,7 @@ class Schedule < ApplicationRecord
 
   def build_objectives(validated_objectives_params)
     validated_objectives_params.each do |num, objective_hash|
+      # FIXME: Same pattern as above.
       objective = Objective.find_by(content: objective_hash[:content]) || Objective.new(content: objective_hash[:content])
       self.objectives << objective
       objective.schedule = self
@@ -74,6 +78,10 @@ class Schedule < ApplicationRecord
 
   def update_from_params(schedule_params)
     self.update(notes: schedule_params["notes"], deploy: schedule_params["deploy"])
+    # FIXME: I think you end up saving and firing a ton of un-needed SQL here.
+    #        I'd consider introducing a ScheduleUpdater and ScheduleBuilder type
+    #        Service object to handle the routines of updating and building schedules
+    #        with all their associated data.
     self.update_labs(schedule_params)
     self.update_activities(schedule_params)
     self.update_objectives(schedule_params)
@@ -92,7 +100,7 @@ class Schedule < ApplicationRecord
         end
       else
         lab = Lab.find_or_create_by(name: lab_hash["name"])
-        self.labs << lab 
+        self.labs << lab
         self.save
       end
     end
@@ -112,7 +120,7 @@ class Schedule < ApplicationRecord
         end
       else
         activity = Activity.find_or_create_by(activity_hash)
-        self.activities << activity 
+        self.activities << activity
         self.save
       end
     end
