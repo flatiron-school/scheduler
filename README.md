@@ -65,4 +65,5 @@ A few areas that need work:
 * Posting a schedule to GitHub and reserving classrooms on Goole Calendar should be extracted and run in background jobs, using something like Sidekiq.
 * Right now, anyone with an `@flatironschool.com` email address can log in. That means students can mess with the schedule. Oh no! We all know how tricky those students can be. You can implement a feature that only allows registered instructors to log in. 
 * When a schedule's activities are updated, the google calendar is not updated. If a schedule activity that has `reserve_room=true` updates its start/end time, delete original room reservation first, then make a new one. 
-* More tests!  
+* Two-way data relationship with GitHub: use webhooks to listen to any changes to the master branch of a cohort's repo on GitHub. Receive a payload of those changes and use them to update the appropriate schedule in the app. 
+* Video link and Blog schedule management feature. Should be able to manage the `videos/links.md` aspect of a cohort's repo. Should be able to manage the `blogs/schedule.md` aspect of a cohort's repo.   
