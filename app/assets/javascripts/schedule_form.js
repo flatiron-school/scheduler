@@ -1,22 +1,25 @@
 $(function () {
+  // $("#add-lab").addMore();
+
   addLabListener();
   addActivityListener();
   addObjectiveListener();
 })
 
+function addMore(){
+
+}
+
 function addLabListener(){
   $("#add-lab").on("click", function(event){
     event.preventDefault();
     event.stopPropagation();
-    var new_id_num = 0;
-    var inputs = $("input[name^='schedule[labs_attributes]'");
-    if (inputs.length > 0) {
-      var last = inputs[inputs.length - 1];
-      var last_id_num = last.id.split("_")[3]
-      var new_id_num = parseInt(last_id_num) + 1
+    var newIdNum = 0
+    if ($('[data-lab-position]').length > 1) {
+      var newIdNum = $('[data-lab-position]').last().data().labPosition
     }
-    
-    $("#add-labs").append('<br><label>Name</label><input class="form-control" type="text" name="schedule[labs_attributes][' + new_id_num + '][name]" id="schedule_labs_attributes_' + new_id_num + '_name"><br>')
+
+    $("#add-labs").append(HandlebarsTemplates['add-lab']({newIdNum: newIdNum}));
   });
 }
 

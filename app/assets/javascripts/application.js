@@ -15,5 +15,7 @@
 //= require bootstrap-sprockets
 //= require spinner
 //= require cohorts
+//= //= require handlebars
+//= require_tree ./templates
 //= require schedule_form
 

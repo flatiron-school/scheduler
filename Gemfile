@@ -30,6 +30,8 @@ gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-se
 # gem 'draper'
 # gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'bootstrap-sass', '~> 3.3.6'
+
+gem 'handlebars_assets'
 # gem 'common_tools'
 group :development, :test do
   gem "figaro"
