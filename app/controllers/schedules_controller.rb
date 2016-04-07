@@ -3,6 +3,7 @@ class SchedulesController < ApplicationController
   before_action :set_cohort_and_schedule, except: [:create, :index, :new]
   before_action :set_cohort, only: [:create, :index, :new]
   before_action :set_github_wrapper, only: [:deploy, :update]
+  
 
   def index
     @schedules = @cohort.schedules

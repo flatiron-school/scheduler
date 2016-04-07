@@ -2,12 +2,14 @@ class GithubWrapper
 
   attr_accessor :client, :schedule, :markdown_content, :repo_name, :error
 
-  def initialize(cohort, schedule, page)
+  def initialize(cohort, schedule, page=nil)
     configure_client
     @repo_name = "learn-co-curriculum/#{cohort.name}"
     @schedule = schedule
-    schedule_template_content = page.split("<h1>").second.prepend("<h1>").split("</body>").first
-    @markdown_content = ReverseMarkdown.convert(schedule_template_content)
+    if page
+      schedule_template_content = page.split("<h1>").second.prepend("<h1>").split("</body>").first
+      @markdown_content = ReverseMarkdown.convert(schedule_template_content)
+    end
   end
 
   def create_repo_schedules
@@ -35,8 +37,6 @@ class GithubWrapper
 
   def update_schedule_in_repo
     sha = self.client.contents(repo_name, path: "week-#{self.schedule.week}/day-#{self.schedule.day}.md").sha
-    puts "HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    puts sha
     self.client.update_contents(repo_name, 
       "week-#{self.schedule.week}/day-#{self.schedule.day}.md", 
       "update week-#{self.schedule.week}/day-#{self.schedule.day}.md",
@@ -62,4 +62,16 @@ class GithubWrapper
       self.schedule.save
     end
   end
+
+  def get_file_contents(file_path)
+    response = self.client.contents(repo_name, path: file_path)
+    Base64.decode64(response.content)
+  end
+
+
+
+
+
+
+
 end
