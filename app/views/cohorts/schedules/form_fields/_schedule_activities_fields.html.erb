@@ -1,7 +1,7 @@
 <div class="form-group">
   <div class="col-lg-4">
     <br>
-    <div id="add-activities">
+    <div id="add-activitys">
       <%= f.fields_for :activities, schedule.activities do |activity_form|%>
         <div id="activity-<%= activity_form.object.id %>">
             <%= activity_form.label :start_time %>
@@ -9,8 +9,8 @@
             <%= activity_form.label :end_time %>
             <%= activity_form.time_field :end_time, class: "form-control" %>
             <br>
-            <%= activity_form.label :description %>
-            <%= activity_form.text_field :description, class: "form-control" %>
+            <%= activity_form.label :description%>
+            <%= activity_form.text_field :description, class: "form-control", data: {activity_position: activity_form.index}  %>
             <br>
             <%= activity_form.label :reserve_room %>
             <%= activity_form.check_box :reserve_room %>
@@ -25,6 +25,6 @@
       <% end %>
     </div>
     <br>
-    <button id="add-activity" class="btn btn-primary form-btn">+ activity</button>
+    <button id="add-activity" class="btn btn-primary form-btn" data-add-type=activity>+ activity</button>
   </div>
 </div>
