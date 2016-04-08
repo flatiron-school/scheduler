@@ -58,10 +58,8 @@ class GoogleCalWrapper
   def build_calendar_events(reservation_activities, date)
     reservation_activities.map do |activity|
       start_time = format_date(date, activity.start_time)
-      
       end_time = format_date(date, activity.end_time) 
       available_location = best_available_location(date, start_time, end_time)
-
       build_event(activity.description, available_location, start_time, end_time)
     end
   end
@@ -143,7 +141,6 @@ class GoogleCalWrapper
       body = JSON.parse(event.body)
       puts "BODY HERE----------------------------------------------"
       puts body
-      creator = body["creator"]["email"] || "flatiron scheduler app"
       CalendarEvent.create(schedule: schedule, 
         name: body["summary"], 
         location: body["location"], 
