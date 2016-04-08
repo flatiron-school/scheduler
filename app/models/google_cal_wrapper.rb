@@ -1,7 +1,7 @@
 class GoogleCalWrapper
 
   RESOURCE_ID_MAP = {
-    "flatironschool.com_36383633393236392d333336@resource.calendar.google.com" => "Classroom - Kay", 
+    "flatironschool.com_36383633393236392d333336@resource.calendar.google.com" => "Classroom - Kay",
     "flatironschool.com_31373234393535322d343338@resource.calendar.google.com" => "Classroom - Turing",
     "flatironschool.com_31373632383930392d313938@resource.calendar.google.com" => "Classroom - Hopper"
   }
@@ -27,7 +27,7 @@ class GoogleCalWrapper
     response = @client.execute(api_method: @service.calendar_list.list)
     cals = JSON.parse(response.body)
     calendar = get_cohort_calendar(cals, cohort)
-    calendar.first["id"] 
+    calendar.first["id"]
   end
 
   private
@@ -58,8 +58,8 @@ class GoogleCalWrapper
   def build_calendar_events(reservation_activities, date)
     reservation_activities.map do |activity|
       start_time = format_date(date, activity.start_time)
-      
-      end_time = format_date(date, activity.end_time) 
+
+      end_time = format_date(date, activity.end_time)
       available_location = best_available_location(date, start_time, end_time)
 
       build_event(activity.description, available_location, start_time, end_time)
@@ -102,8 +102,8 @@ class GoogleCalWrapper
   def get_exisiting_reservations(date)
     start_time = date.strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
     end_time = (date + 23.hours).strftime("%Y-%m-%dT%H:%M:%S+%H%M")[0..-6] << "-05:00"
-    
-    response = @client.execute(api_method: @service.freebusy.query, 
+
+    response = @client.execute(api_method: @service.freebusy.query,
       body: JSON.dump({timeMin: start_time,
         timeMax: end_time,
         timeZone: "EST",
@@ -126,15 +126,15 @@ class GoogleCalWrapper
   def get_free_room(free_room_id)
     RESOURCE_ID_MAP[free_room_id]
   end
-        
+
   def build_event(activity_description, available_location, start_time, end_time)
     {
-      summary: activity_description, 
+      summary: activity_description,
       location: available_location,
-      start: {dateTime: (start_time.to_datetime - 1.hours)},  
-      end: {dateTime: (end_time.to_datetime - 1.hours)},  
-      description: activity_description,  
-    } 
+      start: {dateTime: (start_time.to_datetime - 1.hours)},
+      end: {dateTime: (end_time.to_datetime - 1.hours)},
+      description: activity_description,
+    }
   end
 
   def parse_booked_events(booked_events, schedule)
@@ -144,10 +144,10 @@ class GoogleCalWrapper
       puts "BODY HERE----------------------------------------------"
       puts body
       creator = body["creator"]["email"] || "flatiron scheduler app"
-      CalendarEvent.create(schedule: schedule, 
-        name: body["summary"], 
-        location: body["location"], 
-        reserved_at: body["updated"], 
+      CalendarEvent.create(schedule: schedule,
+        name: body["summary"],
+        location: body["location"],
+        reserved_at: body["updated"],
         reserved_by: creator,
         link: body["htmlLink"])
     end
@@ -159,4 +159,3 @@ class GoogleCalWrapper
 
 
 end
-
