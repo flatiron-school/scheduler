@@ -6,6 +6,7 @@ class Cohort < ApplicationRecord
   has_many :user_cohorts
   has_many :users, through: :user_cohorts
   has_many :students
+  has_many :videos
   #ugly val
   # validates_uniqueness_of :name
   #sexy val
@@ -16,7 +17,7 @@ class Cohort < ApplicationRecord
   validates_attachment_file_name :roster_csv, :matches => [/csv\Z/]
   # after_create :create_members
   # after_update :create_members
- 
+
   def to_param
     self.name
   end
