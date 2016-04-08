@@ -58,12 +58,7 @@ class GoogleCalWrapper
   def build_calendar_events(reservation_activities, date)
     reservation_activities.map do |activity|
       start_time = format_date(date, activity.start_time)
-<<<<<<< HEAD
-
       end_time = format_date(date, activity.end_time)
-=======
-      end_time = format_date(date, activity.end_time)
->>>>>>> master
       available_location = best_available_location(date, start_time, end_time)
       build_event(activity.description, available_location, start_time, end_time)
     end
