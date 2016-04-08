@@ -1,7 +1,6 @@
 class CohortsController < ApplicationController
 
   before_action :set_cohort, only: [:edit, :show, :update]
-  before_action :configure_google_calendar_client, only: [:create]
 
   def index
     @cohorts = Cohort.all
@@ -12,8 +11,7 @@ class CohortsController < ApplicationController
 
   def create
     @cohort = Cohort.new(cohort_params)
-    cal_id = @calendar.get_cohort_calendar_id(@cohort)
-    @cohort.calendar_id = cal_id
+    @cohort.set_google_calendar_id(GoogleCalWrapper.new(current_user))
     if @cohort.save
       @cohort.create_members
       redirect_to @cohort
@@ -38,20 +36,12 @@ class CohortsController < ApplicationController
     render :show
   end
 
-  def get_blog_schedule
-    response = HTTParty.get("http://localhost:8080/api/cohorts/#{@cohort.name}/schedules")
-  end
-
   private
   def cohort_params
     params.require(:cohort).permit(:name, :roster_csv, :calendar_id)
   end
 
   def set_cohort
-    @cohort = Cohort.find_by_name(params[:slug])
-  end
-
-  def configure_google_calendar_client
-    @calendar = GoogleCalWrapper.new(current_user)
+    @cohort = Cohort.find_by(name: params[:slug])
   end
 end

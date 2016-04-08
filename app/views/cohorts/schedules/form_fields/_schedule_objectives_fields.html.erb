@@ -4,7 +4,7 @@
       <%= f.fields_for :objectives, schedule.objectives do |objective_form| %>
           <div id="objective-<%= objective_form.object.id %>">
             <%= objective_form.label :content, "Students will be able to:" %><br>
-            <%= objective_form.text_field :content, class: "form-control" %>
+            <%= objective_form.text_field :content, class: "form-control", data: {objective_position: objective_form.index} %>
             <br>
             <% if !schedule.new_record?%>
             <%= link_to "remove objective",cohort_schedule_remove_objective_path(schedule.cohort, schedule, objective_id: objective_form.object), method: "post", remote: true, id: "remove-objective", class:"btn btn-primary form-btn" %>
@@ -15,6 +15,6 @@
        <% end %>
      </div>
      <br>
-       <button class="btn btn-primary form-btn" id="add-objective">+ objective</button>
+       <button class="btn btn-primary form-btn" id="add-objective" data-add-type=objective>+ objective</button>
    </div>
 </div>

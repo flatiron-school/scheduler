@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require bootstrap
 //= require bootstrap-sprockets
 //= require spinner
-//= require_tree .
+//= require cohorts
+//= //= require handlebars
+//= require_tree ./templates
+//= require schedule_form
+

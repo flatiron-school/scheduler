@@ -18,6 +18,8 @@ class Cohort < ApplicationRecord
 
   # after_save :create_members
 
+
+
   def to_param
     self.name
   end
@@ -33,6 +35,9 @@ class Cohort < ApplicationRecord
     self.save
   end
 
-
+  def set_google_calendar_id(calendar)
+    id = calendar.get_cohort_calendar_id(self)
+    self.update(calendar_id: id)
+  end
 
 end
