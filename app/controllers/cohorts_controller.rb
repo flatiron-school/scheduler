@@ -11,9 +11,9 @@ class CohortsController < ApplicationController
 
   def create
     @cohort = Cohort.new(cohort_params)
-    @cohort.create_members
     @cohort.set_google_calendar_id(GoogleCalWrapper.new(current_user))
     if @cohort.save
+      @cohort.create_members
       redirect_to @cohort
     else
       render :new
@@ -26,7 +26,9 @@ class CohortsController < ApplicationController
 
   def update
     @cohort.update(cohort_params)
-    @cohort.create_members
+    if params[:roster_csv]
+      @cohort.create_members
+    end
     redirect_to @cohort
   end
 
