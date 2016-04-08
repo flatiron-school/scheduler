@@ -48,6 +48,10 @@ class SchedulesController < ApplicationController
     end
   end
 
+  def add_lab
+    binding.pry
+  end
+
 
   def deploy
     @schedule.deploy = true
