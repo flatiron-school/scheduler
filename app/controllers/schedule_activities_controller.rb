@@ -3,8 +3,7 @@ class ScheduleActivitiesController < ApplicationController
   before_action :set_cohort_and_schedule
 
   def remove_activity
-    @activity = Activity.find(params["activity_id"])
-    schedule_activity = ScheduleActivity.find_by(schedule: @schedule, activity: @activity)
+    schedule_activity = ScheduleActivity.find_by(schedule: @schedule, activity: Activity.find(params[:activity_id]))
     schedule_activity.destroy
     respond_to do |format|
       format.js {render template: 'cohorts/schedules/remove_activity.js.erb'}

@@ -3,8 +3,7 @@ class ScheduleObjectivesController < ApplicationController
   before_action :set_cohort_and_schedule
 
   def remove_objective
-    @objective = Objective.find(params["objective_id"])
-    @objective.destroy
+    Objective.find(params[:objective_id]).destroy
     respond_to do |format|
       format.js {render template: 'cohorts/schedules/remove_objective.js.erb'}
     end
