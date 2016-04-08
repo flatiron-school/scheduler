@@ -6,16 +6,12 @@ class Cohort < ApplicationRecord
   has_many :user_cohorts
   has_many :users, through: :user_cohorts
   has_many :students
-  #ugly val
-  # validates_uniqueness_of :name
-  #sexy val
   validates :name, uniqueness: true, presence: true, format: {with: /\A\S+\z/, message: "can't contain spaces"}
 
   has_attached_file :roster_csv
   validates_attachment :roster_csv, content_type: { content_type: ["text/csv", "text/comma-separated-values"] }
   validates_attachment_file_name :roster_csv, :matches => [/csv\Z/]
-  # after_create :create_members
-  # after_update :create_members
+  
  
   def to_param
     self.name
@@ -32,6 +28,9 @@ class Cohort < ApplicationRecord
     end
   end
 
-
+  def set_google_calendar_id(calendar)
+    id = calendar.get_cohort_calendar_id(self)
+    self.update(calendar_id: id)
+  end
 
 end
