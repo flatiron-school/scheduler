@@ -40,6 +40,6 @@ class CohortsController < ApplicationController
   end
 
   def set_cohort
-    @cohort = Cohort.find_by_name(params[:slug])
+    @cohort = Cohort.find_by(name: params[:slug])
   end
 end
