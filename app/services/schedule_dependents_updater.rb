@@ -14,13 +14,11 @@ class ScheduleDependentsUpdater
           sl = ScheduleLab.find_by(schedule_id: schedule.id, lab_id: lab_hash["id"])
           sl.destroy if sl
           lab = Lab.find_or_create_by(name: lab_hash["name"])
-          schedule.labs << lab
-          schedule.save
+          ScheduleLab.create(lab: lab, schedule: schedule)
         end
       else
         lab = Lab.find_or_create_by(name: lab_hash["name"])
-        schedule.labs << lab 
-        schedule.save
+        ScheduleLab.create(lab: lab, schedule: schedule)
       end
     end
   end
@@ -32,8 +30,7 @@ class ScheduleDependentsUpdater
         objective.update(objective_hash)
       else
         objective = Objective.create(content: objective_hash["content"])
-        schedule.objectives << objective
-        schedule.save
+        ScheduleObjective.create(objective: objective, schedule: schedule)
       end
     end
   end
@@ -47,13 +44,11 @@ class ScheduleDependentsUpdater
           sa.destroy if sa
           activity_data = activity_hash.reject {|k| k == "id"}
           activity = Activity.find_or_create_by(activity_data)
-          schedule.activities << activity
-          schedule.save
+          ScheduleActivity.create(activity: activity, schedule: schedule)
         end
       else
         activity = Activity.find_or_create_by(activity_hash)
-        schedule.activities << activity 
-        schedule.save
+        ScheduleActivity.create(activity: activity, schedule: schedule)
       end
     end
   end
