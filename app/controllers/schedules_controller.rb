@@ -10,16 +10,14 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    @schedule= Schedule.new_for_form
+    @schedule= NewScheduleBuilder.create_empty_schedule
     render "cohorts/schedules/new"
   end
 
   def create
-    @schedule = Schedule.create_from_params(schedule_params, @cohort)
-    @schedule.build_labs(validated_labs_params)
-    @schedule.build_activities(validated_activity_params)
-    @schedule.build_objectives(validated_objectives_params)
+    @schedule = @cohort.build_schedule(schedule_params)
     @schedule.get_blogs
+    # schedule.set_markdwon_content(render_schedule_template)
     if @schedule.save
       set_github_wrapper
       create_schedule_on_github
@@ -40,6 +38,7 @@ class SchedulesController < ApplicationController
 
   def update
     @schedule.update_from_params(schedule_params)
+    # @schedule.set_markdown_content(render_schedule_template)
     if @schedule.save
       update_schedule_on_github
       redirect_to cohort_schedule_path(@schedule.cohort, @schedule)
@@ -48,15 +47,12 @@ class SchedulesController < ApplicationController
     end
   end
 
-  def add_lab
-    binding.pry
-  end
-
-
+  
   def deploy
     @schedule.deploy = true
     @schedule.save
     deploy_schedule_to_readme
+    #@schedule.deploy_to_github(client: @github_wrapper, content: render_schedule_in_template)
     respond_to do |format|
       format.js {render template: 'cohorts/schedules/deploy.js.erb'}
     end
@@ -74,18 +70,6 @@ class SchedulesController < ApplicationController
   private
   def schedule_params
     params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :start_time, :end_time, :description, :reserve_room], :objectives_attributes => [:id, :content])
-  end
-
-  def validated_activity_params
-    schedule_params["activities_attributes"].delete_if {|num, activity_hash| activity_hash["start_time"].empty? || activity_hash["description"].empty? || activity_hash["end_time"].empty?}
-  end
-
-  def validated_labs_params
-    schedule_params["labs_attributes"].delete_if {|num, lab_hash| lab_hash["name"].empty?}
-  end
-
-  def validated_objectives_params
-    schedule_params["objectives_attributes"].delete_if {|num, obj_hash| obj_hash["content"].empty?}
   end
 
   def create_schedule_on_github
@@ -120,6 +104,7 @@ class SchedulesController < ApplicationController
   end
 
   def set_github_wrapper
+    #@github_wraper = GitHubWrapper.new
     page = render_schedule_template
     @github_wrapper = GithubWrapper.new(@schedule.cohort, @schedule, page)
   end

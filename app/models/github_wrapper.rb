@@ -10,6 +10,11 @@ class GithubWrapper
     @markdown_content = ReverseMarkdown.convert(schedule_template_content)
   end
 
+  def create_content_markdown(content)
+    schedule_template_content = content.split("<h1>").second.prepend("<h1>").split("</body>").first
+    @markdown_content = ReverseMarkdown.convert(schedule_template_content)
+  end
+
   def create_repo_schedules
     create_schedule_in_repo
     update_readme
@@ -44,10 +49,27 @@ class GithubWrapper
       markdown_content)
   end
 
+  def update_readme(schedule)
+    if schedule.deploy
+      sha = self.client.readme("learn-co-curriculum/#{schedule.cohort.name}")[:sha]
+      begin 
+        self.client.update_content("learn-co-curriculum/#{schedule.cohort.name}", 
+          "README.md", 
+          "week-#{schedule.week}/day-#{schedule.day}.md",
+          sha,
+          schedule.markdown_content)
+      rescue Exception => e
+        @error =  e
+        return  
+      end
+      schedule.deployed_on = Date.today
+      schedule.save
+    end
+  end
+
   def update_readme
     if self.schedule.deploy
       sha = self.client.readme(repo_name)[:sha]
-      puts sha
       begin 
         self.client.update_content(repo_name, 
           "README.md", 

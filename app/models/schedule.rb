@@ -23,53 +23,44 @@ class Schedule < ApplicationRecord
     self.slug
   end
 
-  def self.new_for_form
-    schedule = Schedule.new
-
-    3.times do
-      schedule.objectives << Objective.new
-    end
-
-    3.times do
-      schedule.labs << Lab.new
-    end
-
-    3.times do
-      schedule.activities << Activity.new
-    end
-
-    schedule
+  def set_markdown_content(schedule_template_content)
+    schedule_template_content = page.split("<h1>").second.prepend("<h1>").split("</body>").first
+    self.markdown_content = ReverseMarkdown.convert(schedule_template_content)
   end
 
-  def self.create_from_params(schedule_params, cohort)
-    schedule = Schedule.new(week: schedule_params["week"],
-      day: schedule_params["day"],
-      date: schedule_params["date"],
-      notes: schedule_params["notes"],
-      deploy: schedule_params["deploy"],
-      cohort: cohort)
-  end
-
-  def build_labs(valided_labs_params)
-    valided_labs_params.each do |num, lab_hash|
+  def build_labs(schedule_data)
+    validated_schedule_labs_data(schedule_data).each do |num, lab_hash|
       lab = Lab.find_by(name: lab_hash["name"]) || Lab.new(name: lab_hash["name"])
       self.labs << lab
     end
   end
 
-  def build_activities(validated_activity_params)
-    validated_activity_params.each do |num, activity_hash|
+  def build_activities(schedule_data)
+    validated_schedule_activities_data(schedule_data).each do |num, activity_hash|
       activity = Activity.find_by(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"], reserve_room: activity_hash["reserve_room"]) || Activity.new(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"], reserve_room: activity_hash["reserve_room"])
       self.activities << activity
     end
   end
 
-  def build_objectives(validated_objectives_params)
-    validated_objectives_params.each do |num, objective_hash|
+  def build_objectives(schedule_data)
+   validated_objectives_data(schedule_data).each do |num, objective_hash|
       objective = Objective.find_by(content: objective_hash[:content]) || Objective.new(content: objective_hash[:content])
       self.objectives << objective
       objective.schedule = self
     end
+  end
+
+   def validated_schedule_labs_data(schedule_data)
+    schedule_data["labs_attributes"].delete_if {|num, lab_hash| lab_hash["name"].empty?}
+  end
+
+  def validated_schedule_activities_data(schedule_data)
+    schedule_data["activities_attributes"].delete_if {|num, activity_hash| activity_hash["start_time"].empty? || activity_hash["description"].empty? || activity_hash["end_time"].empty?}
+  end
+
+  def validated_objectives_data(schedule_data)
+    schedule_data["objectives_attributes"].delete_if {|num, obj_hash| obj_hash["content"].empty?}
+
   end
 
   def update_from_params(schedule_params)
@@ -166,5 +157,29 @@ class Schedule < ApplicationRecord
   def date_for_api_call
     self.date.strftime("%Y-%m-%d")
   end
+
+  def deploy_to_github(client:)
+    # @github_wrapper = GithubWrapper.new(@schedule.cohort, @schedule, page)
+    self.update(deploy: true)
+    client.update_readme(self)
+  end
+
+  def create_schedule_on_github(client:, content:)
+
+  end
+
+  def update_schedule_on_github
+  end
+
+
+
+
+
+
+
+
+
+
+
 
 end
