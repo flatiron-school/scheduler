@@ -16,7 +16,6 @@ class SchedulesController < ApplicationController
 
   def create
     @schedule = @cohort.build_schedule(schedule_params)
-    @schedule.get_blogs
     # schedule.set_markdwon_content(render_schedule_template)
     if @schedule.save
       set_github_wrapper
@@ -37,7 +36,8 @@ class SchedulesController < ApplicationController
 
 
   def update
-    @schedule.update_from_params(schedule_params)
+    @schedule.update(schedule_params)
+    ScheduleDependentsUpdater.execute(@schedule, schedule_params)
     # @schedule.set_markdown_content(render_schedule_template)
     if @schedule.save
       update_schedule_on_github

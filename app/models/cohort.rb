@@ -33,6 +33,7 @@ class Cohort < ApplicationRecord
     schedule.build_labs(schedule_data)
     schedule.build_activities(schedule_data)
     schedule.build_objectives(schedule_data)
+    schedule.get_blogs
     schedule
   end
 
