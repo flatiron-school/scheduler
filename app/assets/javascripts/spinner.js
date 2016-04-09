@@ -1,9 +1,11 @@
-$( document ).ready(function() {
+window.spinnerHTML = '<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+
+$(document).ready(function() {
   $("#reserve-rooms").on("click", function(){
-    $("#rooms").html('<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>')
+    $("#rooms").html(window.spinnerHTML)
   });
 
   $("#deploy").on("click", function(){
-    $("#deployment-history").html('<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>')
+    $("#deployment-history").html(window.spinnerHTML)
   })
 });
