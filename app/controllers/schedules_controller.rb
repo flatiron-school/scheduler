@@ -37,7 +37,6 @@ class SchedulesController < ApplicationController
     ScheduleDependentsUpdater.execute(@schedule, schedule_params)
     if @schedule.save
       @schedule.update_schedule_on_github(GithubWrapper.new, render_schedule_markdown)
-      # update_schedule_on_github
       redirect_to cohort_schedule_path(@schedule.cohort, @schedule)
     else
       render 'cohorts/schedules/edit'
@@ -51,15 +50,6 @@ class SchedulesController < ApplicationController
     respond_to do |format|
       format.js {render template: 'cohorts/schedules/deploy.js.erb'}
     end
-  end
-
-  def reserve_rooms
-    configure_google_calendar_client
-    @calendar.book_events(@schedule)
-    respond_to do |format|
-      format.js {render template: 'cohorts/schedules/reserve_rooms.js.erb'}
-    end
-
   end
 
   private
@@ -86,10 +76,5 @@ class SchedulesController < ApplicationController
   def set_cohort
     @cohort = Cohort.find_by_name(params[:cohort_slug])
   end
-
-  def configure_google_calendar_client
-    @calendar = GoogleCalWrapper.new(current_user)
-  end
-
 
 end
