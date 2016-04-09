@@ -2,7 +2,6 @@ class SchedulesController < ApplicationController
 
   before_action :set_cohort_and_schedule, except: [:create, :index, :new]
   before_action :set_cohort, only: [:create, :index, :new]
-  before_action :set_github_wrapper, only: [:deploy, :update]
 
   def index
     @schedules = @cohort.schedules
@@ -16,10 +15,8 @@ class SchedulesController < ApplicationController
 
   def create
     @schedule = @cohort.build_schedule(schedule_params)
-    # schedule.set_markdwon_content(render_schedule_template)
     if @schedule.save
-      set_github_wrapper
-      create_schedule_on_github
+      @schedule.create_schedule_on_github(GithubWrapper.new, render_schedule_markdown)
       redirect_to cohort_schedule_path(@cohort, @schedule)
     else
       render 'cohorts/schedules/new'
@@ -38,9 +35,9 @@ class SchedulesController < ApplicationController
   def update
     @schedule.update(schedule_params)
     ScheduleDependentsUpdater.execute(@schedule, schedule_params)
-    # @schedule.set_markdown_content(render_schedule_template)
     if @schedule.save
-      update_schedule_on_github
+      @schedule.update_schedule_on_github(GithubWrapper.new, render_schedule_markdown)
+      # update_schedule_on_github
       redirect_to cohort_schedule_path(@schedule.cohort, @schedule)
     else
       render 'cohorts/schedules/edit'
@@ -49,10 +46,8 @@ class SchedulesController < ApplicationController
 
   
   def deploy
-    @schedule.deploy = true
-    @schedule.save
-    deploy_schedule_to_readme
-    #@schedule.deploy_to_github(client: @github_wrapper, content: render_schedule_in_template)
+    @schedule.update(deploy: true)
+    @schedule.deploy_to_readme(GithubWrapper.new, render_schedule_markdown)
     respond_to do |format|
       format.js {render template: 'cohorts/schedules/deploy.js.erb'}
     end
@@ -72,16 +67,9 @@ class SchedulesController < ApplicationController
     params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :start_time, :end_time, :description, :reserve_room], :objectives_attributes => [:id, :content])
   end
 
-  def create_schedule_on_github
-    @github_wrapper.create_repo_schedules
-  end
-
-  def update_schedule_on_github
-    @github_wrapper.update_repo_schedules
-  end
-
-  def deploy_schedule_to_readme
-    @github_wrapper.update_readme
+  def render_schedule_markdown
+    html_string = render_schedule_template
+    MarkdownConverter.convert(html_string)
   end
 
   def render_schedule_template
@@ -103,10 +91,5 @@ class SchedulesController < ApplicationController
     @calendar = GoogleCalWrapper.new(current_user)
   end
 
-  def set_github_wrapper
-    #@github_wraper = GitHubWrapper.new
-    page = render_schedule_template
-    @github_wrapper = GithubWrapper.new(@schedule.cohort, @schedule, page)
-  end
 
 end

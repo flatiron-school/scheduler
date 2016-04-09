@@ -14,6 +14,7 @@ class Schedule < ApplicationRecord
   validates :date, presence: true
 
   before_create :slugify
+  before_save :check_deploy
 
   def slugify
     self.slug = self.date.strftime("%b %d, %Y").downcase.gsub(/[\s,]+/, '-')
@@ -23,9 +24,11 @@ class Schedule < ApplicationRecord
     self.slug
   end
 
-  def set_markdown_content(schedule_template_content)
-    schedule_template_content = page.split("<h1>").second.prepend("<h1>").split("</body>").first
-    self.markdown_content = ReverseMarkdown.convert(schedule_template_content)
+  def check_deploy
+    if self.deploy
+      prev_deployed_schedule = Schedule.find_by(deploy: true)
+      prev_deployed_schedule.update(deploy: false) if prev_deployed_schedule && prev_deployed_schedule != self
+    end
   end
 
   def build_labs(schedule_data)
@@ -98,28 +101,20 @@ class Schedule < ApplicationRecord
     self.date.strftime("%Y-%m-%d")
   end
 
-  def deploy_to_github(client:)
-    # @github_wrapper = GithubWrapper.new(@schedule.cohort, @schedule, page)
-    self.update(deploy: true)
-    client.update_readme(self)
+
+  def create_schedule_on_github(client, markdown_content)
+    response = client.create_schedule_in_repo(self, markdown_content)
+    self.update(sha: response.content.sha)
+    client.deploy_to_readme(client, markdown_content) if self.deploy
   end
 
-  def create_schedule_on_github(client:, content:)
-
+  def update_schedule_on_github(client, markdown_content)
+    client.update_schedule_in_repo(self, markdown_content)
+    client.deploy_to_readme(self, markdown_content) if self.deploy
   end
 
-  def update_schedule_on_github
+  def deploy_to_readme(client, markdown_content)
+    client.update_readme(self, markdown_content)
+    self.update(deployed_on: Date.today)
   end
-
-
-
-
-
-
-
-
-
-
-
-
 end
