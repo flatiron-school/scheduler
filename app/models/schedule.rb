@@ -48,7 +48,8 @@ class Schedule < ApplicationRecord
   def build_objectives(schedule_data)
    validated_objectives_data(schedule_data).each do |num, objective_hash|
       objective = Objective.find_by(content: objective_hash[:content]) || Objective.new(content: objective_hash[:content])
-      ScheduleObjective.create(objective: objective, schedule: self)
+      objective.update(schedule: self)
+      binding.pry
     end
   end
 
@@ -82,7 +83,7 @@ class Schedule < ApplicationRecord
     if !assignments.empty?
       assignments["schedules"].each do |assignment|
         student = Student.find_by(first_name: assignment["user"]["first_name"], last_name: assignment["user"]["last_name"])
-        if assignment["user"]["blog"]
+        if assignment["user"]["blog"] && student
           student.blog_url = assignment["user"]["blog"]["url"]
           student.save
         end
