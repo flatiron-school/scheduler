@@ -78,6 +78,22 @@ class Schedule < ApplicationRecord
     !!self.deployed_on
   end
 
+  def blogs?
+    !self.blog_assignments.empty?
+  end
+
+  def notes?
+    !self.notes
+  end
+
+  def objectives?
+    !self.objectives.empty?
+  end
+
+  def labs?
+    !self.labs.empty?
+  end
+
   def get_blogs
     assignments = retrieve_blogs_from_api
     if !assignments.empty?
