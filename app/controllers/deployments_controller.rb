@@ -13,16 +13,9 @@ class DeploymentsController < ApplicationController
   private
 
     def render_schedule_markdown
-      html_string = render_schedule_template
+      html_string = ScheduleTemplater.generate_template(@schedule)
       MarkdownConverter.convert(html_string)
     end
-
-    def render_schedule_template
-      view = ActionView::Base.new(ActionController::Base.view_paths, {})
-      view.assign(schedule: @schedule)
-      view.render(file: 'cohorts/schedules/github_show.html.erb') 
-    end
-
 
     def set_schedule
       @schedule = Schedule.find(params[:schedule_id])
