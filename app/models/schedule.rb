@@ -83,7 +83,7 @@ class Schedule < ApplicationRecord
   end
 
   def notes?
-    !self.notes
+    !self.notes.empty?
   end
 
   def objectives?
