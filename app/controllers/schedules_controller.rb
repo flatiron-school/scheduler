@@ -43,15 +43,6 @@ class SchedulesController < ApplicationController
     end
   end
 
-  
-  def deploy
-    @schedule.update(deploy: true)
-    @schedule.deploy_to_readme(GithubWrapper.new, render_schedule_markdown)
-    respond_to do |format|
-      format.js {render template: 'cohorts/schedules/deploy.js.erb'}
-    end
-  end
-
   private
   def schedule_params
     params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :start_time, :end_time, :description, :reserve_room], :objectives_attributes => [:id, :content])

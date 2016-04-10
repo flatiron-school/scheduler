@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get 'cohorts/:slug/blog-schedule', to: "cohorts#get_blog_schedule"
   post '/room-reservations', to: "room_reservations#create", as: "reserve_rooms"
+  post '/deploy', to: "deployments#create", as: "deploy"
 
   root "cohorts#index"
 end
