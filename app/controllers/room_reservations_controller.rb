@@ -9,8 +9,10 @@ class RoomReservationsController < ApplicationController
     end
   end
 
-  def set_schedule
-    @schedule = Schedule.find(params[:schedule_id])
-  end
+  private
+
+    def set_schedule
+      @schedule = Schedule.find(params[:schedule_id])
+    end
 
 end

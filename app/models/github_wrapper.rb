@@ -26,10 +26,10 @@ class GithubWrapper
       markdown_content)
   end
 
-  def update_readme(markdown_content)
-    sha = self.client.readme(repo_name)[:sha]
+  def update_readme(schedule, markdown_content)
+    sha = self.client.readme("learn-co-curriculum/#{schedule.cohort.name}").sha
     begin 
-      self.client.update_content(repo_name, 
+      self.client.update_content("learn-co-curriculum/#{schedule.cohort.name}", 
         "README.md", 
         "week-#{schedule.week}/day-#{schedule.day}.md",
         sha,
