@@ -25,9 +25,8 @@ class Cohort < ApplicationRecord
     csv_rows = CSV.foreach(roster_csv.path, headers: true)
     csv_rows.each do |student_row|
       student = Student.find_or_create_from_row(student_row.to_h)
-      self.students << student
+      student.update(cohort: self)
     end
-    self.save
   end
 
   def build_schedule(schedule_data)
