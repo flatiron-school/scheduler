@@ -1,6 +1,6 @@
 <h2>Schedules</h2>
 <ul id="cohort-index">
-  <% cohort.schedules.each do |s| %>
+  <% cohort.schedules.sort_by {|s| s.week }.each do |s| %>
     <li>
      <%= link_to "week-#{s.week}, day-#{s.day}", cohort_schedule_path(@cohort, s) %>
     </li>
