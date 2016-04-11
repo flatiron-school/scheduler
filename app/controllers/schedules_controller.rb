@@ -33,7 +33,7 @@ class SchedulesController < ApplicationController
 
 
   def update
-    @schedule.update(schedule_params)
+    @schedule.update(schedule_attributes_params)
     ScheduleDependentsUpdater.execute(@schedule, schedule_params)
     if @schedule.save
       @schedule.update_schedule_on_github(GithubWrapper.new, render_schedule_markdown)
@@ -46,6 +46,10 @@ class SchedulesController < ApplicationController
   private
     def schedule_params
       params.require(:schedule).permit(:week, :day, :date, :notes, :deploy, :labs_attributes => [:id, :name], :activities_attributes => [:id, :start_time, :end_time, :description, :reserve_room], :objectives_attributes => [:id, :content])
+    end
+
+    def schedule_attributes_params
+      params.require(:schedule).permit(:week, :day, :date, :notes, :deploy)
     end
 
     def render_schedule_markdown
