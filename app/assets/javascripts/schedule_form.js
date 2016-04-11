@@ -10,7 +10,7 @@ $.fn.addMore = function(e) {
     event.stopPropagation();
     var addType =  $(this).data('add-type');
     var newIdNum = 0;
-    if ($('[data-' + addType + '-position]').length > 1) {
+    if ($('[data-' + addType + '-position]').length >= 1) {
       var newIdNum = $('[data-' + addType + '-position]').last().data()[addType + "Position"] + 1;
     }
     $("#add-" + addType + "s").append(HandlebarsTemplates['add-' + addType]({newIdNum: newIdNum}));

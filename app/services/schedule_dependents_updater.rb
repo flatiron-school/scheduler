@@ -8,7 +8,7 @@ class ScheduleDependentsUpdater
 
   def self.update_labs(schedule, schedule_data)
     schedule_data[:labs_attributes].try(:each) do |num, lab_hash|
-      if lab_hash["id"]
+      if lab_hash["name"] && lab_hash["id"]
         lab = Lab.find(lab_hash["id"])
         if lab.edited?(lab_hash)
           sl = ScheduleLab.find_by(schedule_id: schedule.id, lab_id: lab_hash["id"])
@@ -16,7 +16,7 @@ class ScheduleDependentsUpdater
           lab = Lab.find_or_create_by(name: lab_hash["name"])
           ScheduleLab.create(lab: lab, schedule: schedule)
         end
-      else
+      elsif lab_hash["name"]
         lab = Lab.find_or_create_by(name: lab_hash["name"])
         ScheduleLab.create(lab: lab, schedule: schedule)
       end
@@ -25,12 +25,12 @@ class ScheduleDependentsUpdater
 
   def self.update_objectives(schedule, schedule_data)
     schedule_data["objectives_attributes"].try(:each) do |num, objective_hash|
-      if objective_hash["id"]
+      if objective_hash["id"] && objective_hash["content"]
         objective = Objective.find(objective_hash["id"])
         objective.update(objective_hash)
-      else
+      elsif objective_hash["content"]
         objective = Objective.create(content: objective_hash["content"])
-        ScheduleObjective.create(objective: objective, schedule: schedule)
+        objective.update(schedule: schedule)
       end
     end
   end
