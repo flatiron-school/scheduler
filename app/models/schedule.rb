@@ -49,7 +49,6 @@ class Schedule < ApplicationRecord
    validated_objectives_data(schedule_data).each do |num, objective_hash|
       objective = Objective.find_by(content: objective_hash[:content]) || Objective.new(content: objective_hash[:content])
       objective.update(schedule: self)
-      binding.pry
     end
   end
 
