@@ -4,12 +4,24 @@
     <%= render partial: 'cohort_buttons', locals: {cohort: @cohort} %>
   </div>
 
-  <div class="row schedule-container">
+  <div class="schedule-container">
     <div class="schedule-table col-md-5">
       <%= render partial: 'cohort_students', locals: {cohort: @cohort} %>
     </div>
   
     <div class="schedule-table col-md-5">
       <%= render partial: 'cohort_schedules', locals: {cohort: @cohort} %>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="schedule-container">
+    <div class="schedule-table col-md-5">
+      <%= render partial: 'cohort_links', locals: {cohort: @cohort} %>
+    </div>
+  
+    <div class="schedule-table col-md-5">
+      <%= render partial: 'cohort_objectives', locals: {cohort: @cohort, weeks: @weeks} %>
     </div>
 </div>

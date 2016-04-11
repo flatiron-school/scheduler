@@ -1,0 +1,10 @@
+<h2>Objectives</h2>
+<ul id="objective-index">
+<% @weeks.each do |week| %>
+  <h3>Week-<%= week %></h3>
+  <% cohort.objectives.where("week = ?", week.to_s).each do |objective| %>
+    <li><%= objective.content %></li>
+  <% end %>
+
+<% end %>
+</ul>
