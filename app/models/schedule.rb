@@ -122,12 +122,12 @@ class Schedule < ApplicationRecord
   def create_schedule_on_github(client, markdown_content)
     response = client.create_schedule_in_repo(self, markdown_content)
     self.update(sha: response.content.sha)
-    client.deploy_to_readme(client, markdown_content) if self.deploy
+    deploy_to_readme(client, markdown_content) if self.deploy
   end
 
   def update_schedule_on_github(client, markdown_content)
     client.update_schedule_in_repo(self, markdown_content)
-    client.deploy_to_readme(self, markdown_content) if self.deploy
+    deploy_to_readme(client, markdown_content) if self.deploy
   end
 
   def deploy_to_readme(client, markdown_content)
