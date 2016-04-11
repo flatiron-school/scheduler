@@ -34,10 +34,7 @@ class CohortsController < ApplicationController
   end
 
   def show
-    # binding.pry
-    # @objectives = Objective.where()
-    @weeks = @cohort.schedules.collect {|s| s.week.to_i}.sort!
-    # @num_of_weeks = weeks.zip.max.first
+    @weeks = @cohort.schedules.collect {|s| s.week.to_i}.uniq.sort!
     render :show
   end
 
