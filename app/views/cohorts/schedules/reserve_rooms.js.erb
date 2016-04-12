@@ -1,1 +1,1 @@
-$("#rooms").html("<%=j render partial: 'cohorts/schedules/room_reservations', locals: {schedule: @schedule} %>")
+$("#rooms").html("<%= render_room_reservations_partial(@schedule) %>")
