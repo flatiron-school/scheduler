@@ -5,6 +5,7 @@ class CohortsController < ApplicationController
   def index
     @cohorts = Cohort.all
   end
+
   def new
     @cohort = Cohort.new
   end
@@ -33,10 +34,12 @@ class CohortsController < ApplicationController
   end
 
   def show
+    @weeks = @cohort.schedules.collect {|s| s.week.to_i}.uniq.sort!
     render :show
   end
 
   private
+
   def cohort_params
     params.require(:cohort).permit(:name, :roster_csv, :calendar_id)
   end
@@ -45,3 +48,4 @@ class CohortsController < ApplicationController
     @cohort = Cohort.find_by(name: params[:slug])
   end
 end
+

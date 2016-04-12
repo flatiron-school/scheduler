@@ -1,5 +1,5 @@
-<h1>Week <%= @schedule.week %>, Day <%= @schedule.day %></h1>
-<h3><%= @schedule.pretty_date %></h3>
+<h1>Week <%= schedule.week %>, Day <%= schedule.day %></h1>
+<h3><%= schedule.pretty_date %></h3>
 
 <table class="table table-striped table-hover ">
   <thead>
@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-  <% @schedule.activities.each do |activity|  %>
+  <% schedule.activities.sort_by {|a| a.start_time}.each do |activity|  %>
     <tr>
       <td><%= activity.start_hour %></td>
       <td><%= activity.description %></td>
@@ -21,11 +21,11 @@
 
 <div class="row schedule-info">
 
-  <% if !@schedule.blog_assignments.empty? %>
+  <% if !schedule.blog_assignments.empty? %>
       <h3>Blogs</h3>
         <p>
           <ul>
-            <% @schedule.blog_assignments.each do  |blog_assignment| %>
+            <% schedule.blog_assignments.each do  |blog_assignment| %>
                <li>
                   <a href="<%= blog_assignment.student.blog_url %>"><%= blog_assignment.student.full_name %></a>
                 </li>
@@ -39,10 +39,10 @@
 
 <div class="row schedule-info">
 
-  <% if !@schedule.notes.empty? %>
+  <% if !schedule.notes.empty? %>
       <h3>Notes</h3>
         <p>
-          <%= @schedule.notes %>
+          <%= schedule.notes %>
         </p>
     <% end %>
 
@@ -51,11 +51,11 @@
 
 <div class="row schedule-info">
 
-  <% if !@schedule.objectives.empty? %>
+  <% if !schedule.objectives.empty? %>
     <h3>Objectives</h3>
       <p>
       <ul>
-        <% @schedule.objectives.each do |objective| %>
+        <% schedule.objectives.each do |objective| %>
         <li>
           <%= objective.content %>
         </li>
@@ -67,20 +67,15 @@
 
 <div class="row schedule-info">
 
-<% if !@schedule.labs.empty? %>
+<% if !schedule.labs.empty? %>
     <h3>Labs</h3>
       <ul>
-        <%@schedule.labs.each do |lab| %>
+        <%schedule.labs.each do |lab| %>
 
         <li>
-          <a href="http://www.github.com/learn-co-students/<%= lab.name %>-<%= @schedule.cohort.name %>"><%= lab.name %></a>
+          <a href="http://www.github.com/learn-co-students/<%= lab.name %>-<%= schedule.cohort.name %>"><%= lab.name %></a>
         </li>
         <%end %>
       </ul>
 <% end %>
 </div>
-
-
-
-
-

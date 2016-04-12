@@ -26,10 +26,12 @@
 .schedule-container {
   padding-left: 13%;
   height: 400px;
+  margin-bottom: 5%;
 }
 
 .schedule-info {
   padding-left: 4%;
+  width: 80%;
   /*width: 714px;
   padding-left: 10px;*/
 }

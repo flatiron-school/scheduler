@@ -14,6 +14,7 @@ class Schedule < ApplicationRecord
   validates :date, presence: true
 
   before_create :slugify
+  before_save :check_deploy
 
   def slugify
     self.slug = self.date.strftime("%b %d, %Y").downcase.gsub(/[\s,]+/, '-')
@@ -23,112 +24,45 @@ class Schedule < ApplicationRecord
     self.slug
   end
 
-  def self.new_for_form
-    schedule = Schedule.new
-
-    3.times do
-      schedule.objectives << Objective.new
+  def check_deploy
+    if self.deploy
+      prev_deployed_schedule = Schedule.find_by(deploy: true)
+      prev_deployed_schedule.update(deploy: false) if prev_deployed_schedule && prev_deployed_schedule != self
     end
-
-    3.times do
-      schedule.labs << Lab.new
-    end
-
-    3.times do
-      schedule.activities << Activity.new
-    end
-
-    schedule
   end
 
-  def self.create_from_params(schedule_params, cohort)
-    schedule = Schedule.new(week: schedule_params["week"],
-      day: schedule_params["day"],
-      date: schedule_params["date"],
-      notes: schedule_params["notes"],
-      deploy: schedule_params["deploy"],
-      cohort: cohort)
-  end
-
-  def build_labs(valided_labs_params)
-    valided_labs_params.each do |num, lab_hash|
+  def build_labs(schedule_data)
+    validated_schedule_labs_data(schedule_data).each do |num, lab_hash|
       lab = Lab.find_by(name: lab_hash["name"]) || Lab.new(name: lab_hash["name"])
-      self.labs << lab
+      ScheduleLab.create(lab: lab, schedule: self)
     end
   end
 
-  def build_activities(validated_activity_params)
-    validated_activity_params.each do |num, activity_hash|
+  def build_activities(schedule_data)
+    validated_schedule_activities_data(schedule_data).each do |num, activity_hash|
       activity = Activity.find_by(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"], reserve_room: activity_hash["reserve_room"]) || Activity.new(start_time: activity_hash["start_time"], end_time: activity_hash["end_time"], description: activity_hash["description"], reserve_room: activity_hash["reserve_room"])
-      self.activities << activity
+      ScheduleActivity.create(activity: activity, schedule: self)
     end
   end
 
-  def build_objectives(validated_objectives_params)
-    validated_objectives_params.each do |num, objective_hash|
+  def build_objectives(schedule_data)
+   validated_objectives_data(schedule_data).each do |num, objective_hash|
       objective = Objective.find_by(content: objective_hash[:content]) || Objective.new(content: objective_hash[:content])
-      self.objectives << objective
-      objective.schedule = self
+      objective.update(schedule: self)
     end
   end
 
-  def update_from_params(schedule_params)
-    self.update(notes: schedule_params["notes"], deploy: schedule_params["deploy"])
-    self.update_labs(schedule_params)
-    self.update_activities(schedule_params)
-    self.update_objectives(schedule_params)
+   def validated_schedule_labs_data(schedule_data)
+    schedule_data["labs_attributes"].delete_if {|num, lab_hash| lab_hash["name"].empty?}
   end
 
-  def update_labs(schedule_params)
-    schedule_params["labs_attributes"].try(:each) do |num, lab_hash|
-      if lab_hash["id"]
-        lab = Lab.find(lab_hash["id"])
-        if lab.edited?(lab_hash)
-          sl = ScheduleLab.find_by(schedule_id: self.id, lab_id: lab_hash["id"])
-          sl.destroy if sl
-          lab = Lab.find_or_create_by(name: lab_hash["name"])
-          self.labs << lab
-          self.save
-        end
-      else
-        lab = Lab.find_or_create_by(name: lab_hash["name"])
-        self.labs << lab 
-        self.save
-      end
-    end
+  def validated_schedule_activities_data(schedule_data)
+    schedule_data["activities_attributes"].delete_if {|num, activity_hash| activity_hash["start_time"].empty? || activity_hash["description"].empty? || activity_hash["end_time"].empty?}
   end
 
-  def update_activities(schedule_params)
-    schedule_params["activities_attributes"].try(:each) do |num, activity_hash|
-      if activity_hash["id"]
-        activity = Activity.find(activity_hash["id"])
-        if activity.edited?(activity_hash)
-          sa = ScheduleActivity.find_by(schedule_id: self.id, activity_id: activity_hash["id"])
-          sa.destroy if sa
-          activity_data = activity_hash.reject {|k| k == "id"}
-          activity = Activity.find_or_create_by(activity_data)
-          self.activities << activity
-          self.save
-        end
-      else
-        activity = Activity.find_or_create_by(activity_hash)
-        self.activities << activity 
-        self.save
-      end
-    end
-  end
+  def validated_objectives_data(schedule_data)
+    schedule_data["objectives_attributes"].delete_if {|num, obj_hash| obj_hash["content"].empty?}
 
-  def update_objectives(schedule_params)
-    schedule_params["objectives_attributes"].try(:each) do |num, objective_hash|
-      if objective_hash["id"]
-        objective = Objective.find(objective_hash["id"])
-        objective.update(objective_hash)
-      else
-        objective = Objective.create(content: objective_hash["content"])
-        self.objectives << objective
-        self.save
-      end
-    end
   end
 
   def pretty_date
@@ -143,12 +77,28 @@ class Schedule < ApplicationRecord
     !!self.deployed_on
   end
 
+  def blogs?
+    !self.blog_assignments.empty?
+  end
+
+  def notes?
+    !self.notes.empty?
+  end
+
+  def objectives?
+    !self.objectives.empty?
+  end
+
+  def labs?
+    !self.labs.empty?
+  end
+
   def get_blogs
     assignments = retrieve_blogs_from_api
     if !assignments.empty?
       assignments["schedules"].each do |assignment|
         student = Student.find_by(first_name: assignment["user"]["first_name"], last_name: assignment["user"]["last_name"])
-        if assignment["user"]["blog"]
+        if assignment["user"]["blog"] && student
           student.blog_url = assignment["user"]["blog"]["url"]
           student.save
         end
@@ -167,4 +117,20 @@ class Schedule < ApplicationRecord
     self.date.strftime("%Y-%m-%d")
   end
 
+
+  def create_schedule_on_github(client, markdown_content)
+    response = client.create_schedule_in_repo(self, markdown_content)
+    self.update(sha: response.content.sha)
+    deploy_to_readme(client, markdown_content) if self.deploy
+  end
+
+  def update_schedule_on_github(client, markdown_content)
+    client.update_schedule_in_repo(self, markdown_content)
+    deploy_to_readme(client, markdown_content) if self.deploy
+  end
+
+  def deploy_to_readme(client, markdown_content)
+    client.update_readme(self, markdown_content)
+    self.update(deployed_on: Date.today)
+  end
 end

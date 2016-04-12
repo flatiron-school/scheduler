@@ -6,7 +6,7 @@
           <a href="<%= event.link %>"><strong><%= event.name %></strong></a>
         </li>
         <li>location: <%= event.location %></li>
-        <li>reserved at: <%= event.reserved_at %></li>
+        <li>reserved at: <%= event.reserved_at.strftime("%I:%M") %></li>
         <li>reserved by: <%= event.reserved_by %></li>
       <% end %>
     </ul>

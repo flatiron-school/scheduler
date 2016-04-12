@@ -16,14 +16,14 @@
           <br>
           <%= render partial: "cohorts/schedules/deploy_history", locals: {schedule: @schedule, github_wrapper: nil} %>
         </div>
-        <%= link_to "deploy schedule", cohort_schedule_deploy_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "deploy", class: "btn btn-primary" %>
+        <%= link_to "deploy schedule", deploy_path(schedule_id: @schedule.id), method: "post", remote: true, id: "deploy", class: "btn btn-primary" %>
       <div class="reserved">
           <br>
         <strong>Room Reservations:</strong>
         <div id="rooms">
           <%= render partial: "cohorts/schedules/room_reservations", locals: {schedule: @schedule} %>
         </div>
-         <%= link_to "reserve rooms", cohort_schedule_reserve_path(@schedule.cohort, @schedule), method: "post", remote: true, id: "reserve-rooms", class: "btn btn-primary" %>
+         <%= link_to "reserve rooms", reserve_rooms_path(schedule_id: @schedule.id), method: "post", remote: true, id: "reserve-rooms", class: "btn btn-primary" %>
       </div>
     </div>
     
