@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :videos
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   resources :objectives
+  resources :videos
 
   resources :user_cohorts
   resources :cohorts, param: :slug do

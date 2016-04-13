@@ -1,8 +1,14 @@
 <div class="form-group">
   <div class="col-lg-2">
-  <%= form_for(video) do |f| %>
-    <%= f.label :link %>
+    <%= form_for(video, remote: true, :html => {:role => 'form'}) do |f| %>
+  <div class="form-group">
+    <%= f.label :title, :class => "control-label" %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="form-group">
+    <%= f.label :link, :class => "control-label" %>
     <%= f.text_field :link %>
-    <%= f.submit "Add video" %>
- <% end %>
-</div>
+  </div>
+
+  <%= f.submit "Add Link", :class => "btn btn primary" %>
+<% end %>

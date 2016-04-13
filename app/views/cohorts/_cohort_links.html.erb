@@ -1,4 +1,6 @@
 <h2>Videos</h2>
 <ul id="video-index">
-  <li>list of video links here</li>
+  <% @cohort.videos.each do |video| %>
+  <li> <%= link_to video.title, video.link %> </li>
+  <% end %>
 </ul>

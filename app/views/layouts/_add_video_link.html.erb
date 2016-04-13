@@ -1,3 +1,21 @@
 <% if current_user.has_cohort %>
-  <%= link_to "add video link", new_video_path %>
+  <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Add Video Link</button>
+  <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Video Link</h4>
+      </div>
+      <div class="modal-body">
+        <%= render 'videos/form', {video: Video.new} %>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+  <%#= link_to "add video link", new_video_path %>
 <% end %>
