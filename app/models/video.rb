@@ -6,7 +6,6 @@ class Video < ApplicationRecord
 
 
   def video_error
-    # binding.pry
     error_string = ""
     self.errors.messages.each do |error, message|
       error_string << "#{error.capitalize}: " + message[0] + " "

@@ -4,7 +4,6 @@ class VideosController < ApplicationController
     @video = Video.new(video_params)
     @video.cohort = current_user.active_cohort
     if @video.save
-      redirect_to @video.cohort
       respond_to do |format|
         format.html {}
         format.js {}
