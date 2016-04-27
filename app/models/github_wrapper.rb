@@ -42,7 +42,7 @@ class GithubWrapper
 
   def update_videos_content(video, markdown_content)
     sha = self.client.contents("learn-co-curriculum/#{video.cohort.name}", path: "videos/links.md").sha
-    self.client.update_contents("learn-co-curriculum/#{video.cohort.name}", "videos/links.md", "Updating Videos Content", sha, markdown_content, :branch => "future")
+    self.client.update_contents("learn-co-curriculum/#{video.cohort.name}", "videos/links.md", "updating video content", sha, markdown_content)
   end
 
 end
