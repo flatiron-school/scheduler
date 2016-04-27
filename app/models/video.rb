@@ -12,4 +12,8 @@ class Video < ApplicationRecord
     end
     error_string
   end
+
+  def update_videos_on_github(client, markdown_content)
+    client.update_videos_content(self, markdown_content)
+  end
 end

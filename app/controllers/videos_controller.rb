@@ -11,6 +11,7 @@ class VideosController < ApplicationController
     else
       render :js => 'alert("' + @video.video_error + '")'
     end
+    @video.update_videos_on_github(GithubWrapper.new, render_schedule_markdown)
   end
 
   def new
@@ -22,6 +23,12 @@ class VideosController < ApplicationController
 
   def video_params
     params.require(:video).permit(:link, :title, :cohort_id)
+  end
+
+  def render_schedule_markdown
+    videos = Video.all
+    html_string = VideoTemplater.generate_template(videos)
+    MarkdownConverter.convert(html_string)
   end
 
 end

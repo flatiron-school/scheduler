@@ -1,0 +1,5 @@
+<ul>
+<% videos.each.with_index(1) do |video, index| %>
+  <li><%= index %>. <a href="<%=video.link%>"><%= video.title%></a> </li>
+  <% end %>
+</ul>
