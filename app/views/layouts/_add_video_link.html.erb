@@ -1,11 +1,11 @@
-<% if current_user.has_cohort %>
-  <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Add Video Link</button>
+<% if current_user.has_cohort && current_page?(controller: "cohorts", action: "show", slug: current_user.active_cohort.name) %>
+  <a href="#" data-toggle="modal" data-target="#myModal">add video link</a>
   <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Add Video Link</h4>
+        <h4 class="modal-title">add video link</h4>
       </div>
       <div class="modal-body">
         <%= render 'videos/form', {video: Video.new} %>
@@ -17,5 +17,4 @@
 
   </div>
 </div>
-  <%#= link_to "add video link", new_video_path %>
 <% end %>
