@@ -8,9 +8,7 @@ feature "CreateNewCalendarEvent", :type => :feature do
         schedule = make_schedule_to_edit
         visit "/cohorts/web-1117/schedules/#{schedule.slug}"
         click_link "reserve rooms"
-        sleep(60)
-        # wait_for_ajax
-        binding.pry
+        wait_for_ajax
         new_calendar_event = schedule.calendar_events.first
         
         expect(new_calendar_event.schedule).to eq(schedule)
