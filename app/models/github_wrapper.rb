@@ -18,6 +18,11 @@ class GithubWrapper
   end
 
   def update_schedule_in_repo(schedule, markdown_content)
+    # if schedule.week_changed? || schedule.day_changed?
+    #   delete_and_write_new_schedule_file(schedule, markdown_contnet)
+    # else
+    #   update_contents
+    # end
     sha = self.client.contents("learn-co-curriculum/#{schedule.cohort.name}", path: "week-#{schedule.week}/day-#{schedule.day}.md").sha
     self.client.update_contents("learn-co-curriculum/#{schedule.cohort.name}", 
       "week-#{schedule.week}/day-#{schedule.day}.md", 

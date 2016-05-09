@@ -1,10 +1,7 @@
   <fieldset>
         <legend><%= cohort.name %> new schedule</legend>
-        <% if schedule.new_record? %>
-          <%= render partial: 'cohorts/schedules/form_fields/new_schedule_form_fields', locals: {f: f, shedule: schedule} %>
-        <% else %>
-            <%= render partial: 'cohorts/schedules/form_fields/edit_schedule_form_fields', locals: {f: f, schedule: schedule} %>
-        <% end %>
+        <%= render partial: 'cohorts/schedules/form_fields/schedule_form_fields', locals: {f: f, shedule: schedule} %>
+      
 
         <!-- OBJECTIVES -->
         <h2>Objectives</h2>

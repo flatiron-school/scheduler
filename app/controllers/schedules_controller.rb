@@ -33,14 +33,37 @@ class SchedulesController < ApplicationController
 
 
   def update
-    @schedule.update(schedule_attributes_params)
+    @schedule.assign_attributes(schedule_attributes_params)
+    if @schedule.date_changed?
+      @schedule.update_blogs
+    end
     ScheduleDependentsUpdater.execute(@schedule, schedule_params)
-    if @schedule.save
+    if @schedule.valid?
+      # put some logic in below method to determine if week/day changed and if so call method
+      #   that will delete prev. file and write new one. this will be extracted into another helper method.
       @schedule.update_schedule_on_github(GithubWrapper.new, render_schedule_markdown)
       redirect_to cohort_schedule_path(@schedule.cohort, @schedule)
-    else
+      else
       render 'cohorts/schedules/edit'
     end
+    # if @schedule.week_changed? || @schedule.day_changed?
+    #   @schedule.update_schedule_on_github
+    # end
+
+    # if @schedule.week_changed? || @schedule.day_changed?
+    #   # grab prev day and week
+    #   # original_timeline = {week: @schedule.week_was, day: @schedule.day_way}
+    #   # ScheduleDependentsUpdater.execute(@schedule, schedule_params)
+    # else
+    #   ScheduleDependentsUpdater.execute(@schedule, schedule_params)
+    # end
+    # binding.pry
+    # if @schedule.save
+    #   @schedule.update_schedule_on_github(GithubWrapper.new, render_schedule_markdown)
+    #   redirect_to cohort_schedule_path(@schedule.cohort, @schedule)
+    # else
+    #   render 'cohorts/schedules/edit'
+    # end
   end
 
   private

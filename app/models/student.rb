@@ -11,4 +11,9 @@ class Student < ApplicationRecord
   def full_name
     "#{self.first_name} #{self.last_name}" 
   end
+
+  def update_blog_url(assignment)
+    if self.blog_url != assignment["user"]["blog"]["url"]
+    self.update(blog_url: assignment["user"]["blog"]["url"])
+  end
 end
