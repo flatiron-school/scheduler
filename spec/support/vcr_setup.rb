@@ -5,6 +5,7 @@ VCR.configure do |c|
   #the directory where your cassettes will be saved
   c.cassette_library_dir = 'spec/vcr'
   # your HTTP request service. 
+  c.ignore_localhost = true
   c.hook_into :webmock
   c.filter_sensitive_data('<OCTO_TOKEN>') { ENV['OCTO_TOKEN'] }
   c.filter_sensitive_data('<GOOGLE_CLIENT_ID') { ENV['GOOGLE_CLIENT_ID'] }

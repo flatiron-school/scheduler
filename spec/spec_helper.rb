@@ -16,7 +16,19 @@ OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
 # require 'webmock/rspec'
 # WebMock.enable_net_connect!(allow_localhost: true)  
 
-# WebMock.disable_net_connect!(allow_localhost: true)  
+# WebMock.disable_net_connect!(allow_localhost: true) 
+
+module WaitForAjax
+  def wait_for_ajax
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until finished_all_ajax_requests?
+    end
+  end
+
+  def finished_all_ajax_requests?
+    page.evaluate_script('jQuery.active').zero?
+  end
+end 
 
 RSpec.configure do |config|
  
@@ -34,8 +46,30 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
 
 
-
+  config.include WaitForAjax, type: :feature
   require 'factory_girl'
+
+  config.use_transactional_fixtures = false
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, type: :feature) do
+    DatabaseCleaner.strategy = :truncation
+
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.append_after(:each) do
+    DatabaseCleaner.clean
+  end
 end
 
 def sign_in

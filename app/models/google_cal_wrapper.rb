@@ -15,10 +15,12 @@ class GoogleCalWrapper
   attr_accessor :client, :service
 
   def initialize(current_user)
+    binding.pry
     configure_client(current_user)
   end
 
   def book_events(schedule)
+    binding.pry
     responses = make_google_calendar_reservations(schedule)
     parse_booked_events(responses, schedule)
   end
@@ -33,6 +35,7 @@ class GoogleCalWrapper
   private
 
   def configure_client(current_user)
+    binding.pry
     @client = Google::APIClient.new
     @client.authorization.access_token = current_user.token
     @client.authorization.refresh_token = current_user.refresh_token
