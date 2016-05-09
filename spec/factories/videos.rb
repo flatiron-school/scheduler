@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :video do
-    link "MyString"
-    cohort nil
+    title "Intro to Git"
+    link "https://www.youtube.com/watch?v=bK7i-BMJcM0&feature=youtu.be"
   end
 end

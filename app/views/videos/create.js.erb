@@ -1,0 +1,6 @@
+
+$("input#video_title").val(" ")
+$("input#video_link").val(" ")
+
+$("#myModal").modal("toggle")
+$("#video-index").append("<%= j render(partial: 'videos/link.html.erb', locals: {video: @video}) %> ")

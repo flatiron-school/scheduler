@@ -44,10 +44,13 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
-group :test do 
+group :test do
   gem 'vcr'
   gem 'webmock'
   gem "capybara-webkit"
+  gem 'database_cleaner'
+  gem 'puffing-billy'
+  gem 'rspec-retry'
 end
 
 group :development do

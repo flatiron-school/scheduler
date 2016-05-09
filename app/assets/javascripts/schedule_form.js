@@ -16,4 +16,3 @@ $.fn.addMore = function(e) {
     $("#add-" + addType + "s").append(HandlebarsTemplates['add-' + addType]({newIdNum: newIdNum, addType: addType}));
   })
 };
- 

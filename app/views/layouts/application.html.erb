@@ -9,32 +9,7 @@
     <%= javascript_include_tag 'application'%>
     <%= favicon_link_tag 'flatiron_school_slashes_transparent_background.png' %>
   </head>
-
-  <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <%= link_to "Flatiron Scheduler", root_path, class: "navbar-brand"%>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <% if current_user %>
-        <ul class="nav navbar-nav">
-            <li>
-              <%= link_to "cohorts", cohorts_path%>
-            </li>
-            <li id="new-schedule">
-              <%= render partial: "layouts/new_schedule_link" %>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-              <%= link_to "log out", destroy_user_session_path, method: "delete" %>
-            </li>
-        </ul>
-      <% end %>
-    </div>
-  </div>
-</nav>
-
+    <%= render partial: "layouts/navbar" %>
   <body>
     <div class="container">
       <%= yield %>
