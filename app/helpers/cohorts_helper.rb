@@ -11,4 +11,5 @@ module CohortsHelper
   def is_not_active_cohort(cohort)
     current_user.active_cohort != cohort
   end
+
 end

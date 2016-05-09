@@ -5,7 +5,6 @@ require 'capybara/rspec'
 require 'webmock/rspec'
 require 'rspec/retry'
 
-# require_relative './support/deep_struct.rb'
 require_relative './support/vcr_setup.rb'
 require_relative './support/capybara_setup.rb'
 require_relative './support/billy_setup.rb'
@@ -19,12 +18,6 @@ OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
     :refresh_token => ENV['TEST_GOOGLE_REFRESH_TOKEN']},
   :info => {email: "sophie@flatironschool.com"}
 })
-
-
-# require 'webmock/rspec'
-# WebMock.enable_net_connect!(allow_localhost: true)
-#
-# WebMock.disable_net_connect!(allow_localhost: true)
 
 
 RSpec.configure do |config|
@@ -99,8 +92,30 @@ RSpec.configure do |config|
      WebMock.disable_net_connect!(allow_localhost: true)
    end
 
-
+  config.include WaitForAjax, type: :feature
   require 'factory_girl'
+
+  config.use_transactional_fixtures = false
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, type: :feature) do
+    DatabaseCleaner.strategy = :truncation
+
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.append_after(:each) do
+    DatabaseCleaner.clean
+  end
 end
 
 def sign_in

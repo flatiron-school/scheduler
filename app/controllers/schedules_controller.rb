@@ -33,10 +33,11 @@ class SchedulesController < ApplicationController
 
 
   def update
-    @schedule.update(schedule_attributes_params)
+    ScheduleUpdater.update(@schedule, schedule_attributes_params)
     ScheduleDependentsUpdater.execute(@schedule, schedule_params)
-    if @schedule.save
+    if @schedule.valid?
       @schedule.update_schedule_on_github(GithubWrapper.new, render_schedule_markdown)
+      @schedule.save
       redirect_to cohort_schedule_path(@schedule.cohort, @schedule)
     else
       render 'cohorts/schedules/edit'

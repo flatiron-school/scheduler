@@ -1,5 +1,7 @@
 class Schedule < ApplicationRecord
   include HTTParty
+  include ActiveModel::Dirty
+
   has_many :schedule_labs
   has_many :schedule_activities
   has_many :activities, through: :schedule_activities
@@ -97,26 +99,30 @@ class Schedule < ApplicationRecord
     assignments = retrieve_blogs_from_api
     if !assignments.empty?
       assignments["schedules"].each do |assignment|
-        student = Student.find_by(first_name: assignment["user"]["first_name"], last_name: assignment["user"]["last_name"])
+        student = build_student(assignment)
         if assignment["user"]["blog"] && student
-          student.blog_url = assignment["user"]["blog"]["url"]
-          student.save
+          student.update_blog_url(assignment)
         end
-        blog_assignment = BlogAssignment.create(student: student, schedule: self, due_date: assignment["due_date"])
+        blog_assignment =  build_blog_assignment(student, assignment)
         self.blog_assignments << blog_assignment
         self.save
       end
     end
   end
 
-  def retrieve_blogs_from_api
-    HTTParty.get("#{ENV['BLOG_API_ENDPOINT']}/api/cohorts/#{self.cohort.name}/blog_assignments/#{self.date_for_api_call}")
+  def update_blogs
+    assignments = retrieve_blogs_from_api
+    if !assignments.empty?
+      blog_assignments = assignments["schedules"].collect do |assignment|
+        student = build_student(assignment)
+        if assignment["user"]["blog"] && student
+          student.update_blog_url(assignment)
+        end
+        build_blog_assignment(student, assignment)
+      end
+      self.assign_attributes(blog_assignments: blog_assignments)
+    end
   end
-
-  def date_for_api_call
-    self.date.strftime("%Y-%m-%d")
-  end
-
 
   def create_schedule_on_github(client, markdown_content)
     response = client.create_schedule_in_repo(self, markdown_content)
@@ -133,4 +139,22 @@ class Schedule < ApplicationRecord
     client.update_readme(self, markdown_content)
     self.update(deployed_on: Date.today)
   end
+
+  # private
+
+    def retrieve_blogs_from_api
+      HTTParty.get("#{ENV['BLOG_API_ENDPOINT']}/api/cohorts/#{self.cohort.name}/blog_assignments/#{self.date_for_api_call}")
+    end
+
+    def date_for_api_call
+      self.date.strftime("%Y-%m-%d")
+    end
+
+    def build_blog_assignment(student, assignment)
+      BlogAssignment.create(student: student, schedule: self, due_date: assignment["due_date"])
+    end
+
+    def build_student(assignment)
+      Student.find_or_create_by(first_name: assignment["user"]["first_name"], last_name: assignment["user"]["last_name"]) 
+    end
 end
