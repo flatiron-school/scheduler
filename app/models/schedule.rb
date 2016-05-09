@@ -99,7 +99,7 @@ class Schedule < ApplicationRecord
     assignments = retrieve_blogs_from_api
     if !assignments.empty?
       assignments["schedules"].each do |assignment|
-        student = build_student
+        student = build_student(assignment)
         if assignment["user"]["blog"] && student
           student.update_blog_url(assignment)
         end
@@ -114,7 +114,7 @@ class Schedule < ApplicationRecord
     assignments = retrieve_blogs_from_api
     if !assignments.empty?
       blog_assignments = assignments["schedules"].collect do |assignment|
-        student = build_student
+        student = build_student(assignment)
         if assignment["user"]["blog"] && student
           student.update_blog_url(assignment)
         end
