@@ -8,7 +8,9 @@ feature "CreateNewCalendarEvent", :type => :feature do
         schedule = make_schedule_to_edit
         visit "/cohorts/web-1117/schedules/#{schedule.slug}"
         click_link "reserve rooms"
-        
+        sleep(60)
+        # wait_for_ajax
+        binding.pry
         new_calendar_event = schedule.calendar_events.first
         
         expect(new_calendar_event.schedule).to eq(schedule)
@@ -21,12 +23,13 @@ feature "CreateNewCalendarEvent", :type => :feature do
   end
 
   describe "reserve rooms and update page", :js => true do 
-    it "reserves a room and updates the page with the reservation confirmation, without refreshing" do 
+    xit "reserves a room and updates the page with the reservation confirmation, without refreshing" do 
       VCR.use_cassette("google_calendar_reservations") do 
         schedule = make_schedule_to_edit
         sign_in
         visit "/cohorts/web-1117/schedules/#{schedule.slug}"
         click_link "reserve rooms"
+        wait_for_ajax
         expect(page.body).to include("Blogs\nlocation: Classroom - Kay")
         expect(current_path).to eq("/cohorts/web-1117/schedules/#{schedule.slug}")
       end

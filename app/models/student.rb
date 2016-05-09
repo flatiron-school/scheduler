@@ -14,6 +14,7 @@ class Student < ApplicationRecord
 
   def update_blog_url(assignment)
     if self.blog_url != assignment["user"]["blog"]["url"]
-    self.update(blog_url: assignment["user"]["blog"]["url"])
+      self.update(blog_url: assignment["user"]["blog"]["url"])
+    end
   end
 end
