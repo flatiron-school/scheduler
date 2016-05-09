@@ -8,10 +8,10 @@ class VideosController < ApplicationController
         format.html {}
         format.js {}
       end
+        @video.update_videos_on_github(GithubWrapper.new, render_schedule_markdown(@video))
     else
       render :js => 'alert("' + @video.video_error + '")'
     end
-    @video.update_videos_on_github(GithubWrapper.new, render_schedule_markdown(@video))
   end
 
   def new
