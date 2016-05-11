@@ -48,9 +48,11 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem "capybara-webkit"
+  gem "selenium"
   gem 'database_cleaner'
   gem 'puffing-billy'
   gem 'rspec-retry'
+  gem 'launchy'
 end
 
 group :development do

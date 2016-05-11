@@ -1,6 +1,8 @@
-Capybara.javascript_driver = :webkit_billy
+Capybara.javascript_driver = :webkit
 Capybara::Webkit.configure do |config|
+  config.allow_url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700")
 end
+Capybara.default_max_wait_time = 60
 
 module WaitForAjax
   def wait_for_ajax
