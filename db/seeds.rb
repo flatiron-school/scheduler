@@ -62,4 +62,4 @@ split_videos = split_on_link(videos)
 ready_videos = remove_markdown(split_videos)
 hash = create_video_hash(ready_videos)
 
-create_videos
+create_videos(hash)
