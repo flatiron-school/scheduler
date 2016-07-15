@@ -8,7 +8,7 @@ class Cohort < ApplicationRecord
   has_many :users, through: :user_cohorts
   has_many :students
   
-  has_many :video 
+  has_many :videos
  
   validates :name, uniqueness: true, presence: true, format: {with: /\A\S+\z/, message: "can't contain spaces"}
 
