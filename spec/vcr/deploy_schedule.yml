@@ -1,0 +1,474 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/repos/learn-co-curriculum/web-1115/readme
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.3.0
+      Content-Type:
+      - application/json
+      Authorization:
+      - token <OCTO_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Fri, 15 Jul 2016 15:28:25 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4993'
+      X-Ratelimit-Reset:
+      - '1468599948'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      Etag:
+      - W/"f3a3fced0c003eed69260cb70861b53a"
+      Last-Modified:
+      - Fri, 15 Jul 2016 15:25:48 GMT
+      X-Oauth-Scopes:
+      - admin:org, repo, user
+      X-Accepted-Oauth-Scopes:
+      - ''
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Security-Policy:
+      - default-src 'none'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Served-By:
+      - a51acaae89a7607fd7ee967627be18e4
+      X-Github-Request-Id:
+      - 60F6936B:22B0:C34FA9:57890119
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"README.md","path":"README.md","sha":"9193c8dd179431bcd483d22de0e4d62c07ac36ed","size":0,"url":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1115/master/README.md?token=AIlSrOYsD5gIux6LDG3TPY9pmj0dJhN-ks5XiQFVwA%3D%3D","type":"symlink","target":"#
+        Week , Day \n\n### Thursday, 02 Jun 2016\n\n| Time | Activity |\n| --- | ---
+        |\n\n### Notes\n\nToday''s objective include learning all of Rails and re-building
+        Learn.co in Elixir.\n\n","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","html":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md"}}'
+    http_version: 
+  recorded_at: Fri, 15 Jul 2016 15:28:25 GMT
+- request:
+    method: put
+    uri: https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md
+    body:
+      encoding: UTF-8
+      string: '{"sha":"9193c8dd179431bcd483d22de0e4d62c07ac36ed","content":"IyBXZWVrICwgRGF5IAoKIyMjIFRodXJzZGF5LCAwMiBKdW4gMjAxNgoKfCBUaW1lIHwgQWN0aXZpdHkgfAp8IC0tLSB8IC0tLSB8CgojIyMgTm90ZXMKClRvZGF5J3Mgb2JqZWN0aXZlIGluY2x1ZGUgbGVhcm5pbmcgYWxsIG9mIFJhaWxzIGFuZCByZS1idWlsZGluZyBMZWFybi5jbyBpbiBFbGl4aXIuCgo=","message":"week-/day-.md"}'
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.3.0
+      Content-Type:
+      - application/json
+      Authorization:
+      - token <OCTO_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Fri, 15 Jul 2016 15:28:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4992'
+      X-Ratelimit-Reset:
+      - '1468599948'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      Etag:
+      - W/"ae199cd6504727fd1dfe447861ef1b7e"
+      X-Oauth-Scopes:
+      - admin:org, repo, user
+      X-Accepted-Oauth-Scopes:
+      - ''
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Security-Policy:
+      - default-src 'none'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Served-By:
+      - 07ff1c8a09e44b62e277fae50a1b1dc4
+      X-Github-Request-Id:
+      - 60F6936B:22B0:C36514:57890132
+    body:
+      encoding: ASCII-8BIT
+      string: '{"content":{"name":"README.md","path":"README.md","sha":"9193c8dd179431bcd483d22de0e4d62c07ac36ed","size":173,"url":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1115/master/README.md?token=AIlSrANKCQ--uRWkNTB68YN2gP_TNwKYks5XiQFvwA%3D%3D","type":"symlink","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","html":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md"}},"commit":{"sha":"df967e9a6681930b5af6def9aac97e3a1ad2294e","url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/commits/df967e9a6681930b5af6def9aac97e3a1ad2294e","html_url":"https://github.com/learn-co-curriculum/web-1115/commit/df967e9a6681930b5af6def9aac97e3a1ad2294e","author":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-07-15T15:28:51Z"},"committer":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-07-15T15:28:51Z"},"tree":{"sha":"1339828a46645c8acba0c90ee4add372482f0577","url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/trees/1339828a46645c8acba0c90ee4add372482f0577"},"message":"week-/day-.md","parents":[{"sha":"050ffca5a5d13e9f96efef9d3f4a8149231fd310","url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/commits/050ffca5a5d13e9f96efef9d3f4a8149231fd310","html_url":"https://github.com/learn-co-curriculum/web-1115/commit/050ffca5a5d13e9f96efef9d3f4a8149231fd310"}]}}'
+    http_version: 
+  recorded_at: Fri, 15 Jul 2016 15:28:51 GMT
+- request:
+    method: get
+    uri: https://api.github.com/repos/learn-co-curriculum/web-1115/readme
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.3.0
+      Content-Type:
+      - application/json
+      Authorization:
+      - token <OCTO_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Fri, 15 Jul 2016 15:29:39 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4987'
+      X-Ratelimit-Reset:
+      - '1468599948'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      Etag:
+      - W/"c948e8ae150111dc739bae124760699c"
+      Last-Modified:
+      - Fri, 15 Jul 2016 15:28:51 GMT
+      X-Oauth-Scopes:
+      - admin:org, repo, user
+      X-Accepted-Oauth-Scopes:
+      - ''
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Security-Policy:
+      - default-src 'none'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Served-By:
+      - 52437fedc85beec8da3449496900fb9a
+      X-Github-Request-Id:
+      - 60F6936B:22B2:3C0C61:57890163
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"README.md","path":"README.md","sha":"9193c8dd179431bcd483d22de0e4d62c07ac36ed","size":0,"url":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1115/master/README.md?token=AIlSrEc97CQ_C0SEL9AYoaArD1UMkmBQks5XiQGfwA%3D%3D","type":"symlink","target":"#
+        Week , Day \n\n### Thursday, 02 Jun 2016\n\n| Time | Activity |\n| --- | ---
+        |\n\n### Notes\n\nToday''s objective include learning all of Rails and re-building
+        Learn.co in Elixir.\n\n","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","html":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md"}}'
+    http_version: 
+  recorded_at: Fri, 15 Jul 2016 15:29:39 GMT
+- request:
+    method: put
+    uri: https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md
+    body:
+      encoding: UTF-8
+      string: '{"sha":"9193c8dd179431bcd483d22de0e4d62c07ac36ed","content":"IyBXZWVrICwgRGF5IAoKIyMjIFRodXJzZGF5LCAwMiBKdW4gMjAxNgoKfCBUaW1lIHwgQWN0aXZpdHkgfAp8IC0tLSB8IC0tLSB8CgojIyMgTm90ZXMKClRvZGF5J3Mgb2JqZWN0aXZlIGluY2x1ZGUgbGVhcm5pbmcgYWxsIG9mIFJhaWxzIGFuZCByZS1idWlsZGluZyBMZWFybi5jbyBpbiBFbGl4aXIuCgo=","message":"week-/day-.md"}'
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.3.0
+      Content-Type:
+      - application/json
+      Authorization:
+      - token <OCTO_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Fri, 15 Jul 2016 15:29:39 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4986'
+      X-Ratelimit-Reset:
+      - '1468599948'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      Etag:
+      - W/"5fc79635f93eb56a4f74dadb6239d96f"
+      X-Oauth-Scopes:
+      - admin:org, repo, user
+      X-Accepted-Oauth-Scopes:
+      - ''
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Security-Policy:
+      - default-src 'none'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Served-By:
+      - 5aeb3f30c9e3ef6ef7bcbcddfd9a68f7
+      X-Github-Request-Id:
+      - 60F6936B:22AD:C6EA63:57890163
+    body:
+      encoding: ASCII-8BIT
+      string: '{"content":{"name":"README.md","path":"README.md","sha":"9193c8dd179431bcd483d22de0e4d62c07ac36ed","size":173,"url":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1115/master/README.md?token=AIlSrEc97CQ_C0SEL9AYoaArD1UMkmBQks5XiQGfwA%3D%3D","type":"symlink","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","html":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md"}},"commit":{"sha":"ac76eb885c9440f038faad0ab4aed53500887219","url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/commits/ac76eb885c9440f038faad0ab4aed53500887219","html_url":"https://github.com/learn-co-curriculum/web-1115/commit/ac76eb885c9440f038faad0ab4aed53500887219","author":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-07-15T15:29:39Z"},"committer":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-07-15T15:29:39Z"},"tree":{"sha":"1339828a46645c8acba0c90ee4add372482f0577","url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/trees/1339828a46645c8acba0c90ee4add372482f0577"},"message":"week-/day-.md","parents":[{"sha":"df967e9a6681930b5af6def9aac97e3a1ad2294e","url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/commits/df967e9a6681930b5af6def9aac97e3a1ad2294e","html_url":"https://github.com/learn-co-curriculum/web-1115/commit/df967e9a6681930b5af6def9aac97e3a1ad2294e"}]}}'
+    http_version: 
+  recorded_at: Fri, 15 Jul 2016 15:29:39 GMT
+- request:
+    method: get
+    uri: https://api.github.com/repos/learn-co-curriculum/web-1115/readme
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.3.0
+      Content-Type:
+      - application/json
+      Authorization:
+      - token <OCTO_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Fri, 15 Jul 2016 15:29:43 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4981'
+      X-Ratelimit-Reset:
+      - '1468599948'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      Etag:
+      - W/"239293e5baff7e0051e0c99f9473a07e"
+      Last-Modified:
+      - Fri, 15 Jul 2016 15:29:39 GMT
+      X-Oauth-Scopes:
+      - admin:org, repo, user
+      X-Accepted-Oauth-Scopes:
+      - ''
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Security-Policy:
+      - default-src 'none'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Served-By:
+      - 2d7a5e35115884240089368322196939
+      X-Github-Request-Id:
+      - 60F6936B:22AD:C6ED49:57890167
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"README.md","path":"README.md","sha":"9193c8dd179431bcd483d22de0e4d62c07ac36ed","size":0,"url":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1115/master/README.md?token=AIlSrGkATX1t8Oue1b-rSjxofdsYHpJIks5XiQGjwA%3D%3D","type":"symlink","target":"#
+        Week , Day \n\n### Thursday, 02 Jun 2016\n\n| Time | Activity |\n| --- | ---
+        |\n\n### Notes\n\nToday''s objective include learning all of Rails and re-building
+        Learn.co in Elixir.\n\n","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","html":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md"}}'
+    http_version: 
+  recorded_at: Fri, 15 Jul 2016 15:29:43 GMT
+- request:
+    method: put
+    uri: https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md
+    body:
+      encoding: UTF-8
+      string: '{"sha":"9193c8dd179431bcd483d22de0e4d62c07ac36ed","content":"IyBXZWVrICwgRGF5IAoKIyMjIFRodXJzZGF5LCAwMiBKdW4gMjAxNgoKfCBUaW1lIHwgQWN0aXZpdHkgfAp8IC0tLSB8IC0tLSB8CgojIyMgTm90ZXMKClRvZGF5J3Mgb2JqZWN0aXZlIGluY2x1ZGUgbGVhcm5pbmcgYWxsIG9mIFJhaWxzIGFuZCByZS1idWlsZGluZyBMZWFybi5jbyBpbiBFbGl4aXIuCgo=","message":"week-/day-.md"}'
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.3.0
+      Content-Type:
+      - application/json
+      Authorization:
+      - token <OCTO_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Fri, 15 Jul 2016 15:29:43 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4980'
+      X-Ratelimit-Reset:
+      - '1468599948'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      Etag:
+      - W/"2e61f8c53ad7ee6fb84c46444171d49a"
+      X-Oauth-Scopes:
+      - admin:org, repo, user
+      X-Accepted-Oauth-Scopes:
+      - ''
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Security-Policy:
+      - default-src 'none'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Served-By:
+      - a241e1a8264a6ace03db946c85b92db3
+      X-Github-Request-Id:
+      - 60F6936B:22B2:3C0D53:57890167
+    body:
+      encoding: ASCII-8BIT
+      string: '{"content":{"name":"README.md","path":"README.md","sha":"9193c8dd179431bcd483d22de0e4d62c07ac36ed","size":173,"url":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","html_url":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md","git_url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","download_url":"https://raw.githubusercontent.com/learn-co-curriculum/web-1115/master/README.md?token=AIlSrGkATX1t8Oue1b-rSjxofdsYHpJIks5XiQGjwA%3D%3D","type":"symlink","_links":{"self":"https://api.github.com/repos/learn-co-curriculum/web-1115/contents/README.md?ref=master","git":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/blobs/9193c8dd179431bcd483d22de0e4d62c07ac36ed","html":"https://github.com/learn-co-curriculum/web-1115/blob/master/README.md"}},"commit":{"sha":"2ea2d67d54cab8305b0c28e4e75b4d8adb58ac8c","url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/commits/2ea2d67d54cab8305b0c28e4e75b4d8adb58ac8c","html_url":"https://github.com/learn-co-curriculum/web-1115/commit/2ea2d67d54cab8305b0c28e4e75b4d8adb58ac8c","author":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-07-15T15:29:43Z"},"committer":{"name":"Sophie
+        DeBenedetto","email":"sophie.debenedetto@gmail.com","date":"2016-07-15T15:29:43Z"},"tree":{"sha":"1339828a46645c8acba0c90ee4add372482f0577","url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/trees/1339828a46645c8acba0c90ee4add372482f0577"},"message":"week-/day-.md","parents":[{"sha":"ac76eb885c9440f038faad0ab4aed53500887219","url":"https://api.github.com/repos/learn-co-curriculum/web-1115/git/commits/ac76eb885c9440f038faad0ab4aed53500887219","html_url":"https://github.com/learn-co-curriculum/web-1115/commit/ac76eb885c9440f038faad0ab4aed53500887219"}]}}'
+    http_version: 
+  recorded_at: Fri, 15 Jul 2016 15:29:43 GMT
+recorded_with: VCR 3.0.1

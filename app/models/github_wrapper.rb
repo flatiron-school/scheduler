@@ -18,16 +18,15 @@ class GithubWrapper
   end
 
   def update_readme(schedule, markdown_content)
-    sha = self.client.readme("learn-co-curriculum/#{schedule.cohort.name}").sha
     begin
+      sha = self.client.readme("learn-co-curriculum/#{schedule.cohort.name}").sha
       self.client.update_content("learn-co-curriculum/#{schedule.cohort.name}",
         "README.md",
         "week-#{schedule.week}/day-#{schedule.day}.md",
         sha,
         markdown_content)
     rescue Exception => e
-      @error =  e
-      return
+      raise e
     end
   end
 
