@@ -11,9 +11,3 @@
  Rake::Application.send :include, TempFixForRakeLastComment
  ### end of temfix
 
- rake :deploy_schedule do 
-  ScheduleDeployer.deploy_daily_schedule
- end
- 
-
-  Rails.application.load_tasks
