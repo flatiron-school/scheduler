@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -49,9 +48,8 @@ ActiveRecord::Schema.define(version: 20160412173624) do
     t.string   "roster_csv_content_type"
     t.integer  "roster_csv_file_size"
     t.datetime "roster_csv_updated_at"
+    t.index ["name"], name: "index_cohorts_on_name", using: :btree
   end
-
-  add_index "cohorts", ["name"], name: "index_cohorts_on_name", using: :btree
 
   create_table "labs", force: :cascade do |t|
     t.string   "name"
@@ -64,9 +62,8 @@ ActiveRecord::Schema.define(version: 20160412173624) do
     t.string   "content"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["schedule_id"], name: "index_objectives_on_schedule_id", using: :btree
   end
-
-  add_index "objectives", ["schedule_id"], name: "index_objectives_on_schedule_id", using: :btree
 
   create_table "schedule_activities", force: :cascade do |t|
     t.integer "schedule_id"
@@ -123,10 +120,9 @@ ActiveRecord::Schema.define(version: 20160412173624) do
     t.string   "uid"
     t.string   "token"
     t.string   "refresh_token"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "videos", force: :cascade do |t|
     t.string   "link"
@@ -134,9 +130,8 @@ ActiveRecord::Schema.define(version: 20160412173624) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "title"
+    t.index ["cohort_id"], name: "index_videos_on_cohort_id", using: :btree
   end
-
-  add_index "videos", ["cohort_id"], name: "index_videos_on_cohort_id", using: :btree
 
   add_foreign_key "objectives", "schedules"
   add_foreign_key "videos", "cohorts"

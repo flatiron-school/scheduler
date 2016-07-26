@@ -22,7 +22,6 @@ gem 'chronic'
 gem 'paperclip'
 gem 'httparty'
 gem 'tilt'
-gem 'whenever', :require => false
 # gem 'google-api-client'
 # gem 'google-api-client', '0.9'
 # , :require => 'google/api_client'

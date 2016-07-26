@@ -9,5 +9,5 @@
    end 
  end
  Rake::Application.send :include, TempFixForRakeLastComment
- ### end of temfix
 
+Rails.application.load_tasks
