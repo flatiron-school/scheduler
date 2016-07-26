@@ -14,7 +14,7 @@ end
 
 namespace :cron do 
   desc "Deploy the daily schedule"
-  task :deploy_schedule do 
+  task :deploy_schedule => :environment do 
     ScheduleDeployer.deploy_daily_schedule
   end
 end
