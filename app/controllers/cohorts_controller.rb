@@ -34,7 +34,7 @@ class CohortsController < ApplicationController
   end
 
   def show
-    @weeks = @cohort.schedules.collect {|s| s.week.to_i}.uniq.sort!
+    @weeks = @cohort.schedules.order(date: :desc).collect {|s| s.week.to_i}.uniq.sort!
     render :show
   end
 
