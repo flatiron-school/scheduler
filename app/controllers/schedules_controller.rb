@@ -4,7 +4,7 @@ class SchedulesController < ApplicationController
   before_action :set_cohort, only: [:create, :index, :new]
 
   def index
-    @schedules = @cohort.schedules
+    @schedules = @cohort.schedules.order(date: :desc)
     render 'cohorts/schedules/index'
   end
 

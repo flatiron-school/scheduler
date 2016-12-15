@@ -4,13 +4,13 @@
 
   <% if is_not_active_cohort(cohort) %>
     
-    <%= link_to "make active", user_cohort_path(cohort), remote: true, method: "patch", class: "btn btn-sm btn-primary cohort-btn" %>
+    <%= link_to "make active cohort", user_cohort_path(cohort), remote: true, method: "patch", class: "btn btn-sm btn-primary cohort-btn" %>
   <% else %>
     <button class="btn btn-sm btn-info cohort-btn" id="active-cohort-btn">active</button>
   <% end %>
 
 <%else %>
 
-  <%= link_to cohort.name, cohort_path(cohort) %>  <%= link_to "add cohort", user_cohorts_path(cohort_id: cohort.id), remote: true, method: "post", class: "btn btn-sm btn-primary cohort-btn" %>
+  <%= link_to cohort.name, cohort_path(cohort) %>  <%= link_to "become cohort owner", user_cohorts_path(cohort_id: cohort.id), remote: true, method: "post", class: "btn btn-sm btn-primary cohort-btn" %>
 
 <%end %>
