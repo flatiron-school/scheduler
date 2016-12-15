@@ -17,4 +17,9 @@ class Student < ApplicationRecord
       self.update(blog_url: assignment["user"]["blog"]["url"])
     end
   end
+
+  def has_submitted_blog?
+    !!self.blog_url
+  end
 end
+
