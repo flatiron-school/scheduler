@@ -155,6 +155,6 @@ class Schedule < ApplicationRecord
     end
 
     def build_student(assignment)
-      Student.find_or_create_by(first_name: assignment["user"]["first_name"], last_name: assignment["user"]["last_name"]) 
+      Student.find_or_create_by(first_name: assignment["user"]["first_name"], last_name: assignment["user"]["last_name"], cohort_id: self.cohort.id)
     end
 end
