@@ -3,14 +3,9 @@
     <p>
       <ul>
         <% schedule.blog_assignments.each do  |blog_assignment| %>
-          <% if blog_assignment.student.has_submitted_blog? %>
-             <li>
-                <a href="<%= blog_assignment.student.blog_url %>"><%= blog_assignment.student.full_name %></a>
-              </li>
-          <% else %>
-            <li>
-              <%= blog_assignment.student.full_name %>
-            </li>
+          <li>
+            <a href="<%= blog_assignment.student.try(:blog_url) %>"><%= blog_assignment.student.try(:full_name)%></a>
+          </li>
           <% end %>
         <% end %>
       </ul>
