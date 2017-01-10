@@ -16,8 +16,7 @@ class Schedule < ApplicationRecord
   validates :date, presence: true
   validates :date, uniqueness: {scope: :cohort, message: 'already taken for this cohort'}
 
-  before_create :slugify
-  before_save :check_deploy
+  before_save :check_deploy, :slugify
 
   def slugify
     self.slug = self.date.strftime("%b %d, %Y").downcase.gsub(/[\s,]+/, '-')
