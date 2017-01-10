@@ -2,6 +2,8 @@ class NewScheduleBuilder
 
   def self.create_empty_schedule
     Schedule.new.tap do |schedule|
+      schedule.date = Date.tomorrow
+      
       3.times do
         schedule.objectives << Objective.new
       end
