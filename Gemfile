@@ -30,7 +30,7 @@ gem 'omniauth-google-oauth2'
 gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
 # gem 'draper'
 # gem 'bootstrap', '~> 4.0.0.alpha3'
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 gem 'handlebars_assets'
 # gem 'common_tools'
